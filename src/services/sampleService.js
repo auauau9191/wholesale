@@ -20,6 +20,16 @@ export async function listUnitsForProduct(productId) {
   return toItems(page);
 }
 
+/** Sample units for a set of products, both hubs. */
+export async function listUnitsForProducts(productIds) {
+  if (!productIds?.length) return [];
+  const page = await base44.entities.SampleUnit.filter(
+    { product_id: { $in: productIds } },
+    { limit: 300 }
+  );
+  return toItems(page);
+}
+
 /** Staff: the units on one hub's shelf. */
 export async function listHubUnits(hubCode) {
   const query = {};
