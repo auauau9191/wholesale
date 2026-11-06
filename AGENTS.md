@@ -1,143 +1,122 @@
-# AGENTS.md
+# Wholesale System — rules for coding agents
 
-## Project Context
+This repository is the Wholesale System app (China → Australia verified wholesale and sample platform).
+Read this file before changing any screen. It applies to Base44's AI, Claude Code, Codex, Cursor and any other agent.
 
-This is a Base44 app repository built with **TanStack Start** (React 19, plain JavaScript — no TypeScript): file-based routes, server functions and server routes, server-side rendering by default. Treat it as user-owned application code, keep changes focused on the user's request, and preserve the conventions below.
+## Design skill
 
-Start with `README.md` for local setup and the publish workflow.
+The design follows **tasteskill v2** (github.com/Leonxlnx/taste-skill). Install it in your agent before UI work:
 
-## Base44 References
-
-- CLI overview: https://docs.base44.com/developers/references/cli/get-started/overview.md
-- Agent skills: https://docs.base44.com/developers/backend/overview/skills.md
-
-If your agent supports Agent Skills, install or update Base44 skills before Base44-specific work:
-
-```bash
-npx skills add base44/skills
+```
+npx skills add Leonxlnx/taste-skill --all -g -y
 ```
 
-## Key Files
+- Public pages (landing, pricing, any marketing page) follow the skill's **page run** and house rules.
+- Screens people work in (member app, team console) follow its **app-screen rules** (`references/app-screens.md`), style **framed-sheet**, kept palette and type.
+- Gate every UI change with the skill's checks and fix every FAIL:
+  `node <skill>/scripts/lint.mjs <files>` (add `--app` for app screens) and
+  `node <skill>/scripts/inspect.mjs [--app] <url>` at 1440, 768 and 390 px.
 
-- `src/routes/__root.jsx`: the HTML document (`<html>`, `<head>` via `HeadContent`, `<Scripts />`) and the providers. There is **no `index.html`**.
-- `src/routes/*.jsx`: one page per file (`index.jsx` → `/`, `posts.$id.jsx` → `/posts/$id`). `src/routes/api/*.js`: server routes (raw HTTP endpoints). `src/routeTree.gen.ts` is generated on every dev/build run — never edit or commit it (it is the one TypeScript file, owned by the router plugin).
-- `src/lib/server-fns.js`: server functions (`createServerFn`), the data layer pages call.
-- `src/start.js`: the Start instance; it applies `src/lib/auth-middleware.js` — `authMiddleware` to every server function and `base44RequestMiddleware` to every request — so each server function and server route handler gets `context.getBase44()` (returns a server-side SDK client acting as the visitor, created on first call) without opting in. Only call it when the handler needs Base44 — it requires the platform headers, and a handler that never calls it must still answer without them.
-- `src/server.js`, `src/lib/error-capture.js` and `src/lib/error-capture.server.js`: Base44 managed files that report the app's server errors to Base44, so its owner sees them as alerts. Each carries a version marker and Base44 replaces it with newer versions: never edit, move or delete them, keep `src/server.js` as `main` in `wrangler.jsonc`, and keep the two error-capture middlewares first in `src/start.js`. They change nothing a visitor gets back.
-- `src/lib/auth-middleware.js`: the server-side SDK client, built from the platform headers with `createClientFromRequest` and handed to every server function and server route as `context.getBase44()`. `src/api/base44Client.js`: the browser SDK client, same as the Base44 SPA template — leave it at that path, the builder tooling probes it.
-- `src/lib/AuthContext.jsx`: client-side session (`useAuth()`: `user`, `isAuthenticated`, `isLoadingAuth`, `authError`, `refresh`, `logout`, `navigateToLogin`), resolved after hydration as `authQuery` in the router's QueryClient (one `/me` call per page load when an access token is present, none for anonymous visitors; shared with the login gate, which reads it from the router context).
-- `src/components/auth/`: auth boilerplate — the auth pages and a login gate. Nothing imports it until you wire it in; see **Adding Authentication**.
-- `__root.jsx` renders `<Base44Scripts />` (from `base44:document`, a virtual module the Base44 Vite plugin serves) in `<body>` right before `<Scripts />`: the builder and analytics hooks an `index.html` app gets injected. Keep it there — never in `head()`, and not after `<Scripts />` (module scripts run in document order, so the error handlers must come before the app entry). Keep `data-react-root` on `<body>` too; the builder's preview bridge reads it.
-- App chrome: the starter has none. A shared header or nav is a component the app writes, rendered around `<Outlet />` by a layout route, so the auth pages stay outside it: `__root.jsx` while the app has no auth routes; `_authed.jsx` once it has them, with gated pages under `_authed/`; and if it also keeps public pages, a pathless `_site.jsx` rendering the same component, with those pages under `_site/`. The home page (`/`) is one file — `index.jsx`, `_authed/index.jsx` or `_site/index.jsx`: move it there, never copy it.
-- `src/components/ui/`: shadcn/ui kit (JSX, shared with the Base44 SPA template). `src/index.css` + `tailwind.config.js`: design tokens.
-- `vite.config.js`: `base44()` (sandbox/platform wiring), `cloudflare({ viteEnvironment: { name: "ssr" } })`, `tanstackStart()`, `react()`. The Cloudflare plugin runs the server in `workerd` and emits the build Base44's publish reads. Do not remove or reorder any of them. Keep `PREBUNDLE`: Vite bundles every runtime dependency in `package.json` at startup, for the browser and the server, so a package first imported mid-session can't make the server render load a second React. A new dependency joins it automatically.
-- `wrangler.jsonc`: the Worker's entry (`src/server.js`), compatibility date and `nodejs_compat`. Keep `main` and `nodejs_compat`. Bindings and `vars` in it are not deployed: secrets come from the Base44 dashboard / `base44 secrets set`.
+## Tokens
 
-## Adding Authentication
+One typeface for everything: **Switzer** 400 and 500 (self-hosted woff2 in `/public/fonts`). No second face, no monospace.
 
-The starter ships no sign-in UI and no auth routes. `AuthProvider` resolves the visitor and `useAuth()` exposes it; everything else is boilerplate in `src/components/auth/` that renders nothing until a route or the header uses it. Wire in only what the app needs, and keep the components' flows, SDK calls and `returnTo` handling when you restyle them.
+Public site (bone and olive, one ink):
 
-- **Sign-in entry point**: a Sign in button calls `useAuth().navigateToLogin()`, which sends the visitor to `/login` and back to the current page; Sign out calls `useAuth().logout()`. On an app with its own auth pages `/login` is the app's route below; otherwise the platform serves it.
-- **Gated pages**: create the login gate once, then put every page that requires a session under `src/routes/_authed/` (`_authed/dashboard.jsx` → `/dashboard`). The gate resolves the session before any child loader runs, sends a signed-out visitor to `/login?returnTo=…` and shows the not-registered screen to a Base44 user who is not a user of this app; children read the visitor with `Route.useRouteContext().user`. Never re-implement the gate in a page.
-
-```jsx
-// src/routes/_authed.jsx
-import { createFileRoute } from "@tanstack/react-router";
-import { AuthGateError, requireSignedIn } from "@/components/auth/AuthGate";
-
-export const Route = createFileRoute("/_authed")({ ssr: false, beforeLoad: requireSignedIn, errorComponent: AuthGateError });
-```
-
-- **The app's own auth pages** (an app with custom auth, which serves `/login` itself instead of the platform): create all five routes together, even when only one was asked for — each page links to the others, the reset email targets `/reset-password` and a Google or SSO sign-in that needs MFA comes back to `/mfa`. Each route file only wires a page component from `src/components/auth/`:
-
-| Route file | Path | Component |
+| Token | Value | Use |
 | --- | --- | --- |
-| `src/routes/login.jsx` | `/login` | `LoginPage` |
-| `src/routes/register.jsx` | `/register` | `RegisterPage` (register → email code → `verifyOtp` → `setToken`; never sign in right after `register`, the account is unverified) |
-| `src/routes/forgot-password.jsx` | `/forgot-password` | `ForgotPasswordPage` |
-| `src/routes/reset-password.jsx` | `/reset-password` | `ResetPasswordPage` (reads `?token=`) |
-| `src/routes/mfa.jsx` | `/mfa` | `MfaPage` (finishes a sign-in that needs MFA; opened directly, the two-factor authentication settings) |
+| --bg | #ecebe7 | page ground |
+| --surface | #e1dfd9 | stage, bars, filled rows |
+| --paper | #f5f5f3 | sample tags, document sheets |
+| --ink / --accent | #38450f | every word, the action, the footer field |
+| --muted | #545f30 | secondary notes only |
 
-```jsx
-// src/routes/login.jsx — the other three follow the same shape
-import { createFileRoute } from "@tanstack/react-router";
-import { LoginPage } from "@/components/auth/LoginPage";
+App (framed sheet):
 
-export const Route = createFileRoute("/login")({ ssr: false, head: () => ({ meta: [{ title: "Sign in" }] }), component: LoginPage });
-```
+| Token | Value | Use |
+| --- | --- | --- |
+| --ground | #eef0ea | the L-frame: sidebar + 48px top bar, no rule between them |
+| --surface | #ffffff | the sheet (inset 8px right/bottom, radius 16, 1px #e6e8e0) and cards |
+| --border / --rule / --control | #e3e6dd / #edefe9 / #c9cdc0 | card edges / row rules / control borders |
+| --text / --primary | #23290f | text, the one filled button |
+| --muted / --faint | #555b43 / #62674f | secondary text / meta (both ≥ 4.5:1) |
+| --accent | #55721a | the main data element and the selected state only (under 3% of pixels) |
+| --negative | #b42318 | only on what is late or failing |
+| pills | #e8efd8/#2c3a0b · #fbefdc/#6b3a06 · #edefe9/#3d4128 | positive · warning · neutral |
 
-  These pages render full-screen: keep them outside any layout route that renders app chrome (header, nav). Every page honors a same-origin `returnTo` (and the platform's `from_url`) via `safeReturnTo()` from `src/lib/authReturnTo.js` — keep that, never hardcode `/`. Sign-in goes through `loginWithMfa` (`src/lib/authMfa.js`) and `signInWithProvider` (`src/lib/authMfaFlow.js`). When the app requires MFA, `LoginPage` and `RegisterPage` return `<MfaScreen><MfaFlow … /></MfaScreen>` in place of the whole page (`MfaFlow` and `MfaManage` are card content: never nest them in another card), and `MfaManage` on `/mfa` enables, replaces and disables methods. Link to `/mfa` and add a forget-remembered-devices control (`session.forgetDevices`) only when asked; the link usually belongs on the profile or account page. Restyle or translate those screens, but keep every step and their `session-record-block` wrapper, which keeps codes out of session recordings; never edit the two helpers, call the MFA API directly or build other MFA screens.
-- **MCP consent**: an app with an MCP server needs `src/routes/oauth/consent.jsx` (`/oauth/consent`) rendering `ConsentPage`, with `ssr: false`. It handles the signed-out case itself, so keep it outside `_authed/`.
+Radii: app cards 8, controls 6, sheet 16; public site square. Spacing on a 4px base, one gutter per grid.
 
-## Server Security
+## Never
 
-- Every server function and every server route is a public HTTP endpoint: anyone can call it directly, with any input, without going through your pages. A page's `beforeLoad`, redirect or hidden button protects nothing on the server.
-- `authMiddleware` only forwards the visitor's token; it does not reject anyone. A server function that needs a signed-in caller adds `.middleware([requireUser])` (from `src/lib/auth-middleware.js`) and reads `context.user`. Then check that this user may touch the records it asks for (owner, membership or role) before reading or changing them.
-- Validate input with `.validator(...)` (zod is installed) — never trust ids, emails or roles sent by the caller.
-- `context.getBase44().asServiceRole` bypasses every entity access rule. Use it only after `requireUser` plus an ownership/role check, or in a webhook that verifies its signature — never in a handler an anonymous caller reaches, and never to "fix" a page that renders empty for anonymous visitors.
-- Bound every input of a credit-spending function: `.max()` on strings and arrays, `z.enum` for choices.
-- The app's own code calls the server only through server functions, never by fetching one of its own routes. A server route (`src/routes/api/*`) is for a URL something else requests: a webhook or callback another service calls, a link or image the browser loads by itself (`<a href>`, `<img src>`), a feed or a public API. Those requests carry no visitor token, so such a route is public, verifies a webhook signature, or checks a short-lived signed token a server function issued. A route whose callers do send a Base44 token adds `server: { middleware: [requireUserRoute], handlers }` (from `src/lib/auth-middleware.js`): it answers anonymous callers with 401 and sets `context.user`. Put it only on `src/routes/api/*` files — a route's middleware also runs for every route under it.
-- Never forward, log or return incoming request headers: the platform's request headers carry a service credential for this app.
-- Secrets: set them with `base44 secrets set` and read them in server code only, with `import { secrets } from "base44:runtime"` → `secrets.get("NAME")` (never `process.env`). Anything under `import.meta.env.VITE_*` is compiled into the browser bundle — never put a secret there.
-- A route that opts into shared caching (`Cache-Control: public` / `s-maxage` in `headers()`) must render the same HTML for everyone: no per-user data and no `asServiceRole` reads in its loader.
+- Eyebrow labels, uppercase tracked labels, 01/02/03 numbering, monospace text.
+- Gradients, glows, glass, shadows on resting elements (app: a border or a shadow, never both).
+- A dark sidebar on a light screen; icons in tinted squares; sparklines on KPIs; zebra tables; uppercase table headers.
+- Emoji, lorem ipsum, Acme/John Doe, vanity numbers, totals typed instead of summed from rows.
+- A black square with a letter as the logo: the mark is the sample tag (rounded rectangle, punched hole, two lines).
 
-## AI Features
+## Always
 
-- TanStack AI is installed (`@tanstack/ai`, `@tanstack/ai-openai`, `@tanstack/ai-react`) and runs on the Base44 AI gateway: no API key, usage billed to the app's AI credits. In server code only, build the adapter with `gatewayModel(context.getBase44())` from `src/lib/ai.server.js`. It calls the gateway as the app (service role), since an owner can restrict the gateway to server-side calls, so authenticate the caller before calling it. Tools keep using `context.getBase44()` and act as the caller. Keep model `"automatic"` unless the task needs a specific one; named models cost more credits.
-- Every AI call spends the app owner's credits, so an AI endpoint follows the Server Security rules above: sign-in required, input validated, and the loop bounded with `agentLoopStrategy: maxIterations(n)`.
-- A chat UI streams from a server function: its handler returns the `chat(...)` stream, and `useChat` reads it through `fetcher`. Tools are ordinary server code and run as the signed-in caller:
+- One h1 per screen. Public headlines two lines or fewer at 1440, 768 and 390 px.
+- App screens answer one question first; the finding sits under the title beside its action.
+- Numbers right-aligned in tabular figures; money A$ with 2 decimals per unit, 0 for totals; a sign on every change.
+- Every list has empty, loading (flat grey bars at real size) and error states inside its block.
+- Phone: the sidebar folds to a 48px top bar; tables become two-line rows; touch targets 44px.
+- Business rules (credits, eligibility, prices, statuses) run in backend functions, never in the browser.
+- All data access goes through `src/services/`; pages never call the Base44 SDK directly.
 
-```js
-// src/lib/chat.js
-import { chat, maxIterations, toolDefinition } from "@tanstack/ai";
-import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
-import { gatewayModel } from "@/lib/ai.server";
-import { requireUser } from "@/lib/auth-middleware";
+## Business model (1 Nov 2026)
 
-export const chatWithAssistant = createServerFn({ method: "POST" })
-  .middleware([requireUser])
-  .validator(z.object({ messages: z.array(z.any()).max(40) }))
-  .handler(({ data, context }) => {
-    const base44 = context.getBase44();
-    const listOrders = toolDefinition({
-      name: "listOrders",
-      description: "The caller's recent orders, optionally filtered by status",
-      inputSchema: z.object({ status: z.string().optional() }),
-    }).server(({ status }) => base44.entities.Order.filter(status ? { status } : {}, "-created_date", 20));
+- **Two sides pay.**
+  - **Members** pay the plan: A$60 for the first 3 months, then A$45/month, or A$450/year.
+  - **Suppliers** pay a commission of `AppSettings.supplier_commission_rate`, 5% of goods value. It is withheld from the balance payout and never added to the member's bill.
+  - **Suppliers** also pay an annual listing fee (`supplier_listing_fee_usd`). It can be waived per supplier.
+- **Members pay no fee on orders.** `buyer_service_fee_rate` stays at 0, and they pay inspection, freight, duty and GST at cost.
+- **Show the commission to members** on pricing and in the FAQ. Supplier price tiers are one signed list for all members.
+- **Payout split for each order:**
+  - deposit payout = 30% of goods;
+  - balance payout = 70% of goods − commission.
+  - Both are recorded in `SupplierPayout`. The money moves outside the app through the payout provider, and staff mark it sent.
 
-    return chat({
-      adapter: gatewayModel(base44),
-      messages: data.messages,
-      systemPrompts: ["You help customers with their orders."],
-      tools: [listOrders],
-      agentLoopStrategy: maxIterations(5),
-    });
-  });
-```
+## Hubs
 
-- In the page, `useChat` streams the reply. Messages are `{ id, role, parts }`; render `part.content` for `part.type === "text"`. Give the page `ssr: false`, as for any per-user page.
+- **Two QC and sample hubs:**
+  - `BNE` Brisbane, run by Yusuf;
+  - `SYD` Sydney, run by the partner.
+- **Every SampleUnit has a `hub_code`.** Units arrive by `Container` with status `in_transit`, wait in `qc_hold` while checked against the master, then become `in_stock`.
+- **Sample routing** runs in a backend function and never in the browser:
+  - QLD and NT go to BNE;
+  - NSW and ACT go to SYD;
+  - VIC, TAS, SA and WA go to SYD first, then BNE;
+  - if the first hub is out of stock, use the other hub.
+- **Staff scope:** `User.hub_code` is BNE, SYD or ALL. Hub staff see their own hub by default. The console has a hub switcher: All, Brisbane, Sydney.
 
-```jsx
-import { useChat } from "@tanstack/ai-react";
-import { chatWithAssistant } from "@/lib/chat";
+## Motion and footage
 
-const { messages, sendMessage, isLoading } = useChat({
-  // send only the recent history: the server caps it, and a long chat would otherwise fail every turn
-  fetcher: ({ messages }, { signal }) => chatWithAssistant({ data: { messages: messages.slice(-40) }, signal }),
-});
-```
+- **Library:** framer-motion. The whole layer is the following, and nothing else moves:
+  - page change: fade plus 8px rise, 200 ms;
+  - section reveal: rise 16–24px, stagger 80 ms, once;
+  - the stage crossfade: 1.6 s;
+  - the route clip crossfade: 0.9 s;
+  - numbers that count to their new value: 400 ms, tabular figures;
+  - shelf-strip unit state changes and list filtering: layout animation, 150–200 ms;
+  - button press: scale 0.97.
+- **Not allowed:** parallax on text, scroll-jacking, smooth-scroll libraries, shimmer loaders, bouncing, autoplay with sound.
+- **Reduced motion:** `useReducedMotion()` turns every movement into an instant change and every video into its poster.
+- **Footage files:** in `public/media/video` (muted H.264 loops, each under 3.5 MB) with posters in `public/media/posters`. See `public/media/MEDIA.md` for placements and alt text.
+- **Playback rules:**
+  - `autoplay muted loop playsInline`, with a poster;
+  - mount near the viewport;
+  - pause off-screen and when the tab is hidden;
+  - at most 2 playing at once;
+  - posters only on Save-Data.
+- **Honesty:** the footage is illustrative stock. Never caption it as a named supplier or as our hubs, and show "Illustrative footage" beside it. Supplier film cards use the supplier's own verification film (YouTube/Vimeo/Bunny URL).
+- **AI-generated media:** do not use AI-generated video or images of factories, hubs, people or products. Abstract brand motion is built in code (SVG plus framer-motion).
 
-- For AI work without a chat (summaries, classification, background agents), call `chat({ adapter, messages, stream: false })` inside a server function and return its result, or pass `outputSchema` (a zod schema) for typed JSON.
+## Signature elements
 
-## Working Notes
+- **The sample tag**: `PC-CN014-0087-S07` = category · supplier · product · unit. Printed "Sample – not for resale".
+- **The shelf strip**: every unit of a product as a mark: master (ink), free to send (olive outline), being packed (olive), with a member (grey), retired (dashed).
+- **The landed-cost sheet**: per-unit Australian cost summed from parts as shown (product, freight, duty, broker, GST).
+- **The route**: Factory floor, China → Verified on our own film → Containers to Australia → Two hubs: Brisbane and Sydney → Your door. On desktop it is a sticky footage frame beside the stops. On a phone, each stop carries its own clip.
 
-- `npm run dev` runs the TanStack dev server (Vite); server code runs in `workerd`, exactly as in production.
-- `npm run build` emits `dist/client` (static assets), `dist/server` (the Worker) and `.wrangler/deploy/config.json` (what publish reads). Never commit any of them.
-- Read secrets inside a handler with `secrets.get("NAME")` from `base44:runtime`. Never from client code.
-- Data flows through the router: `loader` + `Route.useLoaderData()` for reads, `useServerFn` + TanStack Query mutations for writes. Every server function and server route already runs as the caller through `context.getBase44()`. The router creates the `QueryClient` per request (`src/router.jsx`); never share one across requests with a module-level client. To read through TanStack Query instead, prefetch in the loader with `context.queryClient.ensureQueryData(options)` and read the same options with `useSuspenseQuery` in the component: `setupRouterSsrQueryIntegration` sends the server-fetched cache to the browser, so it is not fetched twice. That cache is embedded in the HTML, so the shared-cache rule above applies to it.
-- `ssr: false` only on pages that need the signed-in user, so personal data never lands in cacheable HTML, and on the auth pages and `oauth/consent` as wired above; every other page (home, listings, details, tools, pages with only browser state) stays SSR'd and may opt into edge caching via the route's `headers()` (`Cache-Control: public, s-maxage=…`).
-- Server and first client render must match: read `window`, `document` and browser storage only in effects and handlers (never in render or a `useState` initializer), and format dates and numbers with an explicit locale and time zone.
-- `/api/apps/**`, `/api/app-logs/**` and `/ws-user-apps/**` belong to the Base44 platform API — never define routes under them.
-- Prefer the Base44 CLI (`base44 dev`, `base44 deploy`, `base44 secrets set`) over adding npm scripts for Base44 tasks.
-- Run `npm run lint` before finishing code changes. Write JavaScript/JSX only — no `.ts`/`.tsx` files and no type annotations (the generated `src/routeTree.gen.ts` is the sole exception and is never hand-edited).
+Reference build: `reference/site/index.html` (landing page) and `reference/app/console.html`, `reference/app/product.html` (app screens), all passing the skill's inspector with 0 FAIL.
