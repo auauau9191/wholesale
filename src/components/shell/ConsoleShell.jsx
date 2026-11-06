@@ -7,18 +7,18 @@ import { HubScopeProvider } from "@/components/shell/HubScope";
 
 const NAV = [
   { to: "/admin", label: "Overview", exact: true },
-  { to: "/admin/supplier-pipeline", label: "Supplier pipeline" },
-  { to: "/admin/suppliers", label: "Suppliers" },
-  { to: "/admin/products", label: "Products" },
+  { to: "/admin/supplier-pipeline", label: "Supplier pipeline", adminOnly: true },
+  { to: "/admin/suppliers", label: "Suppliers", adminOnly: true },
+  { to: "/admin/products", label: "Products", adminOnly: true },
   { to: "/admin/hubs", label: "Hubs" },
   { to: "/admin/containers", label: "Containers" },
   { to: "/admin/sample-inventory", label: "Sample inventory" },
   { to: "/admin/sample-requests", label: "Sample requests" },
   { to: "/admin/members", label: "Members" },
   { to: "/admin/orders", label: "Orders and inspections" },
-  { to: "/admin/supplier-payouts", label: "Supplier payouts" },
-  { to: "/admin/categories", label: "Categories" },
-  { to: "/admin/settings", label: "Settings" },
+  { to: "/admin/supplier-payouts", label: "Supplier payouts", adminOnly: true },
+  { to: "/admin/categories", label: "Categories", adminOnly: true },
+  { to: "/admin/settings", label: "Settings", adminOnly: true },
 ];
 
 export default function ConsoleShell({ user }) {
@@ -54,7 +54,7 @@ export default function ConsoleShell({ user }) {
   return (
     <HubScopeProvider value={{ hub, setHub }}>
       <AppFrame
-        nav={NAV}
+        nav={user?.role === "admin" ? NAV : NAV.filter((item) => !item.adminOnly)}
         brand={brand}
         footer={footer}
         topBarRight={<HubSwitcher />}

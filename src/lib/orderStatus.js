@@ -12,6 +12,8 @@ export const ORDER_STATUS = {
   inspection_passed: { label: "Inspection passed", tone: GREEN },
   inspection_failed: { label: "Inspection failed", tone: FAIL },
   balance_pending: { label: "Balance due", tone: AMBER },
+  balance_received: { label: "Balance received", tone: GREEN },
+  deposit_received: { label: "Deposit received", tone: GREEN },
   shipped: { label: "Shipped", tone: GREEN },
   delivered: { label: "Delivered", tone: GREEN },
   cancelled: { label: "Cancelled", tone: GREY },

@@ -6,14 +6,14 @@ import { fail, loadProfile, loadSettings } from "@/lib/samples.server";
 import { isMembershipActive } from "@/lib/membership";
 import {
   approvedRequest,
+  createPayout,
   defaultQuantity,
   first,
   forMember,
+  grantOrderCreditsOnce,
   loadProduct,
   loadSupplier,
   nextOrderNo,
-  nextPayoutNo,
-  payoutNumbers,
   QTY_STEP,
   quoteNumbers,
 } from "@/lib/orders.server";
@@ -145,27 +145,7 @@ export const schedulePayouts = createServerFn({ method: "POST" })
     requireAdmin(context);
     const db = context.getBase44().asServiceRole;
     const order = await db.entities.Order.get(data.order_id);
-    const existing = toItems(await db.entities.SupplierPayout.filter({ order_no: order.order_no }, { limit: 10 }));
-    const same = existing.find((row) => row.stage === data.stage);
-    if (same) return same;
-    const deposit = existing.find((row) => row.stage === "deposit");
-    if (data.stage === "balance" && !deposit) throw fail("Schedule the deposit payout first.", 409);
-
-    const [settings, supplier] = await Promise.all([loadSettings(db), loadSupplier(db, order.supplier_code)]);
-    const numbers = payoutNumbers(order, settings, data.stage, deposit);
-    const currency = supplier?.payout_currency ?? "USD";
-    return db.entities.SupplierPayout.create({
-      payout_no: await nextPayoutNo(db),
-      supplier_code: order.supplier_code,
-      order_no: order.order_no,
-      stage: data.stage,
-      ...numbers,
-      currency,
-      fx_rate: order.fx_rate,
-      amount_foreign: currency === "USD" && order.fx_rate ? Math.round((numbers.net_aud / order.fx_rate) * 100) / 100 : undefined,
-      status: "scheduled",
-      is_demo: false,
-    });
+    return createPayout(db, order, data.stage);
   });
 
 /** Admin, on "Deposit received": the order's free sample credits, never twice. */
@@ -176,18 +156,5 @@ export const grantOrderCredits = createServerFn({ method: "POST" })
     requireAdmin(context);
     const db = context.getBase44().asServiceRole;
     const order = await db.entities.Order.get(data.order_id);
-    if (order.credits_granted) return { granted: false };
-    const already = toItems(await db.entities.CreditLedger.filter({ reason: "order_placed", related_id: order.order_no }, { limit: 1 }));
-    if (!already.length) {
-      const settings = await loadSettings(db);
-      await db.entities.CreditLedger.create({
-        user_email: order.user_email,
-        change: settings.order_sample_credits ?? 2,
-        reason: "order_placed",
-        related_id: order.order_no,
-        note: `Bulk order ${order.order_no}.`,
-      });
-    }
-    await db.entities.Order.update(order.id, { credits_granted: true });
-    return { granted: true };
+    return grantOrderCreditsOnce(db, order);
   });

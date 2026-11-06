@@ -7,6 +7,20 @@ export const fetchSampleQueue = (hub) => getSampleQueue({ data: { hub } });
 export const actOnRequest = (payload) => actOnSampleRequest({ data: payload });
 export const fetchDispatchLabels = (hub) => getDispatchLabels({ data: { hub } });
 
+/** Console domains: pipeline, catalogue, hubs, containers, orders, payouts, settings. */
+export {
+  getSupplierBoard,
+  moveSupplierStage,
+  getSupplierEditor,
+  saveSupplier,
+  addSupplierNote,
+} from "@/lib/supplier-fns";
+export { getProductList, getProductEditor, saveProduct, createSpecRevision } from "@/lib/catalog-admin-fns";
+export { getHubs, saveHub, getContainers, createContainer, addToContainer, stepContainer } from "@/lib/ops-fns";
+export { getAdminOrders, getAdminOrder, actOnOrder } from "@/lib/order-admin-fns";
+export { getPayouts, markPayoutSent, markPayoutConfirmed, getCommissionStatement } from "@/lib/payout-admin-fns";
+export { getAdminSettings, saveSettings } from "@/lib/settings-fns";
+
 /** The AppSettings record: every configurable number lives here. */
 export async function getSettings() {
   const page = await base44.entities.AppSettings.list({ limit: 1 });

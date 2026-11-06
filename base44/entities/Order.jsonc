@@ -109,6 +109,7 @@
         "inspection_passed",
         "inspection_failed",
         "balance_pending",
+        "balance_received",
         "shipped",
         "delivered",
         "cancelled"
@@ -121,6 +122,7 @@
         "green",
         "red",
         "yellow",
+        "green",
         "purple",
         "green",
         "gray"
