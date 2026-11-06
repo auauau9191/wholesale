@@ -1,0 +1,87 @@
+{
+  "name": "SupplierPayout",
+  "type": "object",
+  "properties": {
+    "payout_no": {
+      "type": "string",
+      "description": "Unique, e.g. PO-0001"
+    },
+    "supplier_code": {
+      "type": "string"
+    },
+    "order_no": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "deposit",
+        "balance"
+      ]
+    },
+    "gross_aud": {
+      "type": "number"
+    },
+    "commission_withheld_aud": {
+      "type": "number"
+    },
+    "net_aud": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "CNY",
+        "USD"
+      ]
+    },
+    "fx_rate": {
+      "type": "number"
+    },
+    "amount_foreign": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "scheduled",
+        "sent",
+        "confirmed"
+      ],
+      "default": "scheduled"
+    },
+    "sent_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "provider_ref": {
+      "type": "string"
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

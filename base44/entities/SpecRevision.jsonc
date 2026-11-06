@@ -1,0 +1,75 @@
+{
+  "name": "SpecRevision",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string",
+      "description": "R1, R2, ..."
+    },
+    "materials": {
+      "type": "string"
+    },
+    "dimensions_mm": {
+      "type": "string"
+    },
+    "weight_g": {
+      "type": "number"
+    },
+    "colour_pantone": {
+      "type": "string"
+    },
+    "finish": {
+      "type": "string"
+    },
+    "tolerances": {
+      "type": "string"
+    },
+    "packaging": {
+      "type": "string"
+    },
+    "labelling": {
+      "type": "string"
+    },
+    "signed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "document_url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "signed",
+        "superseded"
+      ],
+      "default": "draft"
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

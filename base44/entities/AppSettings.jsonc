@@ -1,0 +1,112 @@
+{
+  "name": "AppSettings",
+  "type": "object",
+  "properties": {
+    "fx_usd_to_aud": {
+      "type": "number",
+      "default": 1.55,
+      "description": "USD to AUD rate used for landed cost estimates"
+    },
+    "buyer_service_fee_rate": {
+      "type": "number",
+      "default": 0,
+      "description": "Share of the goods value charged to the member on an order"
+    },
+    "supplier_commission_rate": {
+      "type": "number",
+      "default": 0.05,
+      "description": "Default share of goods value withheld from a supplier payout"
+    },
+    "supplier_listing_fee_usd": {
+      "type": "number",
+      "default": 390,
+      "description": "Annual supplier listing fee in USD"
+    },
+    "deposit_rate": {
+      "type": "number",
+      "default": 0.3,
+      "description": "Deposit share of an order total"
+    },
+    "non_circumvention_months": {
+      "type": "number",
+      "default": 24,
+      "description": "Months a supplier agreement bars direct dealing"
+    },
+    "inspection_fee_aud": {
+      "type": "number",
+      "default": 470,
+      "description": "Pre-shipment inspection, charged at cost"
+    },
+    "broker_fee_aud": {
+      "type": "number",
+      "default": 350,
+      "description": "Customs broker fee per container, charged at cost"
+    },
+    "sample_fee_aud": {
+      "type": "number",
+      "default": 25,
+      "description": "Fee when a sample is taken without a credit"
+    },
+    "decision_days": {
+      "type": "number",
+      "default": 14,
+      "description": "Days a member has to decide on a delivered sample"
+    },
+    "dispatch_business_days": {
+      "type": "number",
+      "default": 2,
+      "description": "Our dispatch promise, in business days"
+    },
+    "sample_reorder_level": {
+      "type": "number",
+      "default": 3,
+      "description": "Units on the shelf at or below which a hub asks for more"
+    },
+    "starter_quarter_price_aud": {
+      "type": "number",
+      "default": 60,
+      "description": "First 3 months, paid upfront"
+    },
+    "monthly_price_aud": {
+      "type": "number",
+      "default": 45,
+      "description": "Monthly price after the starter quarter"
+    },
+    "annual_price_aud": {
+      "type": "number",
+      "default": 450,
+      "description": "Annual plan price"
+    },
+    "default_duty_rate_no_origin_cert": {
+      "type": "number",
+      "default": 0.05,
+      "description": "Duty rate applied when a product has no ChAFTA origin certificate"
+    },
+    "gst_rate": {
+      "type": "number",
+      "default": 0.1
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

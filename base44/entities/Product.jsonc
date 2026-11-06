@@ -1,0 +1,160 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "description": "Unique, e.g. PC-CN014-0087"
+    },
+    "supplier_code": {
+      "type": "string"
+    },
+    "category_code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "short_description": {
+      "type": "string"
+    },
+    "photo_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "colours": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "hex": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "moq": {
+      "type": "number"
+    },
+    "lead_time_days": {
+      "type": "number"
+    },
+    "price_tiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "min_qty": {
+            "type": "number"
+          },
+          "max_qty": {
+            "type": "number"
+          },
+          "fob_usd": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "incoterm_port": {
+      "type": "string",
+      "description": "e.g. FOB Shenzhen"
+    },
+    "freight_aud_per_unit_estimate": {
+      "type": "number"
+    },
+    "current_spec_revision": {
+      "type": "string",
+      "description": "e.g. R2"
+    },
+    "hs_code_indicative": {
+      "type": "string"
+    },
+    "has_chafta_origin_cert": {
+      "type": "boolean",
+      "default": false
+    },
+    "safety_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "biosecurity_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "test_reports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "expires_on": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    },
+    "master_hub": {
+      "type": "string",
+      "enum": [
+        "BNE",
+        "SYD"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "live",
+        "sample_unavailable",
+        "retired"
+      ],
+      "default": "draft"
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.status": "live"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "order_no": {
+      "type": "string",
+      "description": "Unique, e.g. WS-0142"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "supplier_code": {
+      "type": "string"
+    },
+    "spec_revision": {
+      "type": "string"
+    },
+    "approved_unit_id": {
+      "type": "string"
+    },
+    "colour": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "unit_fob_usd": {
+      "type": "number"
+    },
+    "fx_rate": {
+      "type": "number"
+    },
+    "goods_aud": {
+      "type": "number"
+    },
+    "buyer_fee_aud": {
+      "type": "number"
+    },
+    "inspection_aud": {
+      "type": "number"
+    },
+    "total_aud": {
+      "type": "number"
+    },
+    "deposit_aud": {
+      "type": "number"
+    },
+    "balance_aud": {
+      "type": "number"
+    },
+    "commission_rate": {
+      "type": "number",
+      "description": "Admin only",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "commission_aud": {
+      "type": "number",
+      "description": "Admin only",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "supplier_payout_total_aud": {
+      "type": "number",
+      "description": "Admin only",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "delivery_route": {
+      "type": "string",
+      "enum": [
+        "via_BNE",
+        "via_SYD",
+        "direct"
+      ]
+    },
+    "container_no": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "quote_requested",
+        "deposit_pending",
+        "in_production",
+        "inspection_booked",
+        "inspection_passed",
+        "inspection_failed",
+        "balance_pending",
+        "shipped",
+        "delivered",
+        "cancelled"
+      ],
+      "default": "quote_requested"
+    },
+    "inspection_attempts": {
+      "type": "number",
+      "default": 0
+    },
+    "inspection_report_url": {
+      "type": "string"
+    },
+    "credits_granted": {
+      "type": "boolean",
+      "default": false
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "at": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

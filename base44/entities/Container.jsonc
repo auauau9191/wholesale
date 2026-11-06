@@ -1,0 +1,87 @@
+{
+  "name": "Container",
+  "type": "object",
+  "properties": {
+    "container_no": {
+      "type": "string",
+      "description": "Unique, e.g. CNT-2611-01"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "sample_consolidation",
+        "order_lcl",
+        "order_fcl"
+      ]
+    },
+    "origin_port": {
+      "type": "string"
+    },
+    "destination_hub": {
+      "type": "string",
+      "enum": [
+        "BNE",
+        "SYD"
+      ]
+    },
+    "etd": {
+      "type": "string",
+      "format": "date"
+    },
+    "eta": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "booked",
+        "at_sea",
+        "arrived",
+        "cleared",
+        "unpacked"
+      ],
+      "default": "booked"
+    },
+    "unit_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "order_nos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "broker_ref": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

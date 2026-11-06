@@ -1,0 +1,74 @@
+{
+  "name": "Hub",
+  "type": "object",
+  "properties": {
+    "hub_code": {
+      "type": "string",
+      "enum": [
+        "BNE",
+        "SYD"
+      ],
+      "description": "Unique hub code"
+    },
+    "name": {
+      "type": "string"
+    },
+    "manager_name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "street_address": {
+      "type": "string",
+      "description": "Admin only",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "serves_states": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "States this hub serves first"
+    },
+    "fallback_rank": {
+      "type": "number",
+      "description": "Lower is tried first when the first-choice hub has no stock"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

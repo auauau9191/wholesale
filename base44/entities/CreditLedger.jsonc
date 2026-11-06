@@ -1,0 +1,63 @@
+{
+  "name": "CreditLedger",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string"
+    },
+    "change": {
+      "type": "number",
+      "description": "+1 or -1"
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "join",
+        "order_placed",
+        "swap",
+        "admin_adjustment",
+        "sample_used",
+        "fee_refund"
+      ]
+    },
+    "related_id": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

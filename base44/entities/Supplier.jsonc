@@ -1,0 +1,264 @@
+{
+  "name": "Supplier",
+  "type": "object",
+  "properties": {
+    "supplier_code": {
+      "type": "string",
+      "description": "Unique, e.g. CN014"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "supplier_type": {
+      "type": "string",
+      "enum": [
+        "factory",
+        "trading_company"
+      ],
+      "default": "factory"
+    },
+    "province": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "exporting_since_year": {
+      "type": "number"
+    },
+    "staff_count": {
+      "type": "number"
+    },
+    "production_lines": {
+      "type": "string"
+    },
+    "category_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "verification_score": {
+      "type": "number",
+      "description": "Out of 100"
+    },
+    "score_capability": {
+      "type": "number",
+      "description": "Out of 20"
+    },
+    "score_quality": {
+      "type": "number",
+      "description": "Out of 20"
+    },
+    "score_communication": {
+      "type": "number",
+      "description": "Out of 20"
+    },
+    "score_compliance": {
+      "type": "number",
+      "description": "Out of 20"
+    },
+    "score_export": {
+      "type": "number",
+      "description": "Out of 20"
+    },
+    "checks_passed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "visit_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "filmed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "Unlisted YouTube, Vimeo or Bunny Stream URL"
+    },
+    "video_chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "start_seconds": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "agreement_status": {
+      "type": "string",
+      "enum": [
+        "none",
+        "sent",
+        "signed"
+      ],
+      "default": "none"
+    },
+    "non_circumvention_signed": {
+      "type": "boolean",
+      "default": false
+    },
+    "pipeline_stage": {
+      "type": "string",
+      "enum": [
+        "screened",
+        "visited",
+        "filmed",
+        "signed",
+        "samples_in",
+        "live",
+        "rejected"
+      ],
+      "default": "screened"
+    },
+    "commission_rate": {
+      "type": "number",
+      "description": "Admin only. Empty uses the AppSettings default",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "listing_fee_paid_until": {
+      "type": "string",
+      "format": "date"
+    },
+    "listing_fee_waived": {
+      "type": "boolean",
+      "default": false
+    },
+    "legal_name": {
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "contact_name": {
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "contact_email": {
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "contact_wechat": {
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "payout_currency": {
+      "type": "string",
+      "enum": [
+        "CNY",
+        "USD"
+      ],
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "payout_method": {
+      "type": "string",
+      "enum": [
+        "airwallex",
+        "bank_wire"
+      ],
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "payout_account_ref": {
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "internal_notes": {
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.pipeline_stage": "live"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

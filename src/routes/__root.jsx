@@ -17,6 +17,10 @@ export const Route = createRootRoute({
     ],
     // No icon link: the platform adds the app's logo when serving.
     links: [
+      {
+        rel: "stylesheet",
+        href: "https://api.fontshare.com/v2/css?f[]=switzer@400,500&display=swap",
+      },
       { rel: "stylesheet", href: appCss },
     ],
   }),

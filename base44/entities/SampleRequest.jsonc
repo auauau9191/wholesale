@@ -1,0 +1,131 @@
+{
+  "name": "SampleRequest",
+  "type": "object",
+  "properties": {
+    "request_no": {
+      "type": "string",
+      "description": "Unique, e.g. SR-0318"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "unit_id": {
+      "type": "string"
+    },
+    "hub_code": {
+      "type": "string",
+      "enum": [
+        "BNE",
+        "SYD"
+      ]
+    },
+    "paid_with": {
+      "type": "string",
+      "enum": [
+        "join_credit",
+        "order_credit",
+        "swap",
+        "paid_fee"
+      ]
+    },
+    "fee_aud": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "requested",
+        "on_hold",
+        "ready_to_dispatch",
+        "dispatched",
+        "delivered",
+        "decided",
+        "cancelled"
+      ],
+      "default": "requested"
+    },
+    "carrier": {
+      "type": "string"
+    },
+    "tracking_number": {
+      "type": "string"
+    },
+    "dispatched_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "delivered_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "approve",
+        "reject",
+        "change"
+      ]
+    },
+    "decision_reason": {
+      "type": "string",
+      "enum": [
+        "quality",
+        "size",
+        "colour",
+        "price",
+        "packaging",
+        "other"
+      ]
+    },
+    "decision_notes": {
+      "type": "string"
+    },
+    "decision_due": {
+      "type": "string",
+      "format": "date"
+    },
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

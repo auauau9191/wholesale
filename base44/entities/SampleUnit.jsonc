@@ -1,0 +1,90 @@
+{
+  "name": "SampleUnit",
+  "type": "object",
+  "properties": {
+    "unit_id": {
+      "type": "string",
+      "description": "Unique, e.g. PC-CN014-0087-S07; the master ends in -M"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "is_master": {
+      "type": "boolean",
+      "default": false
+    },
+    "colour": {
+      "type": "string"
+    },
+    "hub_code": {
+      "type": "string",
+      "enum": [
+        "BNE",
+        "SYD"
+      ]
+    },
+    "shelf_location": {
+      "type": "string"
+    },
+    "container_no": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "in_transit",
+        "qc_hold",
+        "in_stock",
+        "reserved",
+        "dispatched",
+        "with_member",
+        "returned",
+        "retired"
+      ],
+      "default": "in_transit"
+    },
+    "qc_result": {
+      "type": "string",
+      "enum": [
+        "match",
+        "mismatch",
+        "empty"
+      ]
+    },
+    "qc_checked_by": {
+      "type": "string"
+    },
+    "qc_checked_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "condition_notes": {
+      "type": "string"
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

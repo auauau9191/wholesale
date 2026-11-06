@@ -1,0 +1,118 @@
+{
+  "name": "MemberProfile",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Unique. One profile per app user"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "abn": {
+      "type": "string",
+      "description": "11 digits"
+    },
+    "abn_valid": {
+      "type": "boolean",
+      "default": false
+    },
+    "phone": {
+      "type": "string"
+    },
+    "street": {
+      "type": "string"
+    },
+    "suburb": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "NSW",
+        "VIC",
+        "QLD",
+        "WA",
+        "SA",
+        "TAS",
+        "ACT",
+        "NT"
+      ]
+    },
+    "postcode": {
+      "type": "string"
+    },
+    "plan": {
+      "type": "string",
+      "enum": [
+        "starter_quarter",
+        "monthly",
+        "annual"
+      ]
+    },
+    "plan_started_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "paid_until": {
+      "type": "string",
+      "format": "date"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "settled",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_review",
+        "active",
+        "on_hold",
+        "suspended"
+      ],
+      "default": "pending_review"
+    },
+    "fraud_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.user_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.user_email": "{{user.email}}"
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

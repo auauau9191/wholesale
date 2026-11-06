@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "hub_code": {
+      "type": "string",
+      "description": "Hub the staff member works from. ALL means every hub",
+      "enum": [
+        "BNE",
+        "SYD",
+        "ALL"
+      ],
+      "rls": {
+        "update": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "role"
+  ],
+  "name": "User",
+  "type": "object"
+}
