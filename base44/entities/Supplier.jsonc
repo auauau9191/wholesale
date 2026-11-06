@@ -234,14 +234,32 @@
   },
   "rls": {
     "read": {
-      "$or": [
+      "$and": [
         {
-          "data.pipeline_stage": "live"
+          "$or": [
+            {
+              "data.pipeline_stage": "live"
+            },
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            }
+          ]
         },
         {
-          "user_condition": {
-            "role": "admin"
-          }
+          "$or": [
+            {
+              "user_condition": {
+                "membership_active": true
+              }
+            },
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            }
+          ]
         }
       ]
     },
@@ -260,5 +278,6 @@
         "role": "admin"
       }
     }
-  }
+  },
+  "required": []
 }
