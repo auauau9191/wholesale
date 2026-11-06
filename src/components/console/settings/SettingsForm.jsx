@@ -57,7 +57,7 @@ export default function SettingsForm({ settings }) {
   const [draft, setDraft] = useState(Object.fromEntries(GROUPS.flatMap((group) => group.fields.map(([key]) => [key, settings[key] ?? 0]))));
 
   const save = useMutation({
-    mutationFn: () => saveSettings({ id: settings.id, patch: draft }),
+    mutationFn: () => saveSettings({ data: { id: settings.id, patch: draft } }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-settings"] });
       queryClient.invalidateQueries({ queryKey: ["appSettings"] });

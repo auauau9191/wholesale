@@ -28,7 +28,7 @@ export default function ProductRevisionBlock({ productId, product, revisions }) 
   const [warning, setWarning] = useState(null);
 
   const create = useMutation({
-    mutationFn: () => createSpecRevision({ product_id: productId, ...form, weight_g: form.weight_g ?? undefined }),
+    mutationFn: () => createSpecRevision({ data: { product_id: productId, ...form, weight_g: form.weight_g ?? undefined } }),
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ["product-editor", productId] });
       setForm(null);

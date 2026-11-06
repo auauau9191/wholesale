@@ -50,25 +50,104 @@
       "title": "Genel bakış",
       "note": "Bugün ilgilenilmesi gerekenler.",
       "emptyTitle": "Henüz bildirilecek bir şey yok.",
-      "emptyNote": "Üyeler, tedarikçiler, numuneler ve siparişler geldikçe sayılar burada görünür."
+      "emptyNote": "Üyeler, tedarikçiler, numuneler ve siparişler geldikçe sayılar burada görünür.",
+      "noteCount": "Gönderilecek {send} numune, etkinleştirilecek {pending} üye, geciken {overdue} karar.",
+      "tile": {
+        "pending_members": "Etkinleştirilecek üyeler",
+        "active_members": "Etkin üyeler",
+        "to_send": "Gönderilecek numuneler",
+        "samples_out": "Dışarıdaki numuneler",
+        "decisions_overdue": "Geciken kararlar",
+        "qc_hold": "KK bekleyen birimler",
+        "in_stock": "Raftaki birimler",
+        "containers_this_week": "Bu hafta gelecek konteynerler",
+        "orders_in_production": "Üretimdeki siparişler",
+        "live_suppliers": "Yayındaki tedarikçiler"
+      },
+      "commission": "Bu ay kesilen komisyon",
+      "commissionNote": "{count} bakiye ödemesinden toplandı."
     },
     "inventory": {
       "title": "Numune envanteri",
       "note": "Raftaki her birim: hiç çıkmayan ana numuneden üyelerde olanlara kadar.",
       "emptyTitle": "Henüz numune birimi yok.",
-      "emptyNote": "Birimler konteynerle gelir, imzalı şartnameye göre kontrol edilir, sonra rafa çıkar."
+      "emptyNote": "Birimler konteynerle gelir, imzalı şartnameye göre kontrol edilir, sonra rafa çıkar.",
+      "noteCount": "{hub} · gönderilebilir {onShelf} birim; {low} ürün yeniden sipariş seviyesinde ya da altında.",
+      "headProduct": "Ürün",
+      "headShelf": "Raf",
+      "col": {
+        "in_transit": "Yolda",
+        "qc_hold": "KK bekliyor",
+        "in_stock": "Rafta",
+        "reserved": "Ayrıldı",
+        "with_member": "Üyede",
+        "retired": "Emekli"
+      },
+      "masterAt": "ana numune {hub}",
+      "low": "Az: {level} veya daha az",
+      "lowShort": "Az",
+      "key": {
+        "master": "Ana numune, kalır",
+        "pack": "Paketleniyor",
+        "shelf": "Rafta",
+        "out": "Üyede",
+        "retired": "Emekli"
+      }
     },
     "members": {
       "title": "Üyeler",
       "note": "Kimler katıldı, kim inceleme bekliyor ve kimin planı ilgi istiyor.",
       "emptyTitle": "Henüz üye yok.",
-      "emptyNote": "Bir ABN incelemeye sunulduğu an üye burada görünür."
+      "emptyNote": "Bir ABN incelemeye sunulduğu an üye burada görünür.",
+      "noteCount": "Toplam {total}; {pending} kişinin ABN ve ödemesi kontrol edilip etkinleştirilmeyi bekliyor.",
+      "activate": "Üyeliği etkinleştir",
+      "putOnHold": "Beklemeye al",
+      "activated": "{name} etkin. Katılım numune kredisi hazır.",
+      "held": "{name} beklemeye alındı.",
+      "noneInTab": "Şu an burada kimse yok.",
+      "tab": {
+        "pending_review": "Bekleyen",
+        "active": "Etkin",
+        "on_hold": "Beklemede",
+        "suspended": "Askıda"
+      },
+      "headBusiness": "İşletme",
+      "headState": "Eyalet",
+      "headPlan": "Plan",
+      "headPayment": "Ödeme",
+      "headCredits": "Kredi",
+      "headPaidUntil": "Ödeme bitişi",
+      "headStatus": "Durum",
+      "headAction": "İşlem",
+      "plan": {
+        "starter_quarter": "İlk 3 ay",
+        "monthly": "Aylık",
+        "annual": "Yıllık"
+      },
+      "payment": {
+        "pending": "Ödenmedi",
+        "settled": "Ödendi",
+        "failed": "Başarısız"
+      }
     },
     "categories": {
       "title": "Kategoriler",
       "note": "Üyelerin göz atabileceği kategoriler ve her birinin risk seviyesi.",
       "emptyTitle": "Henüz kategori yok.",
-      "emptyNote": "Ürünlerin katılabilmesi için kategorinin bir kodu ve risk seviyesi olmalı."
+      "emptyNote": "Ürünlerin katılabilmesi için kategorinin bir kodu ve risk seviyesi olmalı.",
+      "noteCount": "{total} kategoriden {live} tanesi üyelere açık.",
+      "headCategory": "Kategori",
+      "headRisk": "Risk",
+      "headSuppliers": "Yayındaki tedarikçi",
+      "headProducts": "Yayındaki ürün",
+      "headStatus": "Üyeler görüyor",
+      "risk": {
+        "low": "Düşük",
+        "medium": "Orta",
+        "high": "Yüksek"
+      },
+      "live": "Açık · gizle",
+      "hidden": "Gizli · aç"
     },
     "settings": {
       "title": "Ayarlar",
@@ -296,12 +375,30 @@
       "send_reminder": "Hatırlatma gönder"
     },
     "filter": {
-      "awaiting": { "label": "Gönderim bekliyor", "list": "Bugün gönderilecek" },
-      "on_hold": { "label": "Beklemede", "list": "Beklemede" },
-      "in_transit": { "label": "Yolda", "list": "Yolda" },
-      "deciding": { "label": "Karar bekleniyor", "list": "Karar bekleniyor" },
-      "overdue": { "label": "Kararı gecikenler", "list": "Kararı gecikenler" },
-      "low": { "label": "Numunesi azalan ürünler", "list": "Numunesi az" }
+      "awaiting": {
+        "label": "Gönderim bekliyor",
+        "list": "Bugün gönderilecek"
+      },
+      "on_hold": {
+        "label": "Beklemede",
+        "list": "Beklemede"
+      },
+      "in_transit": {
+        "label": "Yolda",
+        "list": "Yolda"
+      },
+      "deciding": {
+        "label": "Karar bekleniyor",
+        "list": "Karar bekleniyor"
+      },
+      "overdue": {
+        "label": "Kararı gecikenler",
+        "list": "Kararı gecikenler"
+      },
+      "low": {
+        "label": "Numunesi azalan ürünler",
+        "list": "Numunesi az"
+      }
     }
   },
   "order": {

@@ -37,7 +37,7 @@ function PayoutsPage() {
 
   const refresh = () => queryClient.invalidateQueries({ queryKey: ["payouts"] });
   const send = useMutation({
-    mutationFn: (payload) => markPayoutSent({ payout_id: sending.id, ...payload }),
+    mutationFn: (payload) => markPayoutSent({ data: { payout_id: sending.id, ...payload } }),
     onSuccess: () => {
       setSending(null);
       refresh();
@@ -45,7 +45,7 @@ function PayoutsPage() {
     },
   });
   const confirm = useMutation({
-    mutationFn: (row) => markPayoutConfirmed({ payout_id: row.id }),
+    mutationFn: (row) => markPayoutConfirmed({ data: { payout_id: row.id } }),
     onSuccess: () => {
       refresh();
       toast(t("page.payouts.confirmed"));

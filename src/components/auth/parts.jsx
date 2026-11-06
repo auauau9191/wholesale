@@ -2,7 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GoogleIcon } from "./GoogleIcon";
-import { signInWithProvider } from "@/lib/authMfaFlow";
+import { GOOGLE_ENABLED } from "@/lib/backend/client";
+import { loginWithSocial as signInWithProvider } from "@/lib/authMfa";
 import { returnToSearch } from "@/lib/authReturnTo";
 
 // Small pieces the auth pages share.
@@ -32,6 +33,8 @@ export function SubmitButton({ busy, busyLabel, children, ...props }) {
 }
 
 export function GoogleButton({ returnTo, onError }) {
+  // Shown only when Google sign-in is switched on in Supabase (VITE_ENABLE_GOOGLE_LOGIN=true).
+  if (!GOOGLE_ENABLED) return null;
   return (
     <Button
       type="button"
@@ -46,6 +49,7 @@ export function GoogleButton({ returnTo, onError }) {
 }
 
 export function OrDivider() {
+  if (!GOOGLE_ENABLED) return null;
   return (
     <div className="relative mb-6">
       <div className="absolute inset-0 flex items-center">

@@ -22,11 +22,11 @@ function OrderDetailPage() {
   const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
     queryKey: ["admin-order", orderNo],
-    queryFn: () => getAdminOrder({ order_no: orderNo }),
+    queryFn: () => getAdminOrder({ data: { order_no: orderNo } }),
   });
 
   const act = useMutation({
-    mutationFn: (payload) => actOnOrder({ order_id: data.order.id, ...payload }),
+    mutationFn: (payload) => actOnOrder({ data: { order_id: data.order.id, ...payload } }),
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ["admin-order", orderNo] });
       queryClient.invalidateQueries({ queryKey: ["admin-orders"] });

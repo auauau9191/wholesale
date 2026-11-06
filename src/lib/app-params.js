@@ -1,21 +1,13 @@
-import { getAccessToken } from "@base44/sdk";
+import { getAccessToken } from "@/lib/backend/client";
 
 const isBrowser = typeof window !== "undefined";
 
-const isClearAccessTokenRequested = () =>
-  isBrowser && new URLSearchParams(window.location.search).get("clear_access_token") === "true";
-
-const clearStoredAccessToken = () => {
-  window.localStorage.removeItem("base44_access_token");
-  window.localStorage.removeItem("token");
-};
-
+// Kept for the pages that still read it. The app now runs on Supabase (see src/lib/backend).
 export function getAppParams() {
-  if (isClearAccessTokenRequested()) clearStoredAccessToken();
   return {
-    appId: import.meta.env.VITE_BASE44_APP_ID,
+    appId: "wholesale",
     token: isBrowser ? getAccessToken() : null,
-    functionsVersion: (isBrowser && new URLSearchParams(window.location.search).get("functions_version")?.trim()) || import.meta.env.VITE_BASE44_FUNCTIONS_VERSION,
-    appBaseUrl: import.meta.env.VITE_BASE44_APP_BASE_URL,
+    functionsVersion: undefined,
+    appBaseUrl: isBrowser ? window.location.origin : undefined,
   };
 }

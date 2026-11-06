@@ -1,3 +1,5 @@
+import { getRequest } from "@tanstack/react-start/server";
+import { serverEnv } from "@/lib/backend/client.server";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireUser } from "@/lib/auth-middleware";
@@ -7,7 +9,8 @@ import { addDays, allRows, assertHub, byKey, hubQuery, requireStaff } from "@/li
 import { buildSampleQueue } from "@/lib/sample-queue.server";
 
 const Hub = z.enum(["ALL", "BNE", "SYD"]);
-const APP_URL = "https://vehement-nova-launch-pad.base44.app";
+// The address members open from emails: APP_URL when set, otherwise the address this request came in on.
+const appUrl = () => serverEnv("APP_URL") ?? new URL(getRequest().url).origin;
 
 /** A hub staff member only ever sees the hub on their own account. */
 const hubFor = (user, hub) => (user.role === "admin" || user.hub_code === "ALL" ? hub : user.hub_code);
@@ -43,7 +46,7 @@ async function sendReminder(db, request, settings) {
       request_no: request.request_no,
       product_name: product?.name ?? request.product_id,
       due_date: new Date(`${due}T00:00:00Z`).toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }),
-      samples_url: `${APP_URL}/samples`,
+      samples_url: `${appUrl()}/samples`,
     },
   });
   if (sent && sent.success === false) throw fail(sent.message ?? "We couldn't email this member.", 409);

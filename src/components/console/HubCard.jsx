@@ -24,7 +24,7 @@ export default function HubCard({ hub, canEdit }) {
   const set = (patch) => setDraft((current) => ({ ...current, ...patch }));
 
   const save = useMutation({
-    mutationFn: () => saveHub({ hub_id: hub.id, patch: { ...draft, fallback_rank: Number(draft.fallback_rank) || 1 } }),
+    mutationFn: () => saveHub({ data: { hub_id: hub.id, patch: { ...draft, fallback_rank: Number(draft.fallback_rank) || 1 } } }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["hubs"] });
       toast(t("page.hubs.saved", { name: draft.name || hub.hub_code }));

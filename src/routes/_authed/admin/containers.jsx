@@ -27,13 +27,13 @@ function ContainersPage() {
   const [adding, setAdding] = useState(null);
   const { data, isLoading, error } = useQuery({
     queryKey: ["containers", hub],
-    queryFn: () => getContainers({ hub }),
+    queryFn: () => getContainers({ data: { hub } }),
   });
 
   const refresh = () => queryClient.invalidateQueries({ queryKey: ["containers"] });
 
   const create = useMutation({
-    mutationFn: (form) => createContainer(form),
+    mutationFn: (form) => createContainer({ data: form }),
     onSuccess: (container) => {
       setCreating(false);
       refresh();
@@ -42,7 +42,7 @@ function ContainersPage() {
   });
 
   const add = useMutation({
-    mutationFn: (payload) => addToContainer({ container_id: adding.id, ...payload }),
+    mutationFn: (payload) => addToContainer({ data: { container_id: adding.id, ...payload } }),
     onSuccess: () => {
       setAdding(null);
       refresh();
@@ -51,7 +51,7 @@ function ContainersPage() {
   });
 
   const step = useMutation({
-    mutationFn: (row) => stepContainer({ container_id: row.id }),
+    mutationFn: (row) => stepContainer({ data: { container_id: row.id } }),
     onSuccess: (row) => {
       refresh();
       toast(

@@ -4,7 +4,6 @@ import { NotFound } from "@/components/NotFound";
 import { Toaster } from "@/components/ui/sonner";
 import PageTransition from "@/components/motion/PageTransition";
 import { AuthProvider } from "@/lib/AuthContext";
-import { Base44Scripts } from "base44:document";
 import appCss from "@/index.css?url";
 
 export const Route = createRootRoute({
@@ -13,8 +12,8 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Base44 App" },
-      { name: "description", content: "A full-stack Base44 app built with TanStack Start." },
+      { title: "Wholesale System" },
+      { name: "description", content: "Verified Chinese factories, with their samples on a shelf in Australia." },
     ],
     // No icon link: the platform adds the app's logo when serving.
     links: [
@@ -52,7 +51,6 @@ function RootDocument({ children }) {
       {/* data-react-root: the builder's preview bridge looks for #root and falls back to this. */}
       <body data-react-root="true">
         {children}
-        <Base44Scripts />
         <Scripts />
       </body>
     </html>

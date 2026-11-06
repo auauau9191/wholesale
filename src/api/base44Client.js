@@ -1,6 +1,5 @@
-import { createClient } from "@base44/sdk";
-import { getAppParams } from "@/lib/app-params";
+// The app's data and sign-in client. Named `base44` because the app was first built on Base44;
+// it is now backed by Supabase (src/lib/backend/client.js) with the same API.
+import { createClient } from "@/lib/backend/client";
 
-const { appId, token, functionsVersion, appBaseUrl } = getAppParams();
-
-export const base44 = createClient({ appId, token: token ?? undefined, functionsVersion, serverUrl: "", appBaseUrl });
+export const base44 = createClient();

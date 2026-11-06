@@ -28,7 +28,7 @@ function ProductEditorPage() {
   const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
     queryKey: ["product-editor", productId],
-    queryFn: () => getProductEditor({ product_id: productId }),
+    queryFn: () => getProductEditor({ data: { product_id: productId } }),
   });
   const [draft, setDraft] = useState(null);
 
@@ -40,10 +40,10 @@ function ProductEditorPage() {
 
   const save = useMutation({
     mutationFn: () =>
-      saveProduct({
+      saveProduct({ data: {
         product_id: productId,
         patch: Object.fromEntries(Object.entries(draft).filter(([, value]) => value !== null && value !== undefined)),
-      }),
+      } }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["product-editor", productId] });
       toast("Product saved.");

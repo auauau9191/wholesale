@@ -1,0 +1,6 @@
+# Server settings for local development (copy to .dev.vars). On Cloudflare, add these to the Worker.
+DATABASE_URL=postgresql://postgres.YOUR-PROJECT-REF:YOUR-DB-PASSWORD@aws-0-ap-southeast-2.pooler.supabase.com:6543/postgres
+ADMIN_EMAILS=you@example.com
+# RESEND_API_KEY=
+# EMAIL_FROM=Wholesale System <hello@yourdomain.com>
+# APP_URL=https://wholesale.your-name.workers.dev
