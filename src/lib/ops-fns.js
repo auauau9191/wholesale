@@ -9,6 +9,9 @@ const requireAdmin = (context) => {
   if (context.user.role !== "admin") throw fail("Only an admin can do that.", 403);
 };
 
+/** A hub staff member only ever acts on the hub on their own account. */
+const hubFor = (user, hub) => (user.role === "admin" || user.hub_code === "ALL" ? hub : user.hub_code);
+
 const HUB_FIELDS = ["name", "manager_name", "city", "state", "street_address", "serves_states", "fallback_rank", "is_active"];
 
 export const getHubs = createServerFn({ method: "GET" })
@@ -25,7 +28,16 @@ export const getHubs = createServerFn({ method: "GET" })
     return {
       rows: hubs
         .sort((a, b) => (a.fallback_rank ?? 99) - (b.fallback_rank ?? 99))
-        .map((hub) => ({ ...hub, on_shelf: stocked[hub.hub_code] ?? 0 })),
+        .map((hub) => {
+          // The street address is admin-only on the entity, so it must not ride
+          // out on a staff read either.
+          const { street_address, ...rest } = hub;
+          return {
+            ...rest,
+            ...(context.user.role === "admin" ? { street_address: street_address ?? "" } : {}),
+            on_shelf: stocked[hub.hub_code] ?? 0,
+          };
+        }),
       can_edit: context.user.role === "admin",
     };
   });
@@ -63,7 +75,8 @@ export const getContainers = createServerFn({ method: "GET" })
   .handler(async ({ data, context }) => {
     requireStaff(context.user);
     const db = context.getBase44().asServiceRole;
-    const query = data.hub === "ALL" ? {} : { destination_hub: data.hub };
+    const hub = hubFor(context.user, data.hub);
+    const query = hub === "ALL" ? {} : { destination_hub: hub };
     const containers = await allRows(db.entities.Container, query);
     const units = await allRows(db.entities.SampleUnit, {});
     const byContainer = {};
@@ -71,13 +84,16 @@ export const getContainers = createServerFn({ method: "GET" })
       if (!unit.container_no) continue;
       (byContainer[unit.container_no] ??= []).push({ unit_id: unit.unit_id, status: unit.status, hub_code: unit.hub_code, is_master: Boolean(unit.is_master) });
     }
-    return containers
-      .map((container) => ({
-        ...container,
-        units: byContainer[container.container_no] ?? [],
-        next_step: CONTAINER_STEPS[CONTAINER_STEPS.indexOf(container.status) + 1] ?? null,
-      }))
-      .sort((a, b) => String(a.eta ?? "").localeCompare(String(b.eta ?? "")));
+    return {
+      rows: containers
+        .map((container) => ({
+          ...container,
+          units: byContainer[container.container_no] ?? [],
+          next_step: CONTAINER_STEPS[CONTAINER_STEPS.indexOf(container.status) + 1] ?? null,
+        }))
+        .sort((a, b) => String(a.eta ?? "").localeCompare(String(b.eta ?? ""))),
+      can_edit: context.user.role === "admin",
+    };
   });
 
 export const createContainer = createServerFn({ method: "POST" })
@@ -92,7 +108,7 @@ export const createContainer = createServerFn({ method: "POST" })
     })
   )
   .handler(async ({ data, context }) => {
-    requireStaff(context.user);
+    requireAdmin(context);
     const db = context.getBase44().asServiceRole;
     if (data.eta < data.etd) throw fail("The ETA can't be before the ETD.");
     const existing = await allRows(db.entities.Container, {});
@@ -126,7 +142,7 @@ export const addToContainer = createServerFn({ method: "POST" })
     })
   )
   .handler(async ({ data, context }) => {
-    requireStaff(context.user);
+    requireAdmin(context);
     const db = context.getBase44().asServiceRole;
     const container = await db.entities.Container.get(data.container_id);
     const unitIds = lines(data.unit_ids);
@@ -163,7 +179,7 @@ export const stepContainer = createServerFn({ method: "POST" })
   .middleware([requireUser])
   .validator(z.object({ container_id: z.string().trim().min(1).max(60) }))
   .handler(async ({ data, context }) => {
-    requireStaff(context.user);
+    requireAdmin(context);
     const db = context.getBase44().asServiceRole;
     const container = await db.entities.Container.get(data.container_id);
     const next = CONTAINER_STEPS[CONTAINER_STEPS.indexOf(container.status) + 1];

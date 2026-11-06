@@ -63,7 +63,8 @@ function ContainersPage() {
     onError: (error) => toast(error.message),
   });
 
-  const rows = data ?? [];
+  const rows = data?.rows ?? [];
+  const canEdit = Boolean(data?.can_edit);
   const atSea = rows.filter((row) => row.status === "at_sea").length;
   const landed = rows.filter((row) => row.status === "arrived" || row.status === "cleared").length;
 
@@ -77,9 +78,11 @@ function ContainersPage() {
             : t("page.containers.notePlain")
         }
         action={
-          <button type="button" onClick={() => setCreating(true)} className={secondaryButton}>
-            {t("page.containers.new")}
-          </button>
+          canEdit ? (
+            <button type="button" onClick={() => setCreating(true)} className={secondaryButton}>
+              {t("page.containers.new")}
+            </button>
+          ) : null
         }
       />
 
@@ -123,21 +126,23 @@ function ContainersPage() {
                           {row.units.map((unit) => unit.unit_id).join(" · ")}
                         </p>
                       ) : null}
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {row.next_step ? (
-                          <button
-                            type="button"
-                            onClick={() => step.mutate(row)}
-                            disabled={step.isPending}
-                            className={secondaryButton}
-                          >
-                            {t("page.containers.mark", { status: t(`containerStatus.${row.next_step}`) })}
+                      {canEdit ? (
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {row.next_step ? (
+                            <button
+                              type="button"
+                              onClick={() => step.mutate(row)}
+                              disabled={step.isPending}
+                              className={secondaryButton}
+                            >
+                              {t("page.containers.mark", { status: t(`containerStatus.${row.next_step}`) })}
+                            </button>
+                          ) : null}
+                          <button type="button" onClick={() => setAdding(row)} className={secondaryButton}>
+                            {t("page.containers.add")}
                           </button>
-                        ) : null}
-                        <button type="button" onClick={() => setAdding(row)} className={secondaryButton}>
-                          {t("page.containers.add")}
-                        </button>
-                      </div>
+                        </div>
+                      ) : null}
                     </li>
                   ))}
                 </ul>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import JoinProgress from "@/components/public/join/JoinProgress";
 import PlanStep from "@/components/public/join/PlanStep";
@@ -12,7 +12,7 @@ import PublicFooter from "@/components/public/PublicFooter";
 import LoopVideo from "@/components/motion/LoopVideo";
 import DataBlock from "@/components/shell/DataBlock";
 import MembershipPending from "@/components/public/MembershipPending";
-import useAppSettings from "@/hooks/useAppSettings";
+import { getPublicPlans } from "@/lib/landing-fns";
 import useMemberProfile from "@/hooks/useMemberProfile";
 import { useAuth } from "@/lib/AuthContext";
 import { buildPlans, planPriceAud } from "@/lib/plans";
@@ -50,7 +50,13 @@ export const Route = createFileRoute("/_site/join")({
 });
 
 function JoinPage() {
-  const { data: settings, isLoading } = useAppSettings();
+  // A visitor has no membership yet, so the three plan prices they are quoted
+  // come from their own public read, not from AppSettings.
+  const fetchPlans = useServerFn(getPublicPlans);
+  const { data: settings, isLoading } = useQuery({
+    queryKey: ["public-plans"],
+    queryFn: () => fetchPlans(),
+  });
   const { user, isAuthenticated, isLoadingAuth } = useAuth();
   const submitMember = useServerFn(registerMember);
   const { profile: existingProfile, loading: profileLoading } = useMemberProfile(

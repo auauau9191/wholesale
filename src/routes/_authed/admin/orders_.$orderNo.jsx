@@ -104,7 +104,7 @@ function OrderDetailPage() {
             <p className="mt-1 text-body text-app-meta">{t("page.order.nextNote")}</p>
             <div className="mt-3">
               <OrderActions
-                actions={data.actions}
+                actions={data.admin ? data.actions : []}
                 pending={act.isPending}
                 error={act.error?.message ?? null}
                 onAct={(payload) => act.mutate(payload)}

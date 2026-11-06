@@ -9,13 +9,16 @@ import { buildSampleQueue } from "@/lib/sample-queue.server";
 const Hub = z.enum(["ALL", "BNE", "SYD"]);
 const APP_URL = "https://vehement-nova-launch-pad.base44.app";
 
+/** A hub staff member only ever sees the hub on their own account. */
+const hubFor = (user, hub) => (user.role === "admin" || user.hub_code === "ALL" ? hub : user.hub_code);
+
 /** Counts, rows, shelf and low stock for the Sample requests page. */
 export const getSampleQueue = createServerFn({ method: "GET" })
   .middleware([requireUser])
   .validator(z.object({ hub: Hub }))
   .handler(async ({ data, context }) => {
     requireStaff(context.user);
-    return buildSampleQueue(context.getBase44().asServiceRole, data.hub);
+    return buildSampleQueue(context.getBase44().asServiceRole, hubFor(context.user, data.hub));
   });
 
 const without = (flags, flag) => flags.filter((item) => item !== flag);
@@ -107,7 +110,7 @@ export const getDispatchLabels = createServerFn({ method: "GET" })
     requireStaff(context.user);
     const db = context.getBase44().asServiceRole;
     const requests = await allRows(db.entities.SampleRequest, {
-      ...hubQuery(data.hub),
+      ...hubQuery(hubFor(context.user, data.hub)),
       status: { $in: ["requested", "ready_to_dispatch"] },
     });
     const emails = [...new Set(requests.map((row) => row.user_email))];

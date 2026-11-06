@@ -16,7 +16,7 @@ async function all(entity, query) {
 
 const sameFlags = (a = [], b = []) => a.length === b.length && a.every((flag) => b.includes(flag));
 
-/** Daily: overdue decisions, low and empty shelves, and products with nothing left to send. */
+/** Daily: lapsed memberships, overdue decisions, low and empty shelves, and products with nothing left to send. */
 export const Route = createFileRoute("/api/sample-checks")({
   server: {
     middleware: [requireUserRoute],
@@ -63,7 +63,19 @@ export const Route = createFileRoute("/api/sample-checks")({
           if (patch.status) unavailable += 1;
         }
 
-        return Response.json({ overdue, flagged, unavailable, checked_products: products.length });
+        // Memberships that have run out. paid_until is the record of the period
+        // they paid for; closing the profile and the user's flag here is what
+        // keeps the catalogue rules honest without trusting any browser.
+        let expired = 0;
+        for (const profile of await all(db.entities.MemberProfile, { status: "active" })) {
+          if (profile.paid_until && String(profile.paid_until).slice(0, 10) >= now) continue;
+          await db.entities.MemberProfile.update(profile.id, { status: "on_hold" });
+          const accounts = toItems(await db.entities.User.filter({ email: profile.user_email }, { limit: 1 }));
+          if (accounts[0]) await db.entities.User.update(accounts[0].id, { membership_active: false });
+          expired += 1;
+        }
+
+        return Response.json({ expired, overdue, flagged, unavailable, checked_products: products.length });
       },
     },
   },

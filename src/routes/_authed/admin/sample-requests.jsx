@@ -29,7 +29,8 @@ function SampleRequestsPage() {
 
   return (
     <div className="space-y-6">
-      <QueueHead queue={data} hub={hub} rows={rows} updatedAt={queue.dataUpdatedAt} />
+      {/* Hub staff are pinned to their own hub, so the heading follows the hub the rows came from. */}
+      <QueueHead queue={data} hub={data?.hub ?? hub} rows={rows} updatedAt={queue.dataUpdatedAt} />
       {queue.isLoading ? <DataBlock state="loading" /> : null}
       {queue.error ? <DataBlock state="error" note={queue.error.message} /> : null}
       {data ? (

@@ -82,7 +82,8 @@ export const getAdminOrder = createServerFn({ method: "GET" })
         payout_currency: admin ? supplier.payout_currency ?? null : null,
       },
       member: { business_name: member.business_name ?? order.user_email, email: order.user_email, abn: member.abn ?? null },
-      payouts,
+      // Supplier payouts carry the commission: admins only.
+      payouts: admin ? payouts : [],
       actions: ORDER_NEXT[order.status] ?? [],
     };
   });
@@ -101,7 +102,8 @@ export const actOnOrder = createServerFn({ method: "POST" })
     })
   )
   .handler(async ({ data, context }) => {
-    requireStaff(context.user);
+    // Moving an order on books supplier payouts, so it is an admin action.
+    if (context.user.role !== "admin") throw fail("Only an admin can move an order on.", 403);
     const db = context.getBase44().asServiceRole;
     const order = await db.entities.Order.get(data.order_id);
     if (!(ORDER_NEXT[order.status] ?? []).includes(data.action)) {
