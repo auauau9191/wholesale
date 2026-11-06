@@ -1,6 +1,5 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { useAuth } from "@/lib/AuthContext";
-import useMemberProfile from "@/hooks/useMemberProfile";
 import { formatDate } from "@/lib/format";
 import AppFrame from "@/components/shell/AppFrame";
 
@@ -24,8 +23,7 @@ const PLAN_LABEL = {
   annual: "Annual",
 };
 
-export default function MemberShell({ user }) {
-  const { profile } = useMemberProfile(user?.email);
+export default function MemberShell({ profile, children }) {
   const { logout } = useAuth();
 
   const planLine = profile
@@ -91,7 +89,7 @@ export default function MemberShell({ user }) {
         </Link>
       }
     >
-      <Outlet />
+      {children ?? <Outlet />}
     </AppFrame>
   );
 }
