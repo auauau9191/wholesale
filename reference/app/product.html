@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Premium phone case — Wholesale System</title>
+<link rel="stylesheet" href="app.css">
+<style>
+@font-face { font-family: 'Switzer'; font-weight: 400; font-display: swap; src: url('fonts/switzer-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Switzer'; font-weight: 500; font-display: swap; src: url('fonts/switzer-latin-500-normal.woff2') format('woff2'); }
+/* Framed sheet, kept brand. Detail pattern: header card, underline tabs, then one 6-column grid, 14px gutter both ways.
+   Sheet content at 1440: 1156. Six columns: 6 × 180.33 + 5 × 14 = 1152 → use minmax so 2 cols = 374.7, 3 = 571, 4 = 767.3. */
+:root {
+  --ground: #eef0ea; --surface: #ffffff; --raised: #f5f6f2; --active: #e4e7de;
+  --border: #e3e6dd; --rule: #edefe9; --control: #c9cdc0;
+  --text: #23290f; --muted: #555b43; --faint: #62674f;
+  --accent: #55721a; --primary: #23290f; --primary-ink: #ffffff;
+  --positive: #4f6b17; --negative: #b42318; --warning: #7a4307;
+  --pill-positive-bg: #e8efd8; --pill-positive-ink: #2c3a0b;
+  --pill-warning-bg: #fbefdc; --pill-warning-ink: #6b3a06;
+  --pill-neutral-bg: #edefe9; --pill-neutral-ink: #3d4128;
+  --chart-1: var(--accent); --chart-muted: #d5d8cb; --grid: #edefe9; --axis-ink: var(--muted);
+  --font: 'Switzer', system-ui, sans-serif;
+  --fs-title: 24px; --fs-section: 16px; --fs-kpi: 24px; --fs-body: 14px; --fs-small: 12px;
+  --sidebar-width: 228px; --gap: 14px; --card-pad: 20px; --radius-card: 8px; --radius-control: 6px; --control-height: 36px;
+}
+body { background: var(--ground); color: var(--text); font-family: var(--font); font-size: var(--fs-body); }
+.app { grid-template-columns: var(--sidebar-width) minmax(0, 1fr); }
+@media (max-width: 860px) { .app { grid-template-columns: minmax(0, 1fr); } }
+.sidebar { background: var(--ground); padding: 12px 12px 16px; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 6px 8px 0; height: 36px; font-weight: 500; font-size: 15px; }
+.brand svg { width: 20px; height: 26px; color: var(--accent); flex: none; }
+.scope { margin: 10px 0 14px; display: flex; align-items: center; justify-content: space-between; height: 36px; padding: 0 10px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); font: inherit; color: var(--text); }
+.scope span { color: var(--muted); }
+.nav-item { color: var(--muted); text-decoration: none; }
+.nav-item .ncount { margin-left: auto; font-size: var(--fs-small); color: var(--text); }
+.side-foot { margin-top: auto; display: grid; gap: 12px; }
+.credit { margin: 0 4px; padding: 12px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); }
+.credit b { display: block; font-weight: 500; }
+.credit span { color: var(--muted); font-size: var(--fs-small); }
+.main { display: grid; grid-template-rows: 48px minmax(0, 1fr); min-width: 0; }
+.topbar { display: grid; grid-template-columns: 1fr 548px 1fr; align-items: center; gap: 16px; }
+.search { grid-column: 2; display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); color: var(--faint); }
+.search input { border: 0; outline: 0; flex: 1; font: inherit; color: var(--text); background: transparent; min-width: 0; }
+.search input::placeholder { color: var(--faint); }
+.sheet { background: var(--surface); border: 1px solid #e6e8e0; border-radius: 16px; margin: 0 8px 8px 0; padding: 24px; min-width: 0; }
+.crumb { color: var(--muted); margin-bottom: 14px; }
+.crumb a { color: inherit; text-decoration: none; }
+.crumb a:hover { text-decoration: underline; }
+
+.objhead { display: flex; align-items: center; gap: 16px; padding: 14px; border: 1px solid var(--border); border-radius: 8px; }
+.cover { width: 50px; height: 62px; border-radius: 3px; background: #dfe3d6; display: grid; place-items: center; flex: none; }
+.cover i { width: 28px; height: 50px; border-radius: 6px; background: #2f4a40; position: relative; }
+.cover i::after { content: ""; position: absolute; top: 4px; right: 4px; width: 10px; height: 10px; border-radius: 3px; border: 1.5px solid #8fa79a; }
+.objhead h1 { font-size: 18px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+.objhead .meta-line { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.objhead .meta-line .id { color: var(--text); font-variant-numeric: tabular-nums; }
+.objhead .acts { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.finding { margin: 14px 0 0; color: var(--muted); }
+.finding b { color: var(--text); font-weight: 500; }
+
+.tabs { margin: 18px 0 14px; }
+.tabs a { text-decoration: none; font-weight: 500; }
+.tabs a[aria-selected="true"]::after { background: var(--accent); }
+
+.g6 { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.s2 { grid-column: span 2; } .s3 { grid-column: span 3; } .s4 { grid-column: span 4; } .s6 { grid-column: span 6; }
+.tile { padding: 16px 20px; border: 1px solid var(--border); border-radius: 8px; }
+.tile .l { color: var(--muted); }
+.tile .v { margin-top: 6px; font-size: var(--fs-kpi); font-weight: 500; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.tile .v small { font-size: 14px; color: var(--muted); font-weight: 400; margin-left: 2px; }
+.tile .s { margin-top: 2px; color: var(--muted); font-size: var(--fs-small); }
+.tile.lead .v { font-size: 32px; }
+.panel h2 { font-size: 16px; }
+.panel > header .meta { white-space: nowrap; }
+.units { display: flex; flex-wrap: wrap; gap: 5px; }
+.u { width: 20px; height: 28px; border-radius: 3px; flex: none; }
+.u.m { background: var(--text); } .u.in_stock { background: var(--surface); border: 1.5px solid var(--accent); }
+.u.queued { background: var(--accent); } .u.with_member { background: #cfd1c4; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: var(--fs-small); color: var(--muted); margin-top: 12px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend .u { width: 10px; height: 14px; }
+.shelf-note { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.shelf-note b { font-weight: 500; }
+.kv { display: grid; }
+.kv .row { justify-content: space-between; min-height: 36px; padding: 8px 0; }
+.kv .row span:first-child { color: var(--muted); }
+.kv .row span:last-child { text-align: right; }
+.score-bars { display: grid; gap: 10px; }
+.score-bars .r { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; align-items: baseline; }
+.score-bars .t { grid-column: 1 / -1; height: 6px; border-radius: 999px; background: var(--raised); position: relative; overflow: hidden; }
+.score-bars .t i { position: absolute; inset: 0 auto 0 0; background: var(--text); border-radius: 999px; }
+.score-head { display: flex; align-items: baseline; gap: 6px; margin-bottom: 12px; }
+.score-head b { font-size: var(--fs-kpi); font-weight: 500; }
+.score-head span { color: var(--muted); }
+td.n, th.n { font-variant-numeric: tabular-nums; }
+tr.sel td { background: var(--active); }
+.chart-wrap { min-height: 180px; }
+.g6 > .pair { align-self: stretch; }
+.foot-act { display: none; }
+
+@media (max-width: 1100px) {
+  .topbar { grid-template-columns: 1fr minmax(0, 420px) 1fr; }
+  .s4, .s3, .s2.side { grid-column: span 6; }
+}
+@media (max-width: 860px) {
+  body { background: var(--surface); }
+  .main { grid-template-rows: 48px auto; }
+  .topbar { grid-template-columns: auto 1fr; padding: 0 8px 0 4px; background: var(--ground); position: sticky; top: 0; z-index: 10; }
+  .topbar .search { display: none; }
+  .phone-title { display: flex !important; align-items: center; gap: 8px; font-weight: 500; font-size: 15px; }
+  .phone-title svg { margin-right: 0 !important; }
+  .g6 > .tile:not(.lead) { grid-column: span 3 !important; }
+  .menu-toggle { display: inline-grid !important; place-items: center; }
+  .topbar { grid-template-columns: auto 1fr; }
+  .sheet { margin: 0; border: 0; border-radius: 0; padding: 16px; }
+  .objhead { flex-wrap: wrap; }
+  .objhead .acts .btn:not(.primary) { display: none; }
+  .objhead .acts { margin-left: 0; width: 100%; }
+  .objhead .acts .btn.primary { flex: 1; height: 44px; }
+  .tabs { overflow-x: auto; gap: 20px; }
+  .tabs a { white-space: nowrap; }
+  .g6 > * { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 640px) {
+  .tiers table { display: none; }
+  .tier-list { display: grid !important; }
+}
+.tier-list { display: none; }
+.tier-list .row { justify-content: space-between; }
+.tier-list .row b { font-weight: 500; }
+.tier-list .row small { display: block; color: var(--muted); font-size: 13px; }
+.phone-title { display: none; }
+.menu-toggle { width: 36px; height: 36px; border: 0; background: transparent; border-radius: 8px; cursor: pointer; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="ws-mark" viewBox="0 0 26 34"><path d="M4 1h18a3 3 0 0 1 3 3v26a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3z" fill="currentColor"/><circle cx="13" cy="7.5" r="2.6" fill="#eef0ea"/><rect x="6" y="15" width="14" height="2.4" fill="#eef0ea"/><rect x="6" y="20.5" width="9" height="2.4" fill="#eef0ea"/></symbol>
+</defs></svg>
+<div class="app">
+  <aside class="sidebar" id="nav" aria-label="Member menu">
+    <div class="brand"><svg aria-hidden="true"><use href="#ws-mark"/></svg>Wholesale System</div>
+    <button class="scope" type="button" aria-label="Switch business">Harbour Goods <span>Pty Ltd</span></button>
+    <a class="nav-item" href="#" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Browse</a>
+    <a class="nav-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/></svg>Samples</a>
+    <a class="nav-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Orders</a>
+    <a class="nav-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7"/></svg>Compare<span class="ncount">2</span></a>
+    <div class="side-foot">
+      <div class="credit"><b>1 free sample credit</b><span>Joined 29 Oct · A$45 a month from 29 Jan</span></div>
+      <a class="nav-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Account</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="menu-toggle" type="button" aria-label="Open menu" style="display:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <span class="phone-title"><svg width="16" height="21" aria-hidden="true" style="color:var(--accent);vertical-align:-4px;margin-right:8px"><use href="#ws-mark"/></svg>Wholesale System</span>
+      <label class="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="sr-only">Search</span><input type="search" placeholder="Search products, suppliers or sample IDs"></label>
+    </header>
+
+    <main class="sheet">
+      <nav class="crumb" aria-label="Breadcrumb"><a href="#">Phone accessories</a> / <a href="#">Supplier CN014</a></nav>
+
+      <div class="objhead">
+        <div class="cover" aria-hidden="true"><i></i></div>
+        <div>
+          <h1>Premium phone case</h1>
+          <div class="meta-line"><span class="id">PC-CN014-0087</span> · Supplier CN014, factory, Shenzhen · spec R2 signed 20 Mar 2026</div>
+        </div>
+        <div class="acts">
+          <button class="btn" type="button">Add to compare</button>
+          <button class="btn primary" type="button">Request free sample</button>
+        </div>
+      </div>
+      <p class="finding" id="finding"></p>
+
+      <div class="tabs" role="tablist" aria-label="Product">
+        <a href="#" role="tab" aria-selected="true">Overview</a>
+        <a href="#" role="tab" aria-selected="false">Factory film</a>
+        <a href="#" role="tab" aria-selected="false">Spec sheet</a>
+        <a href="#" role="tab" aria-selected="false">Compliance</a>
+      </div>
+
+      <div class="g6">
+        <div class="tile s2 lead"><div class="l">Landed in Australia, at 5,000</div><div class="v" id="k-landed"></div><div class="s">per unit, freight, duty and GST included</div></div>
+        <div class="tile s2"><div class="l">Minimum order</div><div class="v">500<small>units</small></div><div class="s">100 per carton</div></div>
+        <div class="tile s2"><div class="l">Lead time</div><div class="v">46<small>days</small></div><div class="s">25 to make, about 21 at sea</div></div>
+
+        <section class="panel s4 pair" aria-labelledby="chart-title">
+          <header><h2 id="chart-title">Landed cost per unit, by order size</h2><span class="meta">A$, estimate</span></header>
+          <div class="chart chart-wrap" id="chart"></div>
+        </section>
+
+        <section class="panel s2 side pair" aria-labelledby="shelf-title">
+          <header><h2 id="shelf-title">On our shelf</h2><span class="meta">Australia</span></header>
+          <div class="units" id="units" role="img"></div>
+          <div class="legend" id="legend"></div>
+          <div class="shelf-note"><b id="shelf-free"></b><span class="sub" style="color:var(--muted)">Uses your 1 free credit. Ships within 2 business days, then you have 14 days to decide.</span></div>
+        </section>
+
+        <section class="panel s4 tiers" aria-labelledby="tiers-title">
+          <header><h2 id="tiers-title">What an order costs</h2><span class="meta">US$1 = A$1.55</span></header>
+          <table>
+            <thead><tr><th>Order size</th><th class="n">Factory price</th><th class="n">Landed per unit</th><th class="n">Order total</th><th class="n">Deposit, 30%</th></tr></thead>
+            <tbody id="tiers"></tbody>
+          </table>
+          <div class="tier-list rows" id="tierlist"></div>
+        </section>
+
+        <section class="panel s2 side" aria-labelledby="score-title">
+          <header><h2 id="score-title">Factory verification</h2><span class="meta">Filmed 14 Mar 2026</span></header>
+          <div class="score-head"><b>88</b><span>of 100</span></div>
+          <div class="score-bars" id="score"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="charts.js"></script>
+<script>
+(() => {
+  const W = window.WS, P = 'PC-CN014-0087';
+  const esc = (v) => String(v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  const m2 = (v) => 'A$' + v.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const m0 = (v) => 'A$' + Math.round(v).toLocaleString('en-AU');
+  const at5k = W.landed.find((l) => l.qty === 5000), at500 = W.landed.find((l) => l.qty === 500);
+  const free = W.inStock(P);
+
+  document.getElementById('k-landed').textContent = m2(at5k.unit);
+  document.getElementById('finding').innerHTML = `<b>${m2(at5k.unit)} a unit landed at 5,000</b>, against ${m2(at500.unit)} at the minimum of 500. ${free} sample units are on our shelf in Australia.`;
+
+  // the landed-cost bars: the size you're looking at carries the hue
+  const labels = W.landed.map((l) => l.qty.toLocaleString('en-AU'));
+  Charts.bars(document.getElementById('chart'), { labels, values: W.landed.map((l) => l.unit), highlight: W.landed.indexOf(at5k), format: (v) => m2(v), tickFormat: (v) => '$' + v.toFixed(2), height: 180 });
+
+  // the shelf strip for this product
+  const kinds = { M: ['m', 'Master, stays'], in_stock: ['in_stock', 'Free to send'], queued: ['queued', 'Being packed'], with_member: ['with_member', 'With a member'] };
+  const units = W.shelf[P];
+  const el = document.getElementById('units');
+  el.innerHTML = units.map((s, i) => { const k = s === 'M' ? 'm' : s; const id = i === 0 ? 'M' : 'S' + String(i).padStart(2, '0'); /* taste-skill-ignore: a real unit ID */ return `<i class="u ${k}" title="${P}-${id}: ${s === 'M' ? 'master' : s.replace('_', ' ')}"></i>`; }).join('');
+  el.setAttribute('aria-label', `${units.length - 1} sample units and the master; ${free} free to send`);
+  document.getElementById('legend').innerHTML = Object.values(kinds).map(([c, l]) => `<span><i class="u ${c}" aria-hidden="true"></i>${l}</span>`).join('');
+  document.getElementById('shelf-free').textContent = `${free} free to send to you`;
+
+  // the cost of an order at each size, summed from its parts
+  const rows = W.landed.map((l) => {
+    const goods = Math.round(l.qty * l.fob * W.FX), fee = Math.round(goods * 0.05), total = goods + fee + 470, dep = Math.round(total * 0.3);
+    return { ...l, total, dep };
+  });
+  console.assert(rows.find((r) => r.qty === 5000).total === 8282, 'order total at 5,000 matches the landing page (A$8,282)');
+  document.getElementById('tiers').innerHTML = rows.map((r) => `<tr class="${r.qty === 5000 ? 'sel' : ''}"><td>${r.qty.toLocaleString('en-AU')} units</td><td class="n">US$${r.fob.toFixed(2)}</td><td class="n">${m2(r.unit)}</td><td class="n">${m0(r.total)}</td><td class="n">${m0(r.dep)}</td></tr>`).join('');
+  document.getElementById('tierlist').innerHTML = rows.map((r) => `<div class="row"><span><b>${r.qty.toLocaleString('en-AU')} units</b><small>US$${r.fob.toFixed(2)} · deposit ${m0(r.dep)}</small></span><span class="num" style="text-align:right;white-space:nowrap">${m2(r.unit)} a unit<small>${m0(r.total)} in all</small></span></div>`).join('');
+
+  const parts = [['Production capability', 19], ['Quality system', 17], ['Communication', 18], ['Compliance documents', 16], ['Export experience', 18]];
+  document.querySelector('.menu-toggle').addEventListener('click', () => document.getElementById('nav').classList.toggle('open'));
+  console.assert(parts.reduce((s, p) => s + p[1], 0) === 88, 'score parts make 88');
+  document.getElementById('score').innerHTML = parts.map(([n, v]) => `<div class="r"><span>${n}</span><span class="num">${v} / 20</span><span class="t"><i style="width:${v * 5}%"></i></span></div>`).join('');
+})();
+</script>
+</body>
+</html>
