@@ -1,5 +1,24 @@
 import { base44 } from "@/api/base44Client";
 import { toItems } from "@/services/paging";
+import {
+  getMySamples,
+  getSampleEligibility,
+  recordDecision,
+  requestSample,
+} from "@/lib/sample-fns";
+
+/** Every sample rule runs on the server; these only call it. */
+export const fetchEligibility = (productId, colour) =>
+  getSampleEligibility({ data: { product_id: productId, ...(colour ? { colour } : {}) } });
+
+export const submitSampleRequest = (productId, colour) =>
+  requestSample({ data: { product_id: productId, ...(colour ? { colour } : {}) } });
+
+export const submitDecision = (payload) => recordDecision({ data: payload });
+
+export const fetchMySamples = () => getMySamples();
+
+export const HUB_CITY = { BNE: "Brisbane", SYD: "Sydney" };
 
 /** Sample requests for the signed-in member. */
 export async function listMyRequests(email) {

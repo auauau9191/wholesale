@@ -123,6 +123,13 @@
       ],
       "default": "draft"
     },
+    "stock_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Set by the daily sample check: low stock, empty at BNE, empty at SYD"
+    },
     "is_demo": {
       "type": "boolean",
       "default": false
@@ -156,5 +163,6 @@
         "role": "admin"
       }
     }
-  }
+  },
+  "required": []
 }

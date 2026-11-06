@@ -26,6 +26,14 @@
     "note": {
       "type": "string"
     },
+    "credit_entry_id": {
+      "type": "string",
+      "description": "On a debit: the id of the credit entry it used"
+    },
+    "sample_request_no": {
+      "type": "string",
+      "description": "The sample request this entry belongs to, e.g. SR-0318"
+    },
     "is_demo": {
       "type": "boolean",
       "default": false
@@ -59,5 +67,6 @@
         "role": "admin"
       }
     }
-  }
+  },
+  "required": []
 }

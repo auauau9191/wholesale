@@ -1,0 +1,46 @@
+{
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 6 * * *",
+      "one_time_date": null,
+      "timezone": "Australia/Sydney",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "description": "Every morning: flags overdue sample decisions, low or empty shelves, and marks products with no samples left as sample unavailable.",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "daily_sample_checks",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "run_checks": {
+          "call": "invoke_server_route",
+          "with": {
+            "path": "/api/sample-checks",
+            "method": "POST",
+            "body": {}
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Check samples and shelves",
+            "description": "Overdue decisions, stock flags"
+          }
+        }
+      }
+    ]
+  },
+  "name": "Daily sample checks"
+}

@@ -86,6 +86,21 @@
       "type": "number",
       "default": 0.1
     },
+    "order_sample_credits": {
+      "type": "number",
+      "default": 2,
+      "description": "Free sample credits granted when a member places a bulk order"
+    },
+    "swap_credit_days": {
+      "type": "number",
+      "default": 30,
+      "description": "Days a swap credit stays valid after it is granted"
+    },
+    "sample_fee_credit_back_days": {
+      "type": "number",
+      "default": 90,
+      "description": "Days within which an order credits back a paid sample fee"
+    },
     "is_demo": {
       "type": "boolean",
       "default": false
@@ -108,5 +123,6 @@
         "role": "admin"
       }
     }
-  }
+  },
+  "required": []
 }

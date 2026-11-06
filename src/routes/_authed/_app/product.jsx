@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ChevronLeft } from "lucide-react";
 import ProductGallery from "@/components/member/ProductGallery";
@@ -17,7 +17,7 @@ import {
   getProduct,
   listSpecRevisions,
 } from "@/services/catalogService";
-import { listUnitsForProduct } from "@/services/sampleService";
+import { fetchEligibility, listUnitsForProduct, submitSampleRequest } from "@/services/sampleService";
 import { freeToSend } from "@/lib/shelf";
 import { useCompare } from "@/lib/compare";
 import { formatDate } from "@/lib/format";
@@ -32,6 +32,8 @@ function ProductPage() {
   const { id } = Route.useSearch();
   const { data: settings } = useAppSettings();
   const compare = useCompare();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", id],
@@ -65,6 +67,25 @@ function ProductPage() {
 
   const [quantity, setQuantity] = useState(null);
   const [colourName, setColourName] = useState(null);
+  const sampleColour =
+    product?.colours?.find((item) => item.name === colourName)?.name ?? product?.colours?.[0]?.name;
+
+  const { data: eligibility, isLoading: eligibilityLoading } = useQuery({
+    queryKey: ["sample-eligibility", id, sampleColour],
+    queryFn: () => fetchEligibility(id, sampleColour),
+    enabled: Boolean(id && product),
+  });
+
+  const request = useMutation({
+    mutationFn: () => submitSampleRequest(id, sampleColour),
+    onSuccess: (created) => {
+      queryClient.invalidateQueries({ queryKey: ["my-samples"] });
+      queryClient.invalidateQueries({ queryKey: ["product-units", id] });
+      queryClient.invalidateQueries({ queryKey: ["sample-eligibility"] });
+      toast(`Sample ${created.request_no} requested.`);
+      navigate({ to: "/samples" });
+    },
+  });
 
   if (isLoading) {
     return <DataBlock state="loading" />;
@@ -206,7 +227,11 @@ function ProductPage() {
 
       <SampleRequestBar
         freeUnits={freeUnits}
-        dispatchDays={settings?.dispatch_business_days}
+        eligibility={eligibility}
+        loading={eligibilityLoading}
+        pending={request.isPending}
+        error={request.error?.message ?? null}
+        onRequest={() => request.mutate()}
       />
     </div>
   );
