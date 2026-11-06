@@ -35,7 +35,20 @@
     }
   },
   "rls": {
-    "read": {},
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "membership_active": true
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
     "create": {
       "user_condition": {
         "role": "admin"
@@ -51,5 +64,6 @@
         "role": "admin"
       }
     }
-  }
+  },
+  "required": []
 }

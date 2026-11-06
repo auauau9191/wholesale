@@ -1,4 +1,6 @@
 {
+  "name": "User",
+  "type": "object",
   "properties": {
     "role": {
       "type": "string",
@@ -23,11 +25,21 @@
           }
         }
       }
+    },
+    "membership_active": {
+      "type": "boolean",
+      "description": "True while the member's plan is paid up. Written only by the server, never by the member",
+      "default": false,
+      "rls": {
+        "update": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
     }
   },
   "required": [
     "role"
-  ],
-  "name": "User",
-  "type": "object"
+  ]
 }
