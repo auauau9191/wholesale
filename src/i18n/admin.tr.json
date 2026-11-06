@@ -1,0 +1,333 @@
+{
+  "common": {
+    "language": "Dil",
+    "signOut": "Çıkış yap",
+    "admin": "Yönetici",
+    "hubStaff": "Merkez ekibi",
+    "teamConsole": "Ekip konsolu",
+    "australia": "Avustralya",
+    "all": "Tümü",
+    "nothing": "Yok",
+    "action": "İşlem",
+    "print": "Yazdır",
+    "close": "Kapat",
+    "exportCsv": "CSV indir",
+    "errorTitle": "Bu yüklenemedi.",
+    "errorNote": "Birazdan yeniden deneyin."
+  },
+  "nav": {
+    "overview": "Genel bakış",
+    "pipeline": "Tedarikçi hattı",
+    "suppliers": "Tedarikçiler",
+    "products": "Ürünler",
+    "hubs": "Merkezler",
+    "containers": "Konteynerler",
+    "inventory": "Numune envanteri",
+    "requests": "Numune talepleri",
+    "members": "Üyeler",
+    "orders": "Siparişler ve denetimler",
+    "payouts": "Tedarikçi ödemeleri",
+    "categories": "Kategoriler",
+    "settings": "Ayarlar"
+  },
+  "hub": {
+    "ALL": "Tüm merkezler",
+    "BNE": "Brisbane merkezi",
+    "SYD": "Sydney merkezi",
+    "short": {
+      "ALL": "tüm merkezler",
+      "BNE": "Brisbane",
+      "SYD": "Sydney"
+    }
+  },
+  "page": {
+    "overview": {
+      "title": "Genel bakış",
+      "note": "Bugün ilgilenilmesi gerekenler.",
+      "emptyTitle": "Henüz bildirilecek bir şey yok.",
+      "emptyNote": "Üyeler, tedarikçiler, numuneler ve siparişler geldikçe sayılar burada görünür."
+    },
+    "inventory": {
+      "title": "Numune envanteri",
+      "note": "Raftaki her birim: hiç çıkmayan ana numuneden üyelerde olanlara kadar.",
+      "emptyTitle": "Henüz numune birimi yok.",
+      "emptyNote": "Birimler konteynerle gelir, imzalı şartnameye göre kontrol edilir, sonra rafa çıkar."
+    },
+    "members": {
+      "title": "Üyeler",
+      "note": "Kimler katıldı, kim inceleme bekliyor ve kimin planı ilgi istiyor.",
+      "emptyTitle": "Henüz üye yok.",
+      "emptyNote": "Bir ABN incelemeye sunulduğu an üye burada görünür."
+    },
+    "categories": {
+      "title": "Kategoriler",
+      "note": "Üyelerin göz atabileceği kategoriler ve her birinin risk seviyesi.",
+      "emptyTitle": "Henüz kategori yok.",
+      "emptyNote": "Ürünlerin katılabilmesi için kategorinin bir kodu ve risk seviyesi olmalı."
+    },
+    "settings": {
+      "title": "Ayarlar",
+      "note": "Platformun çalıştığı her sayı: fiyatlar, kurlar, ücretler ve verdiğimiz sözler. Bunların hiçbiri başka yerde sabit kodlanmamıştır.",
+      "missingTitle": "Ayar kaydı bulunamadı.",
+      "missingNote": "Tüm sayılar tek bir ayar kaydında tutulur; düzenlenebilmesi için kaydın var olması gerekir."
+    },
+    "hubs": {
+      "title": "Merkezler",
+      "note": "Numune alan {count} merkez. İlk merkez üyenin eyaletine hizmet eder; yedek sırası bir sonrakinin hangisi olacağını belirler.",
+      "notePlain": "Her merkezi kim yönetiyor, hangi eyaletlere önce hizmet ediyor ve sıradaki merkez hangisi.",
+      "emptyTitle": "Henüz merkez kurulmadı.",
+      "emptyNote": "Brisbane ve Sydney için bir yönetici ve bir yedek sırası gerekir."
+    },
+    "containers": {
+      "title": "Konteynerler",
+      "note": "Denizde {atSea}, inmiş ve bekleyen {landed}. {hub}, en yakın varış önce.",
+      "notePlain": "Denizde olanlar, inenler ve gümrük müşavirini bekleyenler.",
+      "new": "Yeni konteyner",
+      "emptyTitle": "Rezerve konteyner yok.",
+      "emptyNote": "Numune konsolidasyonları ilk sipariş konteynerinden önce gelir.",
+      "units": "{count} birim",
+      "orders": "{count} sipariş",
+      "mark": "{status} olarak işaretle",
+      "add": "Birim veya sipariş ekle",
+      "booked": "{no} rezerve edildi.",
+      "added": "Konteynere eklendi.",
+      "unpacked": "Boşaltıldı. Birimleri merkezde kalite kontrolde.",
+      "moved": "Artık {status}."
+    },
+    "pipeline": {
+      "title": "Tedarikçi hattı",
+      "note": "{live} fabrika yayında, hattaki {blocked} fabrikanın hâlâ yerine getirmesi gereken koşulları var. Taşımak için kartı sürükleyin; Yayında koşullar önce kontrol edilir.",
+      "notePlain": "İlk elemeden ziyarete, çekime ve imzalı sözleşmeye kadar fabrikalar.",
+      "allCategories": "Tüm kategoriler",
+      "rejected": "Reddedilen {count}",
+      "emptyTitle": "Bu görünümde fabrika yok.",
+      "emptyNote": "Başka bir kategori seçin veya filtreyi temizleyin."
+    },
+    "suppliers": {
+      "title": "Tedarikçiler",
+      "note": "Dosyada {total} fabrika, {live} tanesi yayında. Kayıt; ziyareti, çekimi, kontrolleri ve ticari koşulları tutar.",
+      "notePlain": "Çalıştığımız tüm fabrikalar: yayında olanlar ve süreçtekiler.",
+      "all": "Tümü {count}",
+      "openPipeline": "Hattı aç",
+      "empty": "Bu aşamada tedarikçi yok.",
+      "headSupplier": "Tedarikçi",
+      "headPlace": "Yer",
+      "headStage": "Aşama",
+      "headScore": "Puan",
+      "headAgreement": "Sözleşme",
+      "headProducts": "Ürünler"
+    },
+    "products": {
+      "title": "Ürünler",
+      "note": "{total} ürün, {live} tanesi yayında. Bir ürün, şartnamesi imzalanıp rafında numune birimi olduğunda yayına girer.",
+      "notePlain": "Katalog, fiyat kademeleri ve her birinin arkasındaki imzalı şartname.",
+      "all": "Tümü {count}",
+      "empty": "Bu durumda ürün yok.",
+      "headProduct": "Ürün",
+      "headSupplier": "Tedarikçi",
+      "headStatus": "Durum",
+      "headMoq": "MOQ",
+      "headTiers": "Kademe",
+      "headRevision": "Revizyon",
+      "headShelf": "Rafta"
+    },
+    "orders": {
+      "title": "Siparişler ve denetimler",
+      "note": "{total} sipariş, {needs} tanesinde bizi bekleyen bir adım var. Her adım sırayla yapılır.",
+      "notePlain": "Üretimde, denetimde ve yolda olan siparişler.",
+      "all": "Tümü {count}",
+      "empty": "Bu durumda sipariş yok.",
+      "headOrder": "Sipariş",
+      "headMember": "Üye",
+      "headProduct": "Ürün",
+      "headUnits": "Birim",
+      "headTotal": "Toplam",
+      "headStatus": "Durum",
+      "headNext": "Sonraki adım"
+    },
+    "order": {
+      "back": "Siparişlere dön",
+      "missingTitle": "Bu sipariş burada değil.",
+      "missingNote": "Sipariş numarasını kontrol edin.",
+      "title": "Sipariş",
+      "product": "Ürün",
+      "supplier": "Tedarikçi",
+      "lockedUnit": "Kilitli birim",
+      "sampleRequest": "Numune talebi",
+      "specRevision": "Şartname revizyonu",
+      "colour": "Renk",
+      "route": "Teslim güzergâhı",
+      "container": "Konteyner",
+      "attempts": "Denetim denemesi",
+      "member": "Üye",
+      "inspectionReport": "Denetim raporu",
+      "nextTitle": "Sonraki adım",
+      "nextNote": "Yalnızca mevcut durumdan sonraki adım çalışır; her adım zaman çizelgesine eklenir.",
+      "units": "{count} birim",
+      "placed": "{date} tarihinde verildi",
+      "contact": "Tedarikçi iletişimi",
+      "updated": "Sipariş güncellendi.",
+      "cancelled": "İkinci başarısız denetim: sipariş iptal edildi, depozitonun iadesi için not eklendi."
+    },
+    "payouts": {
+      "title": "Tedarikçi ödemeleri",
+      "note": "Gönderilecek {count} ödeme, net {net}. Komisyonumuz bakiyeden kesilir; depozitodan kesilmez.",
+      "notePlain": "Depozitolar ve bakiyeler; komisyonumuz bakiyeden kesilir.",
+      "headPayout": "Ödeme",
+      "headSupplier": "Tedarikçi",
+      "headOrder": "Sipariş",
+      "headStage": "Aşama",
+      "headGross": "Brüt",
+      "headCommission": "Kesilen komisyon",
+      "headNet": "Net",
+      "headCurrency": "Para birimi",
+      "headStatus": "Durum",
+      "markSent": "Gönderildi işaretle",
+      "markConfirmed": "Onaylandı işaretle",
+      "empty": "Bu durumda ödeme yok.",
+      "statementTitle": "Komisyon dökümü",
+      "statementNote": "Tek tedarikçi, tek ay; her sipariş ve komisyonu satırlardan toplanır.",
+      "chooseSupplier": "Tedarikçi seçin",
+      "month": "Ay",
+      "openStatement": "Dökümü aç",
+      "sent": "Ödeme gönderildi olarak işaretlendi.",
+      "confirmed": "Ödeme onaylandı."
+    },
+    "queue": {
+      "title": "Numune talepleri",
+      "findingSend": "Bugün gönderilecek {count}",
+      "whereAll": "iki merkez genelinde",
+      "whereHub": "{hub} merkezinden",
+      "findingLateOne": "{count} tanesi {days} iş günlük vaadimizi aştı.",
+      "findingLateMany": "{count} tanesi {days} iş günlük vaadimizi aştı.",
+      "findingOk": "{days} iş günlük vaadimizi aşan yok.",
+      "updated": "Bugün {time} itibarıyla güncellendi",
+      "printLabels": "{count} sevkiyat etiketi yazdır",
+      "countOne": "{count} talep",
+      "countMany": "{count} talep",
+      "empty": {
+        "awaiting": "Gönderilecek bir şey yok. Yeni talepler üye sorduğu an buraya düşer.",
+        "on_hold": "Beklemede talep yok.",
+        "in_transit": "Yolda numune yok.",
+        "deciding": "Şu anda karar veren üye yok.",
+        "overdue": "Geciken karar yok."
+      },
+      "headRequest": "Talep",
+      "headMember": "Üye",
+      "headUnit": "Numune birimi",
+      "headRequested": "Talep tarihi",
+      "headDue": "Vade",
+      "headStatus": "Durum ve kontroller"
+    },
+    "labels": {
+      "title": "Sevkiyat etiketleri",
+      "countOne": "{count} etiket gönderilmeyi bekliyor.",
+      "countMany": "{count} etiket gönderilmeyi bekliyor.",
+      "loading": "Etiketler yükleniyor.",
+      "emptyTitle": "Yazdırılacak etiket yok.",
+      "emptyNote": "Bu merkezdeki tüm talepler yola çıktı."
+    },
+    "statement": {
+      "title": "Komisyon dökümü",
+      "supplier": "Tedarikçi",
+      "month": "Ay",
+      "chooseSupplier": "Tedarikçi seçin",
+      "chooseFirstTitle": "Tedarikçi ve ay seçin.",
+      "chooseFirstNote": "Döküm, her siparişin mal bedelini ve komisyonumuzu listeler.",
+      "payoutCurrency": "Ödeme para birimi",
+      "headOrder": "Sipariş",
+      "headPlaced": "Verildi",
+      "headGoods": "Mal bedeli",
+      "headRate": "Oran",
+      "headCommission": "Komisyon",
+      "countOne": "{count} sipariş",
+      "countMany": "{count} sipariş",
+      "empty": "Bu tedarikçi için {month} ayında sipariş yok.",
+      "footnote": "Komisyon bakiye ödemesinden kesilir. Tutarlar yukarıdaki siparişlerden toplanmıştır."
+    }
+  },
+  "request": {
+    "status": {
+      "to_pack": "Paketlenecek",
+      "on_hold": "Beklemede",
+      "packed": "Paketlendi",
+      "in_transit": "Yolda",
+      "deciding": "Karar veriliyor",
+      "overdue": "Karar gecikti"
+    },
+    "action": {
+      "confirm_payment": "Ödemeyi onayla",
+      "review": "İncele",
+      "mark_ready": "Hazır olarak işaretle",
+      "mark_dispatched": "Gönderildi olarak işaretle",
+      "mark_delivered": "Teslim edildi olarak işaretle",
+      "send_reminder": "Hatırlatma gönder"
+    },
+    "filter": {
+      "awaiting": { "label": "Gönderim bekliyor", "list": "Bugün gönderilecek" },
+      "on_hold": { "label": "Beklemede", "list": "Beklemede" },
+      "in_transit": { "label": "Yolda", "list": "Yolda" },
+      "deciding": { "label": "Karar bekleniyor", "list": "Karar bekleniyor" },
+      "overdue": { "label": "Kararı gecikenler", "list": "Kararı gecikenler" },
+      "low": { "label": "Numunesi azalan ürünler", "list": "Numunesi az" }
+    }
+  },
+  "order": {
+    "status": {
+      "quote_requested": "Teklif istendi",
+      "deposit_pending": "Depozito bekleniyor",
+      "in_production": "Üretimde",
+      "inspection_booked": "Denetim planlandı",
+      "inspection_passed": "Denetim geçti",
+      "inspection_failed": "Denetimde kaldı",
+      "balance_pending": "Bakiye bekleniyor",
+      "balance_received": "Bakiye alındı",
+      "deposit_received": "Depozito alındı",
+      "shipped": "Sevk edildi",
+      "delivered": "Teslim edildi",
+      "cancelled": "İptal edildi"
+    },
+    "action": {
+      "deposit_received": "Depozito alındı",
+      "book_inspection": "Denetim planla",
+      "inspection_passed": "Denetim geçti",
+      "inspection_failed": "Denetimde kaldı",
+      "balance_received": "Bakiye alındı",
+      "shipped": "Sevk edildi",
+      "delivered": "Teslim edildi"
+    }
+  },
+  "stage": {
+    "screened": "Ön inceleme",
+    "visited": "Ziyaret edildi",
+    "filmed": "Çekildi",
+    "signed": "Sözleşme imzalandı",
+    "samples_in": "Numuneler geldi",
+    "live": "Yayında",
+    "rejected": "Reddedildi"
+  },
+  "productStatus": {
+    "live": "Yayında",
+    "draft": "Taslak",
+    "sample_unavailable": "Numune yok",
+    "retired": "Arşivde"
+  },
+  "containerStatus": {
+    "booked": "Rezerve",
+    "at_sea": "Denizde",
+    "arrived": "Vardı",
+    "cleared": "Gümrükten geçti",
+    "unpacked": "Boşaltıldı"
+  },
+  "containerKind": {
+    "sample_consolidation": "Numune konsolidasyonu",
+    "order_lcl": "Sipariş, LCL",
+    "order_fcl": "Sipariş, FCL"
+  },
+  "payoutStatus": {
+    "all": "Tümü",
+    "scheduled": "Planlandı",
+    "sent": "Gönderildi",
+    "confirmed": "Onaylandı"
+  }
+}

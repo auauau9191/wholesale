@@ -1,0 +1,333 @@
+{
+  "common": {
+    "language": "Language",
+    "signOut": "Sign out",
+    "admin": "Admin",
+    "hubStaff": "Hub staff",
+    "teamConsole": "Team console",
+    "australia": "Australia",
+    "all": "All",
+    "nothing": "Nothing",
+    "action": "Action",
+    "print": "Print",
+    "close": "Close",
+    "exportCsv": "Export CSV",
+    "errorTitle": "Couldn't load this.",
+    "errorNote": "Try again in a moment."
+  },
+  "nav": {
+    "overview": "Overview",
+    "pipeline": "Supplier pipeline",
+    "suppliers": "Suppliers",
+    "products": "Products",
+    "hubs": "Hubs",
+    "containers": "Containers",
+    "inventory": "Sample inventory",
+    "requests": "Sample requests",
+    "members": "Members",
+    "orders": "Orders and inspections",
+    "payouts": "Supplier payouts",
+    "categories": "Categories",
+    "settings": "Settings"
+  },
+  "hub": {
+    "ALL": "All hubs",
+    "BNE": "Brisbane hub",
+    "SYD": "Sydney hub",
+    "short": {
+      "ALL": "all hubs",
+      "BNE": "Brisbane",
+      "SYD": "Sydney"
+    }
+  },
+  "page": {
+    "overview": {
+      "title": "Overview",
+      "note": "What needs attention today.",
+      "emptyTitle": "Nothing to report yet.",
+      "emptyNote": "Counts appear as members, suppliers, samples and orders arrive."
+    },
+    "inventory": {
+      "title": "Sample inventory",
+      "note": "Every unit on the shelf, from the master that never leaves to the ones out with members.",
+      "emptyTitle": "No sample units yet.",
+      "emptyNote": "Units arrive with a container, are checked against the signed spec, then go on the shelf."
+    },
+    "members": {
+      "title": "Members",
+      "note": "Who has joined, who is waiting for review and whose plan needs attention.",
+      "emptyTitle": "No members yet.",
+      "emptyNote": "A member appears the moment an ABN is submitted for review."
+    },
+    "categories": {
+      "title": "Categories",
+      "note": "What members can browse, and the risk tier behind each one.",
+      "emptyTitle": "No categories yet.",
+      "emptyNote": "A category needs a code and a risk tier before products can join it."
+    },
+    "settings": {
+      "title": "Settings",
+      "note": "Every number the platform runs on: prices, rates, fees and the promises we make. Nothing here is hard-coded elsewhere.",
+      "missingTitle": "The settings record is missing.",
+      "missingNote": "One settings record holds every number; it needs to exist before it can be edited."
+    },
+    "hubs": {
+      "title": "Hubs",
+      "note": "{count} hubs taking samples. The first hub serves a member's state, the fallback rank decides which one is tried next.",
+      "notePlain": "Who runs each hub, which states it serves first and which hub is tried next.",
+      "emptyTitle": "No hubs set up yet.",
+      "emptyNote": "Brisbane and Sydney each need a manager and a fallback order."
+    },
+    "containers": {
+      "title": "Containers",
+      "note": "{atSea} at sea, {landed} landed and waiting. {hub}, soonest ETA first.",
+      "notePlain": "What is at sea, what has landed and what is waiting on the broker.",
+      "new": "New container",
+      "emptyTitle": "No containers booked.",
+      "emptyNote": "Sample consolidations arrive before the first order container.",
+      "units": "{count} units",
+      "orders": "{count} orders",
+      "mark": "Mark {status}",
+      "add": "Add units or orders",
+      "booked": "{no} booked.",
+      "added": "Added to the container.",
+      "unpacked": "Unpacked. Its units are in QC at the hub.",
+      "moved": "Now {status}."
+    },
+    "pipeline": {
+      "title": "Supplier pipeline",
+      "note": "{live} factories are live and {blocked} in the pipeline still have conditions to meet. Drag a card to move it; Live checks the conditions first.",
+      "notePlain": "Factories from the first screen through the visit and the film to a signed agreement.",
+      "allCategories": "All categories",
+      "rejected": "Rejected {count}",
+      "emptyTitle": "No factories in this view.",
+      "emptyNote": "Pick another category, or clear the filter."
+    },
+    "suppliers": {
+      "title": "Suppliers",
+      "note": "{total} factories on file, {live} live. A record holds the visit, the film, the checks and the money terms.",
+      "notePlain": "Every factory we work with, live and in progress.",
+      "all": "All {count}",
+      "openPipeline": "Open the pipeline",
+      "empty": "No suppliers in this stage.",
+      "headSupplier": "Supplier",
+      "headPlace": "Place",
+      "headStage": "Stage",
+      "headScore": "Score",
+      "headAgreement": "Agreement",
+      "headProducts": "Products"
+    },
+    "products": {
+      "title": "Products",
+      "note": "{total} products, {live} live. A product goes live once its spec is signed and a sample unit is on a shelf.",
+      "notePlain": "The catalogue, its price tiers and the signed spec behind each one.",
+      "all": "All {count}",
+      "empty": "No products with that status.",
+      "headProduct": "Product",
+      "headSupplier": "Supplier",
+      "headStatus": "Status",
+      "headMoq": "MOQ",
+      "headTiers": "Tiers",
+      "headRevision": "Revision",
+      "headShelf": "On the shelf"
+    },
+    "orders": {
+      "title": "Orders and inspections",
+      "note": "{total} orders, {needs} with a step waiting on us. Each step is taken in order.",
+      "notePlain": "Orders in production, in inspection and on the water.",
+      "all": "All {count}",
+      "empty": "No orders with that status.",
+      "headOrder": "Order",
+      "headMember": "Member",
+      "headProduct": "Product",
+      "headUnits": "Units",
+      "headTotal": "Total",
+      "headStatus": "Status",
+      "headNext": "Next step"
+    },
+    "order": {
+      "back": "Back to orders",
+      "missingTitle": "That order isn't here.",
+      "missingNote": "Check the order number.",
+      "title": "Order",
+      "product": "Product",
+      "supplier": "Supplier",
+      "lockedUnit": "Locked unit",
+      "sampleRequest": "Sample request",
+      "specRevision": "Spec revision",
+      "colour": "Colour",
+      "route": "Delivery route",
+      "container": "Container",
+      "attempts": "Inspection attempts",
+      "member": "Member",
+      "inspectionReport": "Inspection report",
+      "nextTitle": "Next step",
+      "nextNote": "Only the step after the current status runs; each one is added to the timeline.",
+      "units": "{count} units",
+      "placed": "placed {date}",
+      "contact": "Supplier contact",
+      "updated": "Order updated.",
+      "cancelled": "Second failed inspection: order cancelled, note added to refund the deposit."
+    },
+    "payouts": {
+      "title": "Supplier payouts",
+      "note": "{count} payouts to send, {net} net. The balance carries our commission; the deposit does not.",
+      "notePlain": "Deposits and balances, with our commission withheld from the balance.",
+      "headPayout": "Payout",
+      "headSupplier": "Supplier",
+      "headOrder": "Order",
+      "headStage": "Stage",
+      "headGross": "Gross",
+      "headCommission": "Commission withheld",
+      "headNet": "Net",
+      "headCurrency": "Currency",
+      "headStatus": "Status",
+      "markSent": "Mark sent",
+      "markConfirmed": "Mark confirmed",
+      "empty": "No payouts with that status.",
+      "statementTitle": "Commission statement",
+      "statementNote": "One supplier, one month, every order and its commission, summed from the rows.",
+      "chooseSupplier": "Choose a supplier",
+      "month": "Month",
+      "openStatement": "Open statement",
+      "sent": "Payout marked sent.",
+      "confirmed": "Payout confirmed."
+    },
+    "queue": {
+      "title": "Sample requests",
+      "findingSend": "{count} to send today",
+      "whereAll": "across both hubs",
+      "whereHub": "from {hub}",
+      "findingLateOne": "{count} is past our {days}-business-day promise.",
+      "findingLateMany": "{count} are past our {days}-business-day promise.",
+      "findingOk": "none are past our {days}-business-day promise.",
+      "updated": "Updated {time} today",
+      "printLabels": "Print {count} dispatch labels",
+      "countOne": "{count} request",
+      "countMany": "{count} requests",
+      "empty": {
+        "awaiting": "Nothing to send. New requests land here the moment a member asks.",
+        "on_hold": "No requests are on hold.",
+        "in_transit": "No samples are on the road.",
+        "deciding": "No members are deciding right now.",
+        "overdue": "No decisions are overdue."
+      },
+      "headRequest": "Request",
+      "headMember": "Member",
+      "headUnit": "Sample unit",
+      "headRequested": "Requested",
+      "headDue": "Due",
+      "headStatus": "Status and checks"
+    },
+    "labels": {
+      "title": "Dispatch labels",
+      "countOne": "{count} label waiting to go out.",
+      "countMany": "{count} labels waiting to go out.",
+      "loading": "Loading labels.",
+      "emptyTitle": "No labels to print.",
+      "emptyNote": "Every request at this hub is out the door."
+    },
+    "statement": {
+      "title": "Commission statement",
+      "supplier": "Supplier",
+      "month": "Month",
+      "chooseSupplier": "Choose a supplier",
+      "chooseFirstTitle": "Choose a supplier and a month.",
+      "chooseFirstNote": "The statement lists each order's goods value and our commission.",
+      "payoutCurrency": "Payout currency",
+      "headOrder": "Order",
+      "headPlaced": "Placed",
+      "headGoods": "Goods",
+      "headRate": "Rate",
+      "headCommission": "Commission",
+      "countOne": "{count} order",
+      "countMany": "{count} orders",
+      "empty": "No orders for this supplier in {month}.",
+      "footnote": "Commission is withheld from the balance payout. Figures are summed from the orders listed above."
+    }
+  },
+  "request": {
+    "status": {
+      "to_pack": "To pack",
+      "on_hold": "On hold",
+      "packed": "Packed",
+      "in_transit": "In transit",
+      "deciding": "Deciding",
+      "overdue": "Decision overdue"
+    },
+    "action": {
+      "confirm_payment": "Confirm payment",
+      "review": "Review",
+      "mark_ready": "Mark ready",
+      "mark_dispatched": "Mark dispatched",
+      "mark_delivered": "Mark delivered",
+      "send_reminder": "Send reminder"
+    },
+    "filter": {
+      "awaiting": { "label": "Awaiting dispatch", "list": "To send today" },
+      "on_hold": { "label": "On hold", "list": "On hold" },
+      "in_transit": { "label": "In transit", "list": "In transit" },
+      "deciding": { "label": "Waiting on a decision", "list": "Waiting on a decision" },
+      "overdue": { "label": "Decisions overdue", "list": "Decisions overdue" },
+      "low": { "label": "Products low on samples", "list": "Low on samples" }
+    }
+  },
+  "order": {
+    "status": {
+      "quote_requested": "Quote requested",
+      "deposit_pending": "Deposit due",
+      "in_production": "In production",
+      "inspection_booked": "Inspection booked",
+      "inspection_passed": "Inspection passed",
+      "inspection_failed": "Inspection failed",
+      "balance_pending": "Balance due",
+      "balance_received": "Balance received",
+      "deposit_received": "Deposit received",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    },
+    "action": {
+      "deposit_received": "Deposit received",
+      "book_inspection": "Book inspection",
+      "inspection_passed": "Inspection passed",
+      "inspection_failed": "Inspection failed",
+      "balance_received": "Balance received",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
+    }
+  },
+  "stage": {
+    "screened": "Screened",
+    "visited": "Visited",
+    "filmed": "Filmed",
+    "signed": "Signed",
+    "samples_in": "Samples in",
+    "live": "Live",
+    "rejected": "Rejected"
+  },
+  "productStatus": {
+    "live": "Live",
+    "draft": "Draft",
+    "sample_unavailable": "Sample unavailable",
+    "retired": "Retired"
+  },
+  "containerStatus": {
+    "booked": "Booked",
+    "at_sea": "At sea",
+    "arrived": "Arrived",
+    "cleared": "Cleared",
+    "unpacked": "Unpacked"
+  },
+  "containerKind": {
+    "sample_consolidation": "Sample consolidation",
+    "order_lcl": "Order, LCL",
+    "order_fcl": "Order, FCL"
+  },
+  "payoutStatus": {
+    "all": "All",
+    "scheduled": "Scheduled",
+    "sent": "Sent",
+    "confirmed": "Confirmed"
+  }
+}
