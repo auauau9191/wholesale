@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import PlanList from "@/components/public/PlanList";
-import { getPublicSettings } from "@/lib/settings-fns";
+import PlanLoading from "@/components/public/PlanLoading";
+import useAppSettings from "@/hooks/useAppSettings";
 import { buildPlans } from "@/lib/plans";
 
 export const Route = createFileRoute("/_site/join")({
@@ -14,12 +15,11 @@ export const Route = createFileRoute("/_site/join")({
       },
     ],
   }),
-  loader: () => getPublicSettings(),
   component: JoinPage,
 });
 
 function JoinPage() {
-  const settings = Route.useLoaderData();
+  const { data: settings, isLoading } = useAppSettings();
   const plans = buildPlans(settings);
 
   return (
@@ -32,18 +32,24 @@ function JoinPage() {
         life.
       </p>
 
-      {plans.length ? (
-        <section className="mt-12">
-          <h2 className="text-section font-medium tracking-[-0.02em]">Choose a plan</h2>
-          <div className="mt-6">
-            <PlanList plans={plans} />
-          </div>
+      <section className="mt-12">
+        <h2 className="text-section font-medium tracking-[-0.02em]">Choose a plan</h2>
+        <div className="mt-6">
+          {isLoading ? <PlanLoading /> : null}
+          {!isLoading && plans.length ? <PlanList plans={plans} /> : null}
+          {!isLoading && !plans.length ? (
+            <p className="max-w-[560px] text-body text-ink-soft">
+              Plan prices are confirmed when you join.
+            </p>
+          ) : null}
+        </div>
+        {settings ? (
           <p className="mt-4 max-w-[620px] text-body text-ink-soft">
-            After the first 3 months the price becomes A$
-            {settings.monthly_price_aud} a month. We email you 7 days before any change.
+            After the first 3 months the price becomes A${settings.monthly_price_aud} a
+            month. We email you 7 days before any change.
           </p>
-        </section>
-      ) : null}
+        ) : null}
+      </section>
 
       <section className="mt-12">
         <h2 className="text-section font-medium tracking-[-0.02em]">Your ABN</h2>

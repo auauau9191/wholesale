@@ -2,10 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import LandingHero from "@/components/public/LandingHero";
 import PromiseList from "@/components/public/PromiseList";
 import PlanList from "@/components/public/PlanList";
+import PlanLoading from "@/components/public/PlanLoading";
 import ClosingCta from "@/components/public/ClosingCta";
 import RouteStrip from "@/components/brand/RouteStrip";
 import Reveal from "@/components/motion/Reveal";
-import { getPublicSettings } from "@/lib/settings-fns";
+import useAppSettings from "@/hooks/useAppSettings";
 import { buildPlans, commissionPercent } from "@/lib/plans";
 
 export const Route = createFileRoute("/_site/")({
@@ -19,12 +20,11 @@ export const Route = createFileRoute("/_site/")({
       },
     ],
   }),
-  loader: () => getPublicSettings(),
   component: LandingPage,
 });
 
 function LandingPage() {
-  const settings = Route.useLoaderData();
+  const { data: settings, isLoading } = useAppSettings();
   const plans = buildPlans(settings);
   const commission = commissionPercent(settings);
 
@@ -42,19 +42,23 @@ function LandingPage() {
         <PromiseList />
       </Reveal>
 
-      {plans.length ? (
-        <Reveal>
-          <section className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-10 md:py-20">
-            <h2 className="text-section font-medium tracking-[-0.02em]">Plans</h2>
-            <p className="mt-3 max-w-[560px] text-body text-ink-soft">
-              One membership for your whole business. No fee on orders, ever.
-            </p>
-            <div className="mt-8">
-              <PlanList plans={plans} />
-            </div>
-          </section>
-        </Reveal>
-      ) : null}
+      <Reveal>
+        <section className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-10 md:py-20">
+          <h2 className="text-section font-medium tracking-[-0.02em]">Plans</h2>
+          <p className="mt-3 max-w-[560px] text-body text-ink-soft">
+            One membership for your whole business. No fee on orders, ever.
+          </p>
+          <div className="mt-8">
+            {isLoading ? <PlanLoading /> : null}
+            {!isLoading && plans.length ? <PlanList plans={plans} /> : null}
+            {!isLoading && !plans.length ? (
+              <p className="max-w-[560px] text-body text-ink-soft">
+                Plan prices are confirmed when you join.
+              </p>
+            ) : null}
+          </div>
+        </section>
+      </Reveal>
 
       <Reveal>
         <section className="mx-auto w-full max-w-[1180px] px-5 pb-6 md:px-10">
