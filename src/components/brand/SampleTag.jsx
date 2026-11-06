@@ -3,7 +3,7 @@
  * short lines, in olive. Never letters in a square.
  */
 export default function SampleTag({ className = "", tone = "ink" }) {
-  const stroke = tone === "ink" ? "#38450f" : "#23290f";
+  const stroke = tone === "ground" ? "#ecebe7" : tone === "ink" ? "#38450f" : "#23290f";
   return (
     <svg
       viewBox="0 0 40 26"

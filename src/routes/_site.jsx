@@ -1,17 +1,14 @@
 import { Outlet, createFileRoute } from "@tanstack/react-router";
-import PublicHeader from "@/components/public/PublicHeader";
-import PublicFooter from "@/components/public/PublicFooter";
 
 export const Route = createFileRoute("/_site")({
   component: PublicLayout,
 });
 
+/** Public pages bring their own header and footer, so the landing can run full width. */
 function PublicLayout() {
   return (
     <div className="min-h-screen bg-ground text-ink">
-      <PublicHeader />
       <Outlet />
-      <PublicFooter />
     </div>
   );
 }

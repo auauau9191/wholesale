@@ -1,22 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import LandingHero from "@/components/public/LandingHero";
-import PromiseList from "@/components/public/PromiseList";
-import PlanList from "@/components/public/PlanList";
-import PlanLoading from "@/components/public/PlanLoading";
-import ClosingCta from "@/components/public/ClosingCta";
-import RouteStrip from "@/components/brand/RouteStrip";
+import { getLandingData } from "@/lib/landing-fns";
 import Reveal from "@/components/motion/Reveal";
-import useAppSettings from "@/hooks/useAppSettings";
-import { buildPlans, commissionPercent } from "@/lib/plans";
+import HeroSplit from "@/components/public/landing/HeroSplit";
+import Paperwork from "@/components/public/landing/Paperwork";
+import RouteSection from "@/components/public/landing/RouteSection";
+import Rules from "@/components/public/landing/Rules";
+import Shelves from "@/components/public/landing/Shelves";
+import Prices from "@/components/public/landing/Prices";
+import Questions from "@/components/public/landing/Questions";
+import SiteFooter from "@/components/public/landing/SiteFooter";
 
 export const Route = createFileRoute("/_site/")({
+  loader: () => getLandingData(),
   head: () => ({
     meta: [
-      { title: "Wholesale System — See it. Touch it. Then order it." },
+      { title: "Wholesale System — hold the sample, then order 5,000" },
       {
         name: "description",
         content:
-          "Chinese factories visited and filmed by our own team. Real samples sent from our hubs in Brisbane and Sydney before you order a single carton.",
+          "Chinese factories our team has visited and filmed. Their samples sit on a shelf in Australia, and every bulk order is locked to the sample you held.",
       },
     ],
   }),
@@ -24,60 +26,40 @@ export const Route = createFileRoute("/_site/")({
 });
 
 function LandingPage() {
-  const { data: settings, isLoading } = useAppSettings();
-  const plans = buildPlans(settings);
-  const commission = commissionPercent(settings);
+  const data = Route.useLoaderData();
+
+  if (!data?.settings || !data?.product) {
+    return (
+      <main className="px-5 py-24 text-ink md:px-10">
+        <h1 className="text-section font-medium">Wholesale System</h1>
+        <p className="mt-3 max-w-[560px] text-lead text-ink-soft">
+          The example catalogue and the settings this page reads are missing. Nothing here is
+          invented to fill the gap.
+        </p>
+      </main>
+    );
+  }
 
   return (
-    <main>
-      <LandingHero />
-
-      <section className="mx-auto w-full max-w-[1180px] px-5 md:px-10">
-        <Reveal>
-          <RouteStrip />
-        </Reveal>
-      </section>
-
+    <main className="text-ink">
+      <HeroSplit data={data} />
       <Reveal>
-        <PromiseList />
+        <Paperwork data={data} />
       </Reveal>
-
+      <RouteSection settings={data.settings} />
       <Reveal>
-        <section className="mx-auto w-full max-w-[1180px] px-5 py-14 md:px-10 md:py-20">
-          <h2 className="text-section font-medium tracking-[-0.02em]">Plans</h2>
-          <p className="mt-3 max-w-[560px] text-body text-ink-soft">
-            One membership for your whole business. No fee on orders, ever.
-          </p>
-          <div className="mt-8">
-            {isLoading ? <PlanLoading /> : null}
-            {!isLoading && plans.length ? <PlanList plans={plans} /> : null}
-            {!isLoading && !plans.length ? (
-              <p className="max-w-[560px] text-body text-ink-soft">
-                Plan prices are confirmed when you join.
-              </p>
-            ) : null}
-          </div>
-        </section>
+        <Rules settings={data.settings} />
       </Reveal>
-
       <Reveal>
-        <section className="mx-auto w-full max-w-[1180px] px-5 pb-6 md:px-10">
-          <div className="bg-paper p-6 md:p-8">
-            <h2 className="text-lead font-medium">How we earn</h2>
-            <p className="mt-3 max-w-[720px] text-body text-ink-soft">
-              You pay the plan and nothing on orders. Inspection, freight, duty and GST
-              are passed on at cost.{" "}
-              {commission === null
-                ? "Suppliers pay us a commission on the goods value and an annual listing fee."
-                : `Suppliers pay us ${commission}% of the goods value and an annual listing fee.`}
-            </p>
-          </div>
-        </section>
+        <Shelves shelves={data.shelves} />
       </Reveal>
-
       <Reveal>
-        <ClosingCta />
+        <Prices settings={data.settings} />
       </Reveal>
+      <Reveal>
+        <Questions settings={data.settings} />
+      </Reveal>
+      <SiteFooter data={data} />
     </main>
   );
 }

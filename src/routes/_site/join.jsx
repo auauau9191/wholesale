@@ -7,6 +7,8 @@ import PlanStep from "@/components/public/join/PlanStep";
 import BusinessStep from "@/components/public/join/BusinessStep";
 import ReviewStep from "@/components/public/join/ReviewStep";
 import PlanLoading from "@/components/public/PlanLoading";
+import PublicHeader from "@/components/public/PublicHeader";
+import PublicFooter from "@/components/public/PublicFooter";
 import DataBlock from "@/components/shell/DataBlock";
 import MembershipPending from "@/components/public/MembershipPending";
 import useAppSettings from "@/hooks/useAppSettings";
@@ -133,7 +135,9 @@ function JoinPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-[820px] px-5 pb-16 pt-4 md:px-10 md:pt-8">
+    <div>
+      <PublicHeader />
+      <main className="mx-auto w-full max-w-[820px] px-5 pb-16 pt-4 md:px-10 md:pt-8">
       <h1 className="max-w-[600px] text-section font-medium tracking-[-0.02em]">
         Join, then hold the product in your hands.
       </h1>
@@ -225,6 +229,8 @@ function JoinPage() {
           then you come straight back here.
         </p>
       ) : null}
-    </main>
+      </main>
+      <PublicFooter />
+    </div>
   );
 }
