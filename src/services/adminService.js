@@ -1,5 +1,11 @@
 import { base44 } from "@/api/base44Client";
 import { toItems } from "@/services/paging";
+import { actOnSampleRequest, getDispatchLabels, getSampleQueue } from "@/lib/console-fns";
+
+/** Console: the sample queue, its actions and its labels, scoped to a hub. */
+export const fetchSampleQueue = (hub) => getSampleQueue({ data: { hub } });
+export const actOnRequest = (payload) => actOnSampleRequest({ data: payload });
+export const fetchDispatchLabels = (hub) => getDispatchLabels({ data: { hub } });
 
 /** The AppSettings record: every configurable number lives here. */
 export async function getSettings() {

@@ -22,7 +22,8 @@ const NAV = [
 ];
 
 export default function ConsoleShell({ user }) {
-  const [hub, setHub] = useState("ALL");
+  // Admins start on All; hub staff start on their own hub.
+  const [hub, setHub] = useState(user?.role === "admin" ? "ALL" : user?.hub_code ?? "ALL");
   const { logout } = useAuth();
 
   const brand = (

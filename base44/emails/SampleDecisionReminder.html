@@ -1,0 +1,41 @@
+<mjml>
+  <mj-head>
+    <mj-title>Your sample {{request_no}} is waiting on your decision</mj-title>
+    <mj-preview>Approve, reject or ask for a change on {{product_name}}.</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Switzer, Helvetica, Arial, sans-serif" />
+      <mj-section background-color="#ffffff" padding="0 36px" />
+      <mj-text color="#23290f" font-size="15px" line-height="1.6" padding="0" />
+      <mj-button background-color="#23290f" color="#ffffff" border-radius="8px" font-weight="500" inner-padding="14px 28px" align="left" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="#eef0ea">
+    <mj-section background-color="#eef0ea" padding="28px 36px">
+      <mj-group>
+        <mj-column width="15%" vertical-align="middle">
+          <mj-image src="https://media.base44.com/images/public/6aedb3bea106b793e3eeb8ac/66fa2e867_logo.png" alt="" width="32px" padding="0" align="left" />
+        </mj-column>
+        <mj-column width="85%" vertical-align="middle">
+          <mj-text font-weight="500">Wholesale System</mj-text>
+        </mj-column>
+      </mj-group>
+    </mj-section>
+    <mj-section padding="40px 36px 8px">
+      <mj-column>
+        <mj-text font-size="26px" line-height="1.2" font-weight="500">Your sample is waiting on you</mj-text>
+        <mj-text color="#555b43" padding="10px 0 0">Hi {{business_name}}, your decision on {{product_name}} ({{request_no}}) was due {{due_date}}.</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section padding="20px 36px 40px">
+      <mj-column>
+        <mj-text>Approve it to place a bulk order locked to that unit, reject it with a reason to earn a swap, or ask for a change. Until you decide, your next sample stays on hold.</mj-text>
+        <mj-button href="{{samples_url}}" padding="24px 0 0">Decide on your sample</mj-button>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#eef0ea" padding="24px 36px">
+      <mj-column>
+        <mj-text color="#555b43" font-size="13px">Wholesale System. See it. Touch it. Then order it.</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
