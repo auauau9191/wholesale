@@ -21,6 +21,10 @@
     "approved_unit_id": {
       "type": "string"
     },
+    "sample_request_no": {
+      "type": "string",
+      "description": "The approved sample request this order is locked to"
+    },
     "colour": {
       "type": "string"
     },
@@ -109,6 +113,18 @@
         "delivered",
         "cancelled"
       ],
+      "enumColors": [
+        "gray",
+        "yellow",
+        "blue",
+        "blue",
+        "green",
+        "red",
+        "yellow",
+        "purple",
+        "green",
+        "gray"
+      ],
       "default": "quote_requested"
     },
     "inspection_attempts": {
@@ -172,5 +188,6 @@
         "role": "admin"
       }
     }
-  }
+  },
+  "required": []
 }

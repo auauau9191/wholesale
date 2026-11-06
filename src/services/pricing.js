@@ -56,6 +56,25 @@ export function landedCost(product, quantity, settings) {
   };
 }
 
+/**
+ * What the member pays for an order, whole dollars, summed from its lines:
+ * goods = round(qty × fob × fx); fee = round(goods × buyer fee rate);
+ * total = goods + fee + inspection; deposit = round(total × deposit rate).
+ * The server freezes exactly these numbers into the order.
+ */
+export function orderCost(product, quantity, settings) {
+  const qty = Math.round(Number(quantity) || 0);
+  const tier = tierForQuantity(product, qty);
+  const unitFob = Number(tier?.fob_usd) || 0;
+  const fx = Number(settings?.fx_usd_to_aud) || 0;
+  const goods = Math.round(qty * unitFob * fx);
+  const buyerFee = Math.round(goods * (Number(settings?.buyer_service_fee_rate) || 0));
+  const inspection = Number(settings?.inspection_fee_aud) || 0;
+  const total = goods + buyerFee + inspection;
+  const deposit = Math.round(total * (Number(settings?.deposit_rate) || 0));
+  return { quantity: qty, unitFob, fx, goods, buyerFee, inspection, total, deposit, balance: total - deposit };
+}
+
 /** The quantities worth offering as chips: the MOQ, 2,000 and 5,000. */
 export function quantityChips(product) {
   const moq = Number(product?.moq) || 0;

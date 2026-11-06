@@ -14,7 +14,7 @@ export default function DecisionDone({ sample }) {
           <p className="mt-2 text-body text-app-soft">
             Approved. Your bulk order will be locked to unit <span className="tabular">{unitShort}</span>.
           </p>
-          <Link to="/orders" className={ACTION}>Start bulk order</Link>
+          <Link to="/orders/new" search={{ request: sample.id }} className={ACTION}>Start bulk order</Link>
         </>
       ) : null}
       {sample.decision === "reject" ? (

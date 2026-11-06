@@ -1,5 +1,26 @@
 import { base44 } from "@/api/base44Client";
 import { toItems } from "@/services/paging";
+import {
+  createOrder,
+  getMyOrder,
+  getMyOrders,
+  getOrderBuilder,
+  grantOrderCredits,
+  quoteOrder,
+  schedulePayouts,
+} from "@/lib/order-fns";
+
+/** Every price, total and status runs on the server; these only call it. */
+export const fetchOrderBuilder = (requestId) => getOrderBuilder({ data: { request_id: requestId } });
+export const fetchQuote = (productId, quantity) => quoteOrder({ data: { product_id: productId, quantity } });
+export const placeOrder = (requestId, quantity) =>
+  createOrder({ data: { sample_request_id: requestId, quantity } });
+export const fetchMyOrders = () => getMyOrders();
+export const fetchMyOrder = (orderNo) => getMyOrder({ data: { order_no: orderNo } });
+
+/** Staff console actions. */
+export const scheduleSupplierPayout = (orderId, stage) => schedulePayouts({ data: { order_id: orderId, stage } });
+export const grantCreditsForOrder = (orderId) => grantOrderCredits({ data: { order_id: orderId } });
 
 /** Orders for the signed-in member. Field-level rules hide commission fields. */
 export async function listMyOrders(email) {

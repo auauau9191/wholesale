@@ -28,7 +28,7 @@ export default function DecisionCard({ sample, orderCredits }) {
     mutationFn: (payload) => submitDecision({ request_id: sample.id, ...payload }),
     onSuccess: (result, payload) => {
       queryClient.invalidateQueries({ queryKey: ["my-samples"] });
-      if (payload.decision === "approve") navigate({ to: "/orders" });
+      if (payload.decision === "approve") navigate({ to: "/orders/new", search: { request: sample.id } });
       if (payload.decision === "reject" && result.category_code) navigate({ to: "/category", search: { code: result.category_code } });
     },
   });
