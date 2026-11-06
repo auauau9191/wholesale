@@ -9,6 +9,11 @@
     "all": "Tümü",
     "nothing": "Yok",
     "action": "İşlem",
+    "saving": "Kaydediliyor",
+    "daysLate": "{count} gün gecikti",
+    "daysOverdue": "{count} gün vadesi geçti",
+    "due": "vade {date}",
+    "actionDone": "{action} tamamlandı.",
     "print": "Yazdır",
     "close": "Kapat",
     "exportCsv": "CSV indir",
@@ -167,7 +172,19 @@
       "placed": "{date} tarihinde verildi",
       "contact": "Tedarikçi iletişimi",
       "updated": "Sipariş güncellendi.",
-      "cancelled": "İkinci başarısız denetim: sipariş iptal edildi, depozitonun iadesi için not eklendi."
+      "cancelled": "İkinci başarısız denetim: sipariş iptal edildi, depozitonun iadesi için not eklendi.",
+      "actions": {
+        "none": "Sonraki adım yok. Bu sipariş kapandı.",
+        "shippedNote": "Konteyner numarası ve ürünlerin üyeye gittiği güzergâh.",
+        "failedNote": "Rapor bağlantısı siparişte saklanır. İkinci başarısız denetim siparişi iptal eder ve depozitoyu iade eder.",
+        "containerNo": "Konteyner numarası",
+        "route": "Teslim güzergâhı",
+        "report": "Rapor bağlantısı",
+        "failed": "Ne başarısız oldu",
+        "viaBNE": "Brisbane üzerinden",
+        "viaSYD": "Sydney üzerinden",
+        "direct": "Doğrudan üyeye"
+      }
     },
     "payouts": {
       "title": "Tedarikçi ödemeleri",
@@ -195,9 +212,8 @@
     },
     "queue": {
       "title": "Numune talepleri",
-      "findingSend": "Bugün gönderilecek {count}",
-      "whereAll": "iki merkez genelinde",
-      "whereHub": "{hub} merkezinden",
+      "findingSendAll": "Bugün iki merkez genelinde gönderilecek {count} talep",
+      "findingSendHub": "Bugün {hub} merkezinden gönderilecek {count} talep",
       "findingLateOne": "{count} tanesi {days} iş günlük vaadimizi aştı.",
       "findingLateMany": "{count} tanesi {days} iş günlük vaadimizi aştı.",
       "findingOk": "{days} iş günlük vaadimizi aşan yok.",
@@ -329,5 +345,9 @@
     "scheduled": "Planlandı",
     "sent": "Gönderildi",
     "confirmed": "Onaylandı"
+  },
+  "payoutStage": {
+    "deposit": "Depozito",
+    "balance": "Bakiye"
   }
 }

@@ -3,7 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import DispatchDialog from "@/components/console/DispatchDialog";
 import ReviewDialog from "@/components/console/ReviewDialog";
-import { ACTION_LABEL } from "@/lib/requestLabels";
+import { actionKey } from "@/lib/requestLabels";
+import { useAdminT } from "@/lib/adminI18n";
 import { actOnRequest } from "@/services/adminService";
 
 const BUTTON =
@@ -12,12 +13,13 @@ const BUTTON =
 /** The row's one next step. Dispatch and review ask first; the rest run straight away. */
 export default function RequestAction({ row }) {
   const queryClient = useQueryClient();
+  const { t } = useAdminT();
   const [open, setOpen] = useState(false);
   const act = useMutation({
     mutationFn: (extra) => actOnRequest({ request_id: row.id, action: row.action, ...extra }),
     onSuccess: () => {
       setOpen(false);
-      toast(`${row.request_no}: ${ACTION_LABEL[row.action].toLowerCase()} done.`);
+      toast(t("common.actionDone", { action: t(actionKey(row.action)) }));
       queryClient.invalidateQueries({ queryKey: ["sample-queue"] });
     },
     onError: (error) => {
@@ -32,7 +34,7 @@ export default function RequestAction({ row }) {
   return (
     <>
       <button type="button" disabled={act.isPending} onClick={() => (asks ? setOpen(true) : act.mutate({}))} className={BUTTON}>
-        {act.isPending && !asks ? "Saving" : ACTION_LABEL[row.action]}
+        {act.isPending && !asks ? t("common.saving") : t(actionKey(row.action))}
       </button>
       {asks ? (
         <Dialog

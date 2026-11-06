@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ConsolePage } from "@/components/shell/PageBlocks";
+import { useAdminT } from "@/lib/adminI18n";
 
 export const Route = createFileRoute("/_authed/admin/categories")({
   head: () => ({ meta: [{ title: "Categories · Wholesale System" }] }),
@@ -7,12 +8,14 @@ export const Route = createFileRoute("/_authed/admin/categories")({
 });
 
 function CategoriesPage() {
+  const { t } = useAdminT();
+
   return (
     <ConsolePage
-      title="Categories"
-      note="What members can browse, and the risk tier behind each one."
-      emptyTitle="No categories yet."
-      emptyNote="A category needs a code and a risk tier before products can join it."
+      title={t("page.categories.title")}
+      note={t("page.categories.note")}
+      emptyTitle={t("page.categories.emptyTitle")}
+      emptyNote={t("page.categories.emptyNote")}
     />
   );
 }

@@ -9,6 +9,9 @@ export const ORDER_NEXT = {
   shipped: ["delivered"],
 };
 
+/** The console translates this key; ORDER_ACTION_LABEL stays for the buyer app. */
+export const actionKey = (action) => `order.action.${action}`;
+
 export const ORDER_ACTION_LABEL = {
   deposit_received: "Deposit received",
   book_inspection: "Book inspection",

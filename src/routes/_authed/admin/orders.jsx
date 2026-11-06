@@ -4,9 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import DataBlock from "@/components/shell/DataBlock";
 import PageHead from "@/components/shell/PageHead";
 import { getAdminOrders } from "@/services/adminService";
-import { statusOf } from "@/lib/orderStatus";
-import { ORDER_ACTION_LABEL } from "@/lib/orderActionLabels";
+import { statusOf, statusKey } from "@/lib/orderStatus";
+import { actionKey } from "@/lib/orderActionLabels";
 import { formatAudWhole, formatQty } from "@/lib/format";
+import { useAdminT } from "@/lib/adminI18n";
 
 const HEAD = "px-3 py-2 text-left text-label font-normal text-app-meta first:pl-5 last:pr-5";
 const CELL = "px-3 py-3 align-top first:pl-5 last:pr-5";
@@ -17,6 +18,7 @@ export const Route = createFileRoute("/_authed/admin/orders")({
 });
 
 function OrdersPage() {
+  const { t } = useAdminT();
   const [status, setStatus] = useState("");
   const { data, isLoading, error } = useQuery({ queryKey: ["admin-orders"], queryFn: getAdminOrders });
   const rows = (data ?? []).filter((row) => !status || row.status === status);
@@ -26,11 +28,11 @@ function OrdersPage() {
   return (
     <div className="space-y-6">
       <PageHead
-        title="Orders and inspections"
+        title={t("page.orders.title")}
         note={
           data
-            ? `${data.length} orders, ${needs} with a step waiting on us. Each step is taken in order.`
-            : "Orders in production, in inspection and on the water."
+            ? t("page.orders.note", { total: data.length, needs })
+            : t("page.orders.notePlain")
         }
       />
       {isLoading ? <DataBlock state="loading" /> : null}
@@ -44,7 +46,7 @@ function OrdersPage() {
               aria-pressed={status === ""}
               className={["min-h-[36px] rounded-control border px-3 text-body", status === "" ? "border-data bg-pill-green text-pill-green-ink" : "border-control"].join(" ")}
             >
-              All {data.length}
+              {t("page.orders.all", { count: data.length })}
             </button>
             {statuses.map((value) => (
               <button
@@ -54,7 +56,7 @@ function OrdersPage() {
                 aria-pressed={status === value}
                 className={["min-h-[36px] rounded-control border px-3 text-body", status === value ? "border-data bg-pill-green text-pill-green-ink" : "border-control"].join(" ")}
               >
-                {statusOf(value).label} {data.filter((row) => row.status === value).length}
+                {t(statusKey(value))} {data.filter((row) => row.status === value).length}
               </button>
             ))}
           </div>
@@ -65,13 +67,13 @@ function OrdersPage() {
                 <table className="w-full min-w-[820px] text-body">
                   <thead>
                     <tr>
-                      <th className={HEAD}>Order</th>
-                      <th className={HEAD}>Member</th>
-                      <th className={HEAD}>Product</th>
-                      <th className={`${HEAD} text-right`}>Units</th>
-                      <th className={`${HEAD} text-right`}>Total</th>
-                      <th className={HEAD}>Status</th>
-                      <th className={HEAD}>Next step</th>
+                      <th className={HEAD}>{t("page.orders.headOrder")}</th>
+                      <th className={HEAD}>{t("page.orders.headMember")}</th>
+                      <th className={HEAD}>{t("page.orders.headProduct")}</th>
+                      <th className={`${HEAD} text-right`}>{t("page.orders.headUnits")}</th>
+                      <th className={`${HEAD} text-right`}>{t("page.orders.headTotal")}</th>
+                      <th className={HEAD}>{t("page.orders.headStatus")}</th>
+                      <th className={HEAD}>{t("page.orders.headNext")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -91,17 +93,19 @@ function OrdersPage() {
                         <td className={`${CELL} tabular text-right`}>{formatAudWhole(row.total_aud)}</td>
                         <td className={CELL}>
                           <span className={`inline-flex whitespace-nowrap rounded-full px-2 py-0.5 text-label ${statusOf(row.status).tone}`}>
-                            {statusOf(row.status).label}
+                            {t(statusKey(row.status))}
                           </span>
                         </td>
-                        <td className={CELL}>{row.next ? ORDER_ACTION_LABEL[row.next] : <span className="text-app-meta">Nothing</span>}</td>
+                        <td className={CELL}>
+                          {row.next ? t(actionKey(row.next)) : <span className="text-app-meta">{t("common.nothing")}</span>}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             ) : (
-              <p className="px-5 py-6 text-body text-app-meta">No orders with that status.</p>
+              <p className="px-5 py-6 text-body text-app-meta">{t("page.orders.empty")}</p>
             )}
           </section>
         </>

@@ -21,4 +21,7 @@ export const ORDER_STATUS = {
 
 export const statusOf = (status) => ORDER_STATUS[status] ?? { label: status ?? "Open", tone: GREY };
 
+/** The console translates this key; the buyer app keeps the English label above. */
+export const statusKey = (status) => `order.status.${status}`;
+
 export const unitShort = (unitId) => String(unitId ?? "").split("-").pop();

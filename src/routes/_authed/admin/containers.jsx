@@ -4,26 +4,15 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import DataBlock from "@/components/shell/DataBlock";
 import PageHead from "@/components/shell/PageHead";
-import { useHubScope, HUB_LABEL } from "@/components/shell/HubScope";
+import { useHubScope } from "@/components/shell/HubScope";
 import { secondaryButton } from "@/components/console/FormBits";
 import CreateContainerDialog from "@/components/console/containers/CreateContainerDialog";
 import AddToContainerDialog from "@/components/console/containers/AddToContainerDialog";
 import { addToContainer, createContainer, getContainers, stepContainer } from "@/services/adminService";
 import { formatDate } from "@/lib/format";
+import { useAdminT } from "@/lib/adminI18n";
 
-const ORDER = [
-  ["booked", "Booked"],
-  ["at_sea", "At sea"],
-  ["arrived", "Arrived"],
-  ["cleared", "Cleared"],
-  ["unpacked", "Unpacked"],
-];
-
-const KINDS = {
-  sample_consolidation: "Sample consolidation",
-  order_lcl: "Order, LCL",
-  order_fcl: "Order, FCL",
-};
+const STEPS = ["booked", "at_sea", "arrived", "cleared", "unpacked"];
 
 export const Route = createFileRoute("/_authed/admin/containers")({
   head: () => ({ meta: [{ title: "Containers · Wholesale System" }] }),
@@ -31,6 +20,7 @@ export const Route = createFileRoute("/_authed/admin/containers")({
 });
 
 function ContainersPage() {
+  const { t } = useAdminT();
   const { hub } = useHubScope();
   const queryClient = useQueryClient();
   const [creating, setCreating] = useState(false);
@@ -47,7 +37,7 @@ function ContainersPage() {
     onSuccess: (container) => {
       setCreating(false);
       refresh();
-      toast(`${container.container_no} booked.`);
+      toast(t("page.containers.booked", { no: container.container_no }));
     },
   });
 
@@ -56,7 +46,7 @@ function ContainersPage() {
     onSuccess: () => {
       setAdding(null);
       refresh();
-      toast("Added to the container.");
+      toast(t("page.containers.added"));
     },
   });
 
@@ -64,26 +54,31 @@ function ContainersPage() {
     mutationFn: (row) => stepContainer({ container_id: row.id }),
     onSuccess: (row) => {
       refresh();
-      toast(row.status === "unpacked" ? "Unpacked. Its units are in QC at the hub." : `Now ${row.status}.`);
+      toast(
+        row.status === "unpacked"
+          ? t("page.containers.unpacked")
+          : t("page.containers.moved", { status: t(`containerStatus.${row.status}`) }),
+      );
     },
     onError: (error) => toast(error.message),
   });
 
   const rows = data ?? [];
   const atSea = rows.filter((row) => row.status === "at_sea").length;
+  const landed = rows.filter((row) => row.status === "arrived" || row.status === "cleared").length;
 
   return (
     <div className="space-y-6">
       <PageHead
-        title="Containers"
+        title={t("page.containers.title")}
         note={
           data
-            ? `${atSea} at sea, ${rows.filter((row) => row.status === "arrived" || row.status === "cleared").length} landed and waiting. ${HUB_LABEL[hub]}, soonest ETA first.`
-            : "What is at sea, what has landed and what is waiting on the broker."
+            ? t("page.containers.note", { atSea, landed, hub: t(`hub.${hub}`) })
+            : t("page.containers.notePlain")
         }
         action={
           <button type="button" onClick={() => setCreating(true)} className={secondaryButton}>
-            New container
+            {t("page.containers.new")}
           </button>
         }
       />
@@ -92,17 +87,17 @@ function ContainersPage() {
       {error ? <DataBlock state="error" note={error.message} /> : null}
 
       {data && !rows.length ? (
-        <DataBlock title="No containers booked." note="Sample consolidations arrive before the first order container." />
+        <DataBlock title={t("page.containers.emptyTitle")} note={t("page.containers.emptyNote")} />
       ) : null}
 
       {data
-        ? ORDER.map(([status, label]) => {
+        ? STEPS.map((status) => {
             const list = rows.filter((row) => row.status === status);
             if (!list.length) return null;
             return (
               <section key={status} className="space-y-2">
                 <h2 className="text-body font-medium">
-                  {label} <span className="tabular text-app-meta">{list.length}</span>
+                  {t(`containerStatus.${status}`)} <span className="tabular text-app-meta">{list.length}</span>
                 </h2>
                 <ul className="space-y-2">
                   {list.map((row) => (
@@ -111,8 +106,11 @@ function ContainersPage() {
                         <div className="min-w-0">
                           <p className="tabular text-body font-medium">{row.container_no}</p>
                           <p className="text-label text-app-meta">
-                            {KINDS[row.kind] ?? row.kind} · {row.origin_port} → {row.destination_hub} ·{" "}
-                            {row.units.filter((unit) => !unit.is_master).length} units · {(row.order_nos ?? []).length} orders
+                            {t(`containerKind.${row.kind}`)} · {row.origin_port} → {row.destination_hub} ·{" "}
+                            {t("page.containers.units", {
+                              count: row.units.filter((unit) => !unit.is_master).length,
+                            })}{" "}
+                            · {t("page.containers.orders", { count: (row.order_nos ?? []).length })}
                           </p>
                         </div>
                         <p className="tabular text-body">
@@ -133,11 +131,11 @@ function ContainersPage() {
                             disabled={step.isPending}
                             className={secondaryButton}
                           >
-                            Mark {ORDER.find(([value]) => value === row.next_step)?.[1]?.toLowerCase() ?? row.next_step}
+                            {t("page.containers.mark", { status: t(`containerStatus.${row.next_step}`) })}
                           </button>
                         ) : null}
                         <button type="button" onClick={() => setAdding(row)} className={secondaryButton}>
-                          Add units or orders
+                          {t("page.containers.add")}
                         </button>
                       </div>
                     </li>

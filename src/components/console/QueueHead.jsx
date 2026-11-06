@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { downloadCsv } from "@/lib/csv";
 import { paidWithLabel, statusChip } from "@/lib/requestLabels";
-
-const CITY = { BNE: "Brisbane", SYD: "Sydney" };
+import { useAdminT } from "@/lib/adminI18n";
 
 function exportRows(rows, hub) {
   downloadCsv(
@@ -17,21 +16,30 @@ function exportRows(rows, hub) {
 
 /** h1, today's finding for the chosen hub, and the two page actions. */
 export default function QueueHead({ queue, hub, rows, updatedAt }) {
+  const { t } = useAdminT();
   const { awaiting, late } = queue?.counts ?? {};
-  const where = hub === "ALL" ? " across both hubs" : ` from ${CITY[hub]}`;
   const time = updatedAt ? new Date(updatedAt).toLocaleTimeString("en-AU", { hour: "2-digit", minute: "2-digit", hour12: false }) : null;
 
   return (
     <div className="flex flex-wrap items-start justify-between gap-4">
       <div className="min-w-0">
-        <h1 className="text-title font-medium tracking-[-0.01em]">Sample requests</h1>
+        <h1 className="text-title font-medium tracking-[-0.01em]">{t("page.queue.title")}</h1>
         {queue ? (
           <p className="tabular mt-2 max-w-[660px] text-body text-app-meta">
-            {awaiting} to send today{where};{" "}
+            {t(hub === "ALL" ? "page.queue.findingSendAll" : "page.queue.findingSendHub", {
+              count: awaiting,
+              hub: t(`hub.short.${hub}`),
+            })}
+            ;{" "}
             {late ? (
-              <span className="text-alert">{late} {late === 1 ? "is" : "are"} past our {queue.promise_days}-business-day promise.</span>
+              <span className="text-alert">
+                {t(late === 1 ? "page.queue.findingLateOne" : "page.queue.findingLateMany", {
+                  count: late,
+                  days: queue.promise_days,
+                })}
+              </span>
             ) : (
-              <>none are past our {queue.promise_days}-business-day promise.</>
+              <>{t("page.queue.findingOk", { days: queue.promise_days })}</>
             )}
           </p>
         ) : (
@@ -39,14 +47,16 @@ export default function QueueHead({ queue, hub, rows, updatedAt }) {
         )}
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        {time ? <span className="tabular text-label text-app-meta">Updated {time} today</span> : null}
+        {time ? (
+          <span className="tabular text-label text-app-meta">{t("page.queue.updated", { time })}</span>
+        ) : null}
         <button
           type="button"
           disabled={!rows.length}
           onClick={() => exportRows(rows, hub)}
           className="min-h-[36px] rounded-control border border-control bg-sheet px-3 text-body transition-transform duration-150 hover:border-app-ink active:scale-[0.97] disabled:opacity-40"
         >
-          Export CSV
+          {t("common.exportCsv")}
         </button>
         <Link
           to="/admin/dispatch-labels"
@@ -54,7 +64,7 @@ export default function QueueHead({ queue, hub, rows, updatedAt }) {
           target="_blank"
           className="tabular inline-flex min-h-[36px] items-center rounded-control bg-app-ink px-3 text-body font-medium text-sheet transition-transform duration-150 active:scale-[0.97]"
         >
-          Print {awaiting ?? ""} dispatch labels
+          {t("page.queue.printLabels", { count: awaiting ?? "" })}
         </Link>
       </div>
     </div>

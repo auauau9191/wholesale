@@ -1,11 +1,15 @@
 import { HUB_OPTIONS, useHubScope } from "@/components/shell/HubScope";
+import { useAdminT } from "@/lib/adminI18n";
+
+const labelOf = (t, value) => (value === "ALL" ? t("common.all") : t(`hub.short.${value}`));
 
 /** All, Brisbane, Sydney: the console's scope for every hub page. */
 export default function HubSwitcher() {
   const { hub, setHub } = useHubScope();
+  const { t } = useAdminT();
 
   return (
-    <div className="flex items-center gap-0.5 rounded-control bg-frame p-0.5" role="group" aria-label="Hub scope">
+    <div className="flex items-center gap-0.5 rounded-control bg-frame p-0.5" role="group" aria-label={t("nav.hubs")}>
       {HUB_OPTIONS.map((option) => {
         const active = hub === option.value;
         return (
@@ -21,7 +25,7 @@ export default function HubSwitcher() {
                 : "text-app-meta hover:text-app-ink",
             ].join(" ")}
           >
-            {option.label}
+            {labelOf(t, option.value)}
           </button>
         );
       })}

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ConsolePage } from "@/components/shell/PageBlocks";
+import { useAdminT } from "@/lib/adminI18n";
 
 export const Route = createFileRoute("/_authed/admin/")({
   head: () => ({ meta: [{ title: "Overview · Wholesale System" }] }),
@@ -7,13 +8,15 @@ export const Route = createFileRoute("/_authed/admin/")({
 });
 
 function OverviewPage() {
+  const { t } = useAdminT();
+
   return (
     <ConsolePage
-      title="Overview"
-      note="What needs attention today."
+      title={t("page.overview.title")}
+      note={t("page.overview.note")}
       scoped
-      emptyTitle="Nothing to report yet."
-      emptyNote="Counts appear as members, suppliers, samples and orders arrive."
+      emptyTitle={t("page.overview.emptyTitle")}
+      emptyNote={t("page.overview.emptyNote")}
     />
   );
 }

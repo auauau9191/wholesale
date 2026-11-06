@@ -9,6 +9,11 @@
     "all": "All",
     "nothing": "Nothing",
     "action": "Action",
+    "saving": "Saving",
+    "daysLate": "{count} days late",
+    "daysOverdue": "{count} days overdue",
+    "due": "due {date}",
+    "actionDone": "{action} done.",
     "print": "Print",
     "close": "Close",
     "exportCsv": "Export CSV",
@@ -167,7 +172,19 @@
       "placed": "placed {date}",
       "contact": "Supplier contact",
       "updated": "Order updated.",
-      "cancelled": "Second failed inspection: order cancelled, note added to refund the deposit."
+      "cancelled": "Second failed inspection: order cancelled, note added to refund the deposit.",
+      "actions": {
+        "none": "No next step. This order is closed.",
+        "shippedNote": "The container number and the route the goods take to the member.",
+        "failedNote": "The report link is kept on the order. A second failed inspection cancels it and refunds the deposit.",
+        "containerNo": "Container number",
+        "route": "Delivery route",
+        "report": "Report link",
+        "failed": "What failed",
+        "viaBNE": "Via Brisbane",
+        "viaSYD": "Via Sydney",
+        "direct": "Direct to the member"
+      }
     },
     "payouts": {
       "title": "Supplier payouts",
@@ -195,9 +212,8 @@
     },
     "queue": {
       "title": "Sample requests",
-      "findingSend": "{count} to send today",
-      "whereAll": "across both hubs",
-      "whereHub": "from {hub}",
+      "findingSendAll": "{count} to send today across both hubs",
+      "findingSendHub": "{count} to send today from {hub}",
       "findingLateOne": "{count} is past our {days}-business-day promise.",
       "findingLateMany": "{count} are past our {days}-business-day promise.",
       "findingOk": "none are past our {days}-business-day promise.",
@@ -329,5 +345,8 @@
     "scheduled": "Scheduled",
     "sent": "Sent",
     "confirmed": "Confirmed"
-  }
-}
+  },
+  "payoutStage": {
+    "deposit": "Deposit",
+    "balance": "Balance"
+  }}

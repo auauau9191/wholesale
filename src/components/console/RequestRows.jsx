@@ -1,9 +1,11 @@
 import RequestAction from "@/components/console/RequestAction";
 import { formatDate } from "@/lib/format";
-import { dueText, statusChip } from "@/lib/requestLabels";
+import { dueText, statusChip, statusKey } from "@/lib/requestLabels";
+import { useAdminT } from "@/lib/adminI18n";
 
 /** Phone: two-line rows. Member on top; unit ID and due date under it. */
 export default function RequestRows({ rows }) {
+  const { t } = useAdminT();
   return (
     <ul>
       {rows.map((row) => {
@@ -20,11 +22,15 @@ export default function RequestRows({ rows }) {
                 {row.unit_id}
                 {" · "}
                 {late ? (
-                  <span className="text-alert">{row.days_late ? `${row.days_late} day${row.days_late === 1 ? "" : "s"} late` : "decision overdue"}</span>
+                  <span className="text-alert">
+                    {row.days_late
+                      ? t("common.daysLate", { count: row.days_late })
+                      : t("request.status.overdue")}
+                  </span>
                 ) : date ? (
-                  `due ${formatDate(date)}`
+                  t("common.due", { date: formatDate(date) })
                 ) : (
-                  statusChip(row).label
+                  t(statusKey(row)) || statusChip(row).label
                 )}
               </p>
             </div>

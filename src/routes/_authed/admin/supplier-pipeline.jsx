@@ -7,7 +7,8 @@ import PageHead from "@/components/shell/PageHead";
 import PipelineBoard from "@/components/console/pipeline/PipelineBoard";
 import StageGaps from "@/components/console/pipeline/StageGaps";
 import { getSupplierBoard, moveSupplierStage } from "@/services/adminService";
-import { STAGE_LABEL } from "@/lib/supplier-rules";
+import { STAGE_LABEL, stageKey } from "@/lib/supplier-rules";
+import { useAdminT } from "@/lib/adminI18n";
 
 export const Route = createFileRoute("/_authed/admin/supplier-pipeline")({
   head: () => ({ meta: [{ title: "Supplier pipeline · Wholesale System" }] }),
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/_authed/admin/supplier-pipeline")({
 });
 
 function PipelinePage() {
+  const { t } = useAdminT();
   const queryClient = useQueryClient();
   const [category, setCategory] = useState("");
   const [showRejected, setShowRejected] = useState(false);
@@ -39,11 +41,11 @@ function PipelinePage() {
   return (
     <div className="space-y-6">
       <PageHead
-        title="Supplier pipeline"
+        title={t("page.pipeline.title")}
         note={
           board.data
-            ? `${live} factories are live and ${blockedCount} in the pipeline still have conditions to meet. Drag a card to move it; Live checks the conditions first.`
-            : "Factories from the first screen through the visit and the film to a signed agreement."
+            ? t("page.pipeline.note", { live, blocked: blockedCount })
+            : t("page.pipeline.notePlain")
         }
       />
 
@@ -62,7 +64,7 @@ function PipelinePage() {
                 category === "" ? "border-data bg-pill-green text-pill-green-ink" : "border-control",
               ].join(" ")}
             >
-              All categories
+              {t("page.pipeline.allCategories")}
             </button>
             {board.data.categories.map((item) => (
               <button
@@ -87,7 +89,7 @@ function PipelinePage() {
                 showRejected ? "border-data bg-pill-green text-pill-green-ink" : "border-control",
               ].join(" ")}
             >
-              Rejected {rejected}
+              {t("page.pipeline.rejected", { count: rejected })}
             </button>
           </div>
 
@@ -97,11 +99,11 @@ function PipelinePage() {
               showRejected={showRejected}
               onMove={(id, stage) => {
                 const row = rows.find((item) => item.id === id);
-                move.mutate({ id, stage, headline: row?.headline, label: STAGE_LABEL[stage] ?? stage });
+                move.mutate({ id, stage, headline: row?.headline, label: t(stageKey(stage)) });
               }}
             />
           ) : (
-            <DataBlock title="No factories in this view." note="Pick another category, or clear the filter." />
+            <DataBlock title={t("page.pipeline.emptyTitle")} note={t("page.pipeline.emptyNote")} />
           )}
         </>
       ) : null}

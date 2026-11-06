@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ConsolePage } from "@/components/shell/PageBlocks";
+import { useAdminT } from "@/lib/adminI18n";
 
 export const Route = createFileRoute("/_authed/admin/members")({
   head: () => ({ meta: [{ title: "Members · Wholesale System" }] }),
@@ -7,13 +8,15 @@ export const Route = createFileRoute("/_authed/admin/members")({
 });
 
 function MembersPage() {
+  const { t } = useAdminT();
+
   return (
     <ConsolePage
-      title="Members"
-      note="Who has joined, who is waiting for review and whose plan needs attention."
+      title={t("page.members.title")}
+      note={t("page.members.note")}
       scoped
-      emptyTitle="No members yet."
-      emptyNote="A member appears the moment an ABN is submitted for review."
+      emptyTitle={t("page.members.emptyTitle")}
+      emptyNote={t("page.members.emptyNote")}
     />
   );
 }

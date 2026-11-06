@@ -12,6 +12,20 @@ const GREEN = "bg-pill-green text-pill-green-ink";
 const AMBER = "bg-pill-amber text-pill-amber-ink";
 const GREY = "bg-pill-grey text-pill-grey-ink";
 
+/** The console translates these keys for a request's status chip and action. */
+export const statusKey = (row) =>
+  row.bucket === "overdue"
+    ? "request.status.overdue"
+    : {
+        requested: "request.status.to_pack",
+        on_hold: "request.status.on_hold",
+        ready_to_dispatch: "request.status.packed",
+        dispatched: "request.status.in_transit",
+        delivered: "request.status.deciding",
+      }[row.status] ?? null;
+
+export const actionKey = (action) => `request.action.${action}`;
+
 export function statusChip(row) {
   if (row.bucket === "overdue") return { label: "Decision overdue", tone: AMBER };
   return (

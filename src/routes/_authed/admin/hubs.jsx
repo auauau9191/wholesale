@@ -4,6 +4,7 @@ import DataBlock from "@/components/shell/DataBlock";
 import PageHead from "@/components/shell/PageHead";
 import HubCard from "@/components/console/HubCard";
 import { getHubs } from "@/services/adminService";
+import { useAdminT } from "@/lib/adminI18n";
 
 export const Route = createFileRoute("/_authed/admin/hubs")({
   head: () => ({ meta: [{ title: "Hubs · Wholesale System" }] }),
@@ -11,16 +12,17 @@ export const Route = createFileRoute("/_authed/admin/hubs")({
 });
 
 function HubsPage() {
+  const { t } = useAdminT();
   const { data, isLoading, error } = useQuery({ queryKey: ["hubs"], queryFn: getHubs });
 
   return (
     <div className="space-y-6">
       <PageHead
-        title="Hubs"
+        title={t("page.hubs.title")}
         note={
           data
-            ? `${data.rows.filter((hub) => hub.is_active).length} hubs taking samples. The first hub serves a member's state, the fallback rank decides which one is tried next.`
-            : "Who runs each hub, which states it serves first and which hub is tried next."
+            ? t("page.hubs.note", { count: data.rows.filter((hub) => hub.is_active).length })
+            : t("page.hubs.notePlain")
         }
       />
       {isLoading ? <DataBlock state="loading" /> : null}
@@ -33,7 +35,7 @@ function HubsPage() {
             ))}
           </div>
         ) : (
-          <DataBlock title="No hubs set up yet." note="Brisbane and Sydney each need a manager and a fallback order." />
+          <DataBlock title={t("page.hubs.emptyTitle")} note={t("page.hubs.emptyNote")} />
         )
       ) : null}
     </div>

@@ -11,6 +11,9 @@ export const STAGE_LABEL = {
   rejected: "Rejected",
 };
 
+/** The console translates this key; STAGE_LABEL above stays for anything unkeyed. */
+export const stageKey = (stage) => `stage.${stage}`;
+
 /** The six things checked on the visit. */
 export const CHECKS = [
   "Business licence matches the trading name",

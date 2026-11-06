@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import DataBlock from "@/components/shell/DataBlock";
 import PageHead from "@/components/shell/PageHead";
 import { getSupplierBoard } from "@/services/adminService";
-import { STAGES, STAGE_LABEL } from "@/lib/supplier-rules";
+import { STAGES, stageKey } from "@/lib/supplier-rules";
+import { useAdminT } from "@/lib/adminI18n";
 
 export const Route = createFileRoute("/_authed/admin/suppliers")({
   head: () => ({ meta: [{ title: "Suppliers · Wholesale System" }] }),
@@ -15,6 +16,7 @@ const HEAD = "px-3 py-2 text-left text-label font-normal text-app-meta first:pl-
 const CELL = "px-3 py-3 align-top first:pl-5 last:pr-5";
 
 function SuppliersPage() {
+  const { t } = useAdminT();
   const [stage, setStage] = useState("");
   const board = useQuery({ queryKey: ["supplier-board"], queryFn: getSupplierBoard });
   const rows = (board.data?.rows ?? []).filter((row) => !stage || row.pipeline_stage === stage);
@@ -23,11 +25,11 @@ function SuppliersPage() {
   return (
     <div className="space-y-6">
       <PageHead
-        title="Suppliers"
+        title={t("page.suppliers.title")}
         note={
           board.data
-            ? `${board.data.rows.length} factories on file, ${live} live. A record holds the visit, the film, the checks and the money terms.`
-            : "Every factory we work with, live and in progress."
+            ? t("page.suppliers.note", { total: board.data.rows.length, live })
+            : t("page.suppliers.notePlain")
         }
       />
       {board.isLoading ? <DataBlock state="loading" /> : null}
@@ -41,7 +43,7 @@ function SuppliersPage() {
               aria-pressed={stage === ""}
               className={["min-h-[36px] rounded-control border px-3 text-body", stage === "" ? "border-data bg-pill-green text-pill-green-ink" : "border-control"].join(" ")}
             >
-              All {board.data.rows.length}
+              {t("page.suppliers.all", { count: board.data.rows.length })}
             </button>
             {[...STAGES, "rejected"].map((value) => (
               <button
@@ -51,11 +53,11 @@ function SuppliersPage() {
                 aria-pressed={stage === value}
                 className={["min-h-[36px] rounded-control border px-3 text-body", stage === value ? "border-data bg-pill-green text-pill-green-ink" : "border-control"].join(" ")}
               >
-                {STAGE_LABEL[value]}
+                {t(stageKey(value))}
               </button>
             ))}
             <Link to="/admin/supplier-pipeline" className="ml-auto inline-flex min-h-[36px] items-center rounded-control px-3 text-body text-app-meta hover:text-app-ink">
-              Open the pipeline
+              {t("page.suppliers.openPipeline")}
             </Link>
           </div>
 
@@ -65,12 +67,12 @@ function SuppliersPage() {
                 <table className="w-full min-w-[720px] text-body">
                   <thead>
                     <tr>
-                      <th className={HEAD}>Supplier</th>
-                      <th className={HEAD}>Place</th>
-                      <th className={HEAD}>Stage</th>
-                      <th className={`${HEAD} text-right`}>Score</th>
-                      <th className={HEAD}>Agreement</th>
-                      <th className={`${HEAD} text-right`}>Products</th>
+                      <th className={HEAD}>{t("page.suppliers.headSupplier")}</th>
+                      <th className={HEAD}>{t("page.suppliers.headPlace")}</th>
+                      <th className={HEAD}>{t("page.suppliers.headStage")}</th>
+                      <th className={`${HEAD} text-right`}>{t("page.suppliers.headScore")}</th>
+                      <th className={HEAD}>{t("page.suppliers.headAgreement")}</th>
+                      <th className={`${HEAD} text-right`}>{t("page.suppliers.headProducts")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -87,7 +89,7 @@ function SuppliersPage() {
                           <p className="tabular text-label text-app-meta">{row.supplier_code}</p>
                         </td>
                         <td className={CELL}>{row.place || "—"}</td>
-                        <td className={CELL}>{STAGE_LABEL[row.pipeline_stage] ?? row.pipeline_stage}</td>
+                        <td className={CELL}>{t(stageKey(row.pipeline_stage))}</td>
                         <td className={`${CELL} tabular text-right`}>{row.verification_score}/100</td>
                         <td className={CELL}>{row.agreement_status}</td>
                         <td className={`${CELL} tabular text-right`}>{row.product_count}</td>
@@ -97,7 +99,7 @@ function SuppliersPage() {
                 </table>
               </div>
             ) : (
-              <p className="px-5 py-6 text-body text-app-meta">No suppliers in this stage.</p>
+              <p className="px-5 py-6 text-body text-app-meta">{t("page.suppliers.empty")}</p>
             )}
           </section>
         </>

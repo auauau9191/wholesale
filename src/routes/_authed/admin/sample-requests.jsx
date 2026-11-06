@@ -10,6 +10,7 @@ import RequestRows from "@/components/console/RequestRows";
 import ShelfPanel from "@/components/console/ShelfPanel";
 import LowStockPanel from "@/components/console/LowStockPanel";
 import { QUEUE_FILTERS } from "@/lib/requestLabels";
+import { useAdminT } from "@/lib/adminI18n";
 import { fetchSampleQueue } from "@/services/adminService";
 
 export const Route = createFileRoute("/_authed/admin/sample-requests")({
@@ -17,15 +18,8 @@ export const Route = createFileRoute("/_authed/admin/sample-requests")({
   component: SampleRequestsPage,
 });
 
-const EMPTY = {
-  awaiting: "Nothing to send. New requests land here the moment a member asks.",
-  on_hold: "No requests are on hold.",
-  in_transit: "No samples are on the road.",
-  deciding: "No members are deciding right now.",
-  overdue: "No decisions are overdue.",
-};
-
 function SampleRequestsPage() {
+  const { t } = useAdminT();
   const { hub } = useHubScope();
   const [filter, setFilter] = useState("awaiting");
   const queue = useQuery({ queryKey: ["sample-queue", hub], queryFn: () => fetchSampleQueue(hub) });
@@ -47,8 +41,10 @@ function SampleRequestsPage() {
             <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_300px]">
               <section className="min-w-0 rounded-card border border-edge bg-sheet">
                 <div className="flex items-baseline justify-between gap-3 px-5 pb-3 pt-5">
-                  <h2 className="text-lead font-medium">{current.list}</h2>
-                  <p className="tabular text-label text-app-meta">{rows.length} {rows.length === 1 ? "request" : "requests"}</p>
+                  <h2 className="text-lead font-medium">{t(`request.filter.${current.key}.list`)}</h2>
+                  <p className="tabular text-label text-app-meta">
+                    {t(rows.length === 1 ? "page.queue.countOne" : "page.queue.countMany", { count: rows.length })}
+                  </p>
                 </div>
                 {rows.length ? (
                   <>
@@ -56,7 +52,7 @@ function SampleRequestsPage() {
                     <div className="md:hidden"><RequestRows rows={rows} /></div>
                   </>
                 ) : (
-                  <p className="border-t border-rule px-5 py-6 text-body text-app-meta">{EMPTY[filter]}</p>
+                  <p className="border-t border-rule px-5 py-6 text-body text-app-meta">{t(`page.queue.empty.${filter}`)}</p>
                 )}
               </section>
               <div className="space-y-5">

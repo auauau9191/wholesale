@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ConsolePage } from "@/components/shell/PageBlocks";
+import { useAdminT } from "@/lib/adminI18n";
 
 export const Route = createFileRoute("/_authed/admin/sample-inventory")({
   head: () => ({ meta: [{ title: "Sample inventory · Wholesale System" }] }),
@@ -7,13 +8,15 @@ export const Route = createFileRoute("/_authed/admin/sample-inventory")({
 });
 
 function SampleInventoryPage() {
+  const { t } = useAdminT();
+
   return (
     <ConsolePage
-      title="Sample inventory"
-      note="Every unit on the shelf, from the master that never leaves to the ones out with members."
+      title={t("page.inventory.title")}
+      note={t("page.inventory.note")}
       scoped
-      emptyTitle="No sample units yet."
-      emptyNote="Units arrive with a container, are checked against the signed spec, then go on the shelf."
+      emptyTitle={t("page.inventory.emptyTitle")}
+      emptyNote={t("page.inventory.emptyNote")}
     />
   );
 }
