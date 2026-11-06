@@ -70,7 +70,35 @@
     }
   },
   "rls": {
-    "read": {},
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "membership_active": true
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "hub_code": "BNE"
+          }
+        },
+        {
+          "user_condition": {
+            "hub_code": "SYD"
+          }
+        },
+        {
+          "user_condition": {
+            "hub_code": "ALL"
+          }
+        }
+      ]
+    },
     "create": {
       "user_condition": {
         "role": "admin"
@@ -86,5 +114,6 @@
         "role": "admin"
       }
     }
-  }
+  },
+  "required": []
 }

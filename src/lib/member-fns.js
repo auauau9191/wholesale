@@ -107,6 +107,12 @@ export const activateMembership = createServerFn({ method: "POST" })
       paid_until: paidUntil,
     });
 
+    // The catalogue rules read this flag on the user, so it is set here and
+    // only here: a member who has not paid cannot reach the catalogue at all.
+    const users = await db.entities.User.filter({ email: data.user_email }, { limit: 1 });
+    const account = toItems(users)[0];
+    if (account) await db.entities.User.update(account.id, { membership_active: true });
+
     let record = toItems(await db.entities.AbnRecord.filter({ abn: profile.abn }, { limit: 1 }))[0];
     if (!record) {
       record = await db.entities.AbnRecord.create({

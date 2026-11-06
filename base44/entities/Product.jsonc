@@ -137,14 +137,32 @@
   },
   "rls": {
     "read": {
-      "$or": [
+      "$and": [
         {
-          "data.status": "live"
+          "$or": [
+            {
+              "data.status": "live"
+            },
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            }
+          ]
         },
         {
-          "user_condition": {
-            "role": "admin"
-          }
+          "$or": [
+            {
+              "user_condition": {
+                "membership_active": true
+              }
+            },
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            }
+          ]
         }
       ]
     },

@@ -23,8 +23,25 @@ const EMPTY = {
  * its supplier and spec, the shelf unit on its tag, and the figures derived
  * from AppSettings. Only public fields leave this function.
  */
+/**
+ * The plan prices the public join page quotes. Three numbers, nothing else:
+ * AppSettings itself stays shut behind a membership.
+ */
+export const getPublicPlans = createServerFn({ method: "GET" }).handler(async ({ context }) => {
+  const db = context.getBase44().asServiceRole;
+  const settings = toItems(await db.entities.AppSettings.list({ limit: 1 }))[0] ?? null;
+  return {
+    starter_quarter_price_aud: settings?.starter_quarter_price_aud ?? null,
+    monthly_price_aud: settings?.monthly_price_aud ?? null,
+    annual_price_aud: settings?.annual_price_aud ?? null,
+    sample_fee_aud: settings?.sample_fee_aud ?? null,
+  };
+});
+
 export const getLandingData = createServerFn({ method: "GET" }).handler(async ({ context }) => {
-  const db = context.getBase44();
+  // A showcase for signed-out visitors: a deliberate public read, mapped field
+  // by field below, so it runs with the service role rather than a member's.
+  const db = context.getBase44().asServiceRole;
   const [settingsPage, productPage] = await Promise.all([
     db.entities.AppSettings.list({ limit: 1 }),
     db.entities.Product.filter({ product_id: SHOWCASE_PRODUCT_ID }, { limit: 1 }),
