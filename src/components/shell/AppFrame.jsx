@@ -38,6 +38,10 @@ export default function AppFrame({ nav, brand, topBarRight, footer, bottomBar, c
                 <span className="block h-[1.5px] w-5 bg-app-ink" />
               </span>
             </button>
+            <Link to="/" className="flex items-center gap-2 md:hidden">
+              <SampleTag className="h-4 w-auto" />
+              <span className="text-body font-medium">Wholesale System</span>
+            </Link>
             <div className="ml-auto flex items-center gap-2">{topBarRight}</div>
           </div>
 

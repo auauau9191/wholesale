@@ -17,12 +17,20 @@ function BrowsePage() {
   const { user } = Route.useRouteContext();
   const { profile } = useMemberProfile(user?.email);
 
-  const { data: categories = [], isLoading: categoriesLoading } = useQuery({
+  const {
+    data: categories = [],
+    isLoading: categoriesLoading,
+    error: categoriesError,
+  } = useQuery({
     queryKey: ["categories-live"],
     queryFn: listLiveCategories,
   });
 
-  const { data: suppliers = [], isLoading: suppliersLoading } = useQuery({
+  const {
+    data: suppliers = [],
+    isLoading: suppliersLoading,
+    error: suppliersError,
+  } = useQuery({
     queryKey: ["suppliers-live"],
     queryFn: () => listLiveSuppliers(),
   });
@@ -46,8 +54,11 @@ function BrowsePage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-body text-app-meta">G&apos;day, {profile?.business_name || "there"}</p>
-        <h1 className="mt-1 text-title font-medium tracking-[-0.01em]">What are you sourcing?</h1>
+        <h1 className="text-title font-medium tracking-[-0.01em]">Sourcing</h1>
+        <p className="mt-2 max-w-[660px] text-body text-app-meta">
+          G&apos;day, {profile?.business_name || "there"}. Start with a category, or search the
+          catalogue by name or product ID.
+        </p>
       </div>
 
       <CreditCard balance={balance} />
@@ -64,6 +75,8 @@ function BrowsePage() {
         <div className="mt-3">
           {categoriesLoading || suppliersLoading ? (
             <DataBlock state="loading" />
+          ) : categoriesError || suppliersError ? (
+            <DataBlock state="error" note={(categoriesError || suppliersError)?.message} />
           ) : (
             <CategoryGrid categories={categories} counts={counts} />
           )}

@@ -19,7 +19,10 @@ export default function ShelfPanel({ shelf }) {
       {shelf.length ? (
         <ul className="mt-4 space-y-2.5">
           {shelf.map((row) => (
-            <li key={row.product_id} className="grid grid-cols-[minmax(0,110px)_1fr] items-center gap-3">
+            <li
+              key={row.product_id}
+              className="grid grid-cols-1 gap-1.5 sm:grid-cols-[minmax(0,120px)_minmax(0,1fr)] sm:items-center sm:gap-3"
+            >
               <span className="truncate text-body">{row.name}</span>
               <ShelfStrip marks={row.marks} />
             </li>

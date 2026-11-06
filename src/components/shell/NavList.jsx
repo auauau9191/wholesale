@@ -14,10 +14,9 @@ export default function NavList({ items, className = "", onNavigate, large = fal
           activeOptions={{ exact: item.exact === true }}
           activeProps={{ "data-active": "true", "aria-current": "page" }}
           className={[
-            "group flex items-center justify-between gap-3 rounded-control px-3 text-body text-app-ink transition-colors",
+            "group flex min-h-[44px] items-center justify-between gap-3 rounded-control px-3 text-body text-app-ink transition-colors",
             "hover:bg-pill-grey",
             "data-[active=true]:bg-pill-grey data-[active=true]:text-pill-grey-ink",
-            large ? "min-h-[44px]" : "min-h-[34px]",
           ].join(" ")}
         >
           <span className="truncate">{item.label}</span>

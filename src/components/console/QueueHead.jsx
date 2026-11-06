@@ -54,7 +54,7 @@ export default function QueueHead({ queue, hub, rows, updatedAt }) {
           type="button"
           disabled={!rows.length}
           onClick={() => exportRows(rows, hub)}
-          className="min-h-[36px] rounded-control border border-control bg-sheet px-3 text-body transition-transform duration-150 hover:border-app-ink active:scale-[0.97] disabled:opacity-40"
+          className="min-h-[44px] rounded-control border border-control bg-sheet px-3 text-body transition-transform duration-150 hover:border-app-ink active:scale-[0.97] disabled:opacity-40"
         >
           {t("common.exportCsv")}
         </button>
@@ -62,7 +62,7 @@ export default function QueueHead({ queue, hub, rows, updatedAt }) {
           to="/admin/dispatch-labels"
           search={{ hub }}
           target="_blank"
-          className="tabular inline-flex min-h-[36px] items-center rounded-control bg-app-ink px-3 text-body font-medium text-sheet transition-transform duration-150 active:scale-[0.97]"
+          className="tabular inline-flex min-h-[44px] items-center rounded-control bg-app-ink px-3 text-body font-medium text-sheet transition-transform duration-150 active:scale-[0.97]"
         >
           {t("page.queue.printLabels", { count: awaiting ?? "" })}
         </Link>

@@ -47,11 +47,16 @@ function OrderBuilderPage() {
 
   return (
     <div className="mx-auto max-w-[640px] space-y-5">
-      <div className="flex items-center gap-2">
-        <Link to="/samples" aria-label="Back to samples" className="flex h-11 w-11 items-center justify-center rounded-control hover:bg-pill-grey">
+      <div className="flex items-start gap-2">
+        <Link to="/samples" aria-label="Back to samples" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-control hover:bg-pill-grey">
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
         </Link>
-        <h1 className="text-title font-medium tracking-[-0.01em]">Bulk order</h1>
+        <div className="min-w-0">
+          <h1 className="text-title font-medium tracking-[-0.01em]">Bulk order</h1>
+          <p className="mt-2 text-body text-app-meta">
+            Locked to the sample you approved. Quantities step up from the factory&apos;s minimum.
+          </p>
+        </div>
       </div>
 
       {!request ? <DataBlock title="Start from a sample you approved." note="Approve a sample on the Samples page, then order it here." /> : null}
@@ -86,7 +91,9 @@ function OrderBuilderPage() {
             disabled={!quote.data || quote.isFetching || place.isPending}
             className="min-h-[48px] w-full rounded-control bg-app-ink px-5 text-lead font-medium text-sheet transition-transform duration-150 active:scale-[0.97] disabled:opacity-40"
           >
-            {place.isPending ? "Placing your order" : `Confirm order — pay ${formatAudWhole(quote.data?.deposit_aud)} deposit`}
+            {place.isPending
+              ? "Placing your order"
+              : `Confirm order and pay ${formatAudWhole(quote.data?.deposit_aud)} deposit`}
           </button>
         </>
       ) : null}

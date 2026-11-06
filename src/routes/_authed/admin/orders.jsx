@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import DataBlock from "@/components/shell/DataBlock";
 import PageHead from "@/components/shell/PageHead";
+import OrderRows from "@/components/console/OrderRows";
 import { getAdminOrders } from "@/services/adminService";
 import { statusOf, statusKey } from "@/lib/orderStatus";
 import { actionKey } from "@/lib/orderActionLabels";
@@ -44,7 +45,7 @@ function OrdersPage() {
               type="button"
               onClick={() => setStatus("")}
               aria-pressed={status === ""}
-              className={["min-h-[36px] rounded-control border px-3 text-body", status === "" ? "border-data bg-pill-green text-pill-green-ink" : "border-control"].join(" ")}
+              className={["min-h-[44px] rounded-control border px-3 text-body", status === "" ? "border-data bg-pill-green text-pill-green-ink" : "border-control"].join(" ")}
             >
               {t("page.orders.all", { count: data.length })}
             </button>
@@ -54,7 +55,7 @@ function OrdersPage() {
                 type="button"
                 onClick={() => setStatus(value)}
                 aria-pressed={status === value}
-                className={["min-h-[36px] rounded-control border px-3 text-body", status === value ? "border-data bg-pill-green text-pill-green-ink" : "border-control"].join(" ")}
+                className={["min-h-[44px] rounded-control border px-3 text-body", status === value ? "border-data bg-pill-green text-pill-green-ink" : "border-control"].join(" ")}
               >
                 {t(statusKey(value))} {data.filter((row) => row.status === value).length}
               </button>
@@ -63,8 +64,9 @@ function OrdersPage() {
 
           <section className="rounded-card border border-edge bg-sheet">
             {rows.length ? (
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[820px] text-body">
+              <>
+                <div className="hidden overflow-x-auto lg:block">
+                  <table className="w-full min-w-[820px] text-body">
                   <thead>
                     <tr>
                       <th className={HEAD}>{t("page.orders.headOrder")}</th>
@@ -102,8 +104,12 @@ function OrdersPage() {
                       </tr>
                     ))}
                   </tbody>
-                </table>
-              </div>
+                  </table>
+                </div>
+                <div className="lg:hidden">
+                  <OrderRows rows={rows} />
+                </div>
+              </>
             ) : (
               <p className="px-5 py-6 text-body text-app-meta">{t("page.orders.empty")}</p>
             )}

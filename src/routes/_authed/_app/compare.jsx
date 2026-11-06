@@ -18,7 +18,7 @@ function ComparePage() {
   const { ids, remove, clear } = useCompare();
   const { data: settings } = useAppSettings();
 
-  const { data: rows = [], isLoading } = useQuery({
+  const { data: rows = [], isLoading, error } = useQuery({
     queryKey: ["compare-rows", ids.join(",")],
     queryFn: async () => {
       const products = (await Promise.all(ids.map((id) => getProduct(id)))).filter(Boolean);
@@ -54,7 +54,7 @@ function ComparePage() {
             <button
               type="button"
               onClick={clear}
-              className="min-h-[36px] text-body text-app-meta transition-colors hover:text-app-ink"
+              className="min-h-[44px] text-body text-app-meta transition-colors hover:text-app-ink"
             >
               Clear all
             </button>
@@ -64,14 +64,16 @@ function ComparePage() {
 
       {isLoading && ids.length > 0 ? <DataBlock state="loading" /> : null}
 
-      {!isLoading && rows.length === 0 ? (
+      {error ? <DataBlock state="error" note={error.message} /> : null}
+
+      {!isLoading && !error && rows.length === 0 ? (
         <DataBlock
           title="Nothing to compare yet."
           note="Add products from the catalogue and they line up here."
           action={
             <Link
               to="/browse"
-              className="inline-flex min-h-[36px] items-center rounded-control bg-app-ink px-3 text-body text-sheet"
+              className="inline-flex min-h-[44px] items-center rounded-control bg-app-ink px-3 text-body text-sheet"
             >
               Browse products
             </Link>

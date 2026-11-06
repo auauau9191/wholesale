@@ -23,7 +23,7 @@ export default function AccountSummary({ profile, settings }) {
   }
 
   return (
-    <section className="rounded-card border border-edge p-5">
+    <section className="rounded-card border border-edge bg-sheet p-5">
       <Row label="Business" value={profile.business_name} />
       <Row label="ABN" value={profile.abn} />
       <Row label="Plan" value={PLAN_LABEL[profile.plan] ?? "Member"} />

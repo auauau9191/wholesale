@@ -19,13 +19,13 @@ export const Route = createFileRoute("/_authed/_app/supplier")({
 function SupplierPage() {
   const { code } = Route.useSearch();
 
-  const { data: supplier, isLoading } = useQuery({
+  const { data: supplier, isLoading, error: supplierError } = useQuery({
     queryKey: ["supplier", code],
     queryFn: () => getLiveSupplier(code),
     enabled: Boolean(code),
   });
 
-  const { data: products = [] } = useQuery({
+  const { data: products = [], error: productsError } = useQuery({
     queryKey: ["supplier-products", code],
     queryFn: () => listLiveProducts({ supplierCode: code, limit: 60 }),
     enabled: Boolean(code),
@@ -50,6 +50,14 @@ function SupplierPage() {
     );
   }
 
+  if (supplierError) {
+    return (
+      <div className="space-y-5">
+        <DataBlock state="error" note={supplierError.message} />
+      </div>
+    );
+  }
+
   if (!supplier) {
     return (
       <DataBlock
@@ -67,7 +75,7 @@ function SupplierPage() {
         <Link
           {...backTo}
           aria-label="Back"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-control text-app-ink transition-colors hover:bg-pill-grey"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-control text-app-ink transition-colors hover:bg-pill-grey"
         >
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
         </Link>
@@ -145,7 +153,8 @@ function SupplierPage() {
       <section>
         <h2 className="text-lead font-medium">Products with samples in Australia</h2>
         <div className="mt-3 space-y-2">
-          {products.length === 0 ? (
+          {productsError ? <DataBlock state="error" note={productsError.message} /> : null}
+          {!productsError && products.length === 0 ? (
             <DataBlock
               title="No products live yet."
               note="Products appear here once their first sample unit reaches a hub."

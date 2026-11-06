@@ -28,13 +28,13 @@ function CategoryPage() {
     enabled: Boolean(code),
   });
 
-  const { data: suppliers = [], isLoading } = useQuery({
+  const { data: suppliers = [], isLoading, error: suppliersError } = useQuery({
     queryKey: ["category-suppliers", code],
     queryFn: () => listLiveSuppliers({ categoryCode: code }),
     enabled: Boolean(code),
   });
 
-  const { data: products = [] } = useQuery({
+  const { data: products = [], error: productsError } = useQuery({
     queryKey: ["category-products", code],
     queryFn: () => listLiveProducts({ categoryCode: code, limit: 200 }),
     enabled: Boolean(code),
@@ -69,18 +69,16 @@ function CategoryPage() {
         <Link
           to="/browse"
           aria-label="Back to browse"
-          className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-control text-app-ink transition-colors hover:bg-pill-grey"
+          className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-control text-app-ink transition-colors hover:bg-pill-grey"
         >
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
         </Link>
         <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="tabular inline-flex h-6 items-center rounded-control bg-pill-green px-2 text-label text-pill-green-ink">
-              {code ?? "—"}
-            </span>
+          <div className="flex flex-wrap items-baseline gap-2">
             <h1 className="text-title font-medium tracking-[-0.01em]">
               {category?.name ?? "Category"}
             </h1>
+            <span className="tabular text-label text-app-meta">{code ?? "—"}</span>
           </div>
           <p className="mt-2 text-body text-app-meta">
             Showing <span className="tabular">{shown.length}</span> of{" "}
@@ -99,7 +97,11 @@ function CategoryPage() {
 
       {isLoading ? <DataBlock state="loading" /> : null}
 
-      {!isLoading && shown.length === 0 ? (
+      {suppliersError || productsError ? (
+        <DataBlock state="error" note={(suppliersError || productsError)?.message} />
+      ) : null}
+
+      {!isLoading && !suppliersError && shown.length === 0 ? (
         <DataBlock
           title="No suppliers match this filter."
           note="Clear the filter to see every live supplier in this category."

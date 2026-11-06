@@ -28,7 +28,7 @@ function SamplesPage() {
   const current = data?.current ?? null;
 
   const credits = data ? (
-    <span className="tabular rounded-full border border-control px-3 py-1 text-label text-app-soft">
+    <span className="tabular text-body text-app-meta">
       {data.credits_left} free {data.credits_left === 1 ? "credit" : "credits"} left
     </span>
   ) : null;

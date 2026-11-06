@@ -49,8 +49,8 @@ function SampleRequestsPage() {
                 </div>
                 {rows.length ? (
                   <>
-                    <div className="hidden md:block"><RequestTable rows={rows} /></div>
-                    <div className="md:hidden"><RequestRows rows={rows} /></div>
+                    <div className="hidden lg:block"><RequestTable rows={rows} /></div>
+                    <div className="lg:hidden"><RequestRows rows={rows} /></div>
                   </>
                 ) : (
                   <p className="border-t border-rule px-5 py-6 text-body text-app-meta">{t(`page.queue.empty.${filter}`)}</p>

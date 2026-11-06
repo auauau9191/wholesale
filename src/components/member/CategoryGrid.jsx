@@ -23,9 +23,7 @@ export default function CategoryGrid({ categories, counts }) {
             search={{ code: category.code }}
             className="flex min-h-[132px] flex-col justify-between rounded-card border border-edge bg-sheet p-4 transition-colors hover:border-control"
           >
-            <span className="tabular inline-flex h-6 w-fit items-center rounded-control bg-pill-green px-2 text-label text-pill-green-ink">
-              {category.code}
-            </span>
+            <span className="tabular text-label text-app-meta">{category.code}</span>
             <span className="mt-4 block text-body font-medium leading-snug">
               {category.name}
             </span>

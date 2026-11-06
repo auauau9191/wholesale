@@ -8,7 +8,7 @@ import { useAdminT } from "@/lib/adminI18n";
 import { actOnRequest } from "@/services/adminService";
 
 const BUTTON =
-  "min-h-[36px] whitespace-nowrap rounded-control border border-control bg-sheet px-3 text-body text-app-ink transition-transform duration-150 hover:border-app-ink active:scale-[0.97] disabled:opacity-40";
+  "min-h-[44px] whitespace-nowrap rounded-control border border-control bg-sheet px-3 text-body text-app-ink transition-transform duration-150 hover:border-app-ink active:scale-[0.97] disabled:opacity-40";
 
 /** The row's one next step. Dispatch and review ask first; the rest run straight away. */
 export default function RequestAction({ row }) {

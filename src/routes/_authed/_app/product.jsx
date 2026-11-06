@@ -35,7 +35,7 @@ function ProductPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data: product, isLoading } = useQuery({
+  const { data: product, isLoading, error } = useQuery({
     queryKey: ["product", id],
     queryFn: () => getProduct(id),
     enabled: Boolean(id),
@@ -91,6 +91,10 @@ function ProductPage() {
     return <DataBlock state="loading" />;
   }
 
+  if (error) {
+    return <DataBlock state="error" note={error.message} />;
+  }
+
   if (!product) {
     return (
       <DataBlock
@@ -131,7 +135,7 @@ function ProductPage() {
           to="/category"
           search={{ code: product.category_code }}
           aria-label="Back to category"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-control text-app-ink transition-colors hover:bg-pill-grey"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-control text-app-ink transition-colors hover:bg-pill-grey"
         >
           <ChevronLeft className="h-5 w-5" aria-hidden="true" />
         </Link>
@@ -168,16 +172,10 @@ function ProductPage() {
           <div>
             <h1 className="text-title font-medium tracking-[-0.01em]">{product.name}</h1>
 
-            <div className="mt-2 flex flex-wrap items-center gap-2">
-              <span className="tabular rounded-control border border-control px-2 py-1 text-label text-app-ink">
-                {product.product_id}
-              </span>
-              {specChip ? (
-                <span className="tabular rounded-control border border-control px-2 py-1 text-label text-app-ink">
-                  {specChip}
-                </span>
-              ) : null}
-            </div>
+            <p className="tabular mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-label text-app-meta">
+              <span>{product.product_id}</span>
+              {specChip ? <span>{specChip}</span> : null}
+            </p>
 
             <p className="mt-2.5 text-body text-app-meta">
               {[
