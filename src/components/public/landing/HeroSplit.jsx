@@ -13,7 +13,7 @@ function Panel({ index, pieces, bars }) {
   return (
     <div className="flex h-full flex-col bg-ink text-ground">
       <div className="relative min-h-0 flex-1">
-        <Crossfade stateKey={index} duration={1.6} className="absolute inset-0">
+        <Crossfade stateKey={index} duration={1.6} fill>
           <div className="flex h-full items-center justify-center overflow-y-auto p-5 md:p-8">
             {pieces[index]}
           </div>

@@ -16,7 +16,7 @@ export default function SiteFooter({ data }) {
   return (
     <footer className="grid md:grid-cols-2">
       <div className="relative h-[300px] overflow-hidden bg-ground md:h-auto md:min-h-[620px]">
-        <div className="absolute left-1/2 top-1/2 w-[104%] -translate-x-1/2 -translate-y-1/2 rotate-[-6deg]">
+        <div className="absolute left-1/2 top-1/2 w-[340px] -translate-x-1/2 -translate-y-1/2 rotate-[-6deg] scale-[1.45] md:scale-[1.8]">
           <SampleTagCard data={data} />
         </div>
       </div>

@@ -64,7 +64,7 @@ export default function RouteSection({ settings }) {
           <div className="hidden md:block md:sticky md:top-3 md:h-[calc(100vh-24px)]">
             <div className="flex h-full flex-col bg-ink">
               <div className="relative min-h-0 flex-1">
-                <Crossfade stateKey={active} duration={0.9} className="absolute inset-0">
+                <Crossfade stateKey={active} duration={0.9} fill>
                   <Clip name={stops[active].clip} className="h-full w-full" />
                 </Crossfade>
               </div>

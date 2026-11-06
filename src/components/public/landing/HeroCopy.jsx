@@ -4,12 +4,12 @@ import { Link } from "@tanstack/react-router";
 export default function HeroCopy({ price }) {
   return (
     <div className="max-w-[540px]">
-      <h1 className="text-[40px] font-medium leading-[1.02] tracking-[-0.03em] md:text-[64px] md:leading-[0.98]">
+      <h1 className="text-[clamp(36px,4.6vw,64px)] font-medium leading-[1.02] tracking-[-0.03em]">
         Hold the sample,
         <br />
         then order 5,000.
       </h1>
-      <p className="mt-5 max-w-[520px] text-lead leading-[26px] md:mt-7 md:text-[30px] md:leading-[36px]">
+      <p className="mt-5 max-w-[520px] text-[clamp(17px,2.2vw,30px)] leading-[1.25] md:mt-7 md:leading-[1.2]">
         Chinese factories our team has visited and filmed. Their samples, already on a
         shelf in Australia.
       </p>

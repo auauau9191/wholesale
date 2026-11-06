@@ -8,7 +8,12 @@ export default function SampleTagCard({ data }) {
   const rows = [
     ["Category", category ? `${category.code} · ${category.name}` : "—"],
     ["Supplier", supplier ? `${supplier.code} · ${supplier.type}, ${supplier.city}` : "—"],
-    ["Product", product ? `${product.id.split("-").pop()} · ${product.name.toLowerCase()}` : "—"],
+    [
+      "Product",
+      product
+        ? `${product.id.split("-").pop()} · ${product.name.charAt(0).toUpperCase()}${product.name.slice(1).toLowerCase()}`
+        : "—",
+    ],
     ["Colour", unit ? `${unit.colour} · ${(spec?.colour ?? "").split(" (")[0] || "—"}` : "—"],
     ["Spec", spec ? `${spec.rev} · signed ${formatDayMonthYear(spec.signed)}` : "—"],
     ["Unit", unitLabel],
