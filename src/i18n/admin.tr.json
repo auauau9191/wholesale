@@ -81,7 +81,18 @@
       "note": "Numune alan {count} merkez. İlk merkez üyenin eyaletine hizmet eder; yedek sırası bir sonrakinin hangisi olacağını belirler.",
       "notePlain": "Her merkezi kim yönetiyor, hangi eyaletlere önce hizmet ediyor ve sıradaki merkez hangisi.",
       "emptyTitle": "Henüz merkez kurulmadı.",
-      "emptyNote": "Brisbane ve Sydney için bir yönetici ve bir yedek sırası gerekir."
+      "emptyNote": "Brisbane ve Sydney için bir yönetici ve bir yedek sırası gerekir.",
+      "unitsOnShelf": "rafta {count} numune birimi",
+      "save": "Merkezi kaydet",
+      "saved": "{name} kaydedildi.",
+      "fieldName": "Merkez adı",
+      "fieldManager": "Yönetici",
+      "fieldCity": "Şehir",
+      "fieldState": "Eyalet",
+      "fieldStreet": "Açık adres",
+      "fieldRank": "Yedek sırası",
+      "statesFirst": "Bu merkezin önce hizmet ettiği eyaletler",
+      "takingRequests": "Numune talebi alıyor"
     },
     "containers": {
       "title": "Konteynerler",
@@ -106,7 +117,11 @@
       "allCategories": "Tüm kategoriler",
       "rejected": "Reddedilen {count}",
       "emptyTitle": "Bu görünümde fabrika yok.",
-      "emptyNote": "Başka bir kategori seçin veya filtreyi temizleyin."
+      "emptyNote": "Başka bir kategori seçin veya filtreyi temizleyin.",
+      "nothing": "Burada bir şey yok.",
+      "missingOne": "Yayın için {count} eksik",
+      "missingMany": "Yayın için {count} eksik",
+      "ready": "Yayına hazır"
     },
     "suppliers": {
       "title": "Tedarikçiler",
@@ -205,6 +220,7 @@
       "statementTitle": "Komisyon dökümü",
       "statementNote": "Tek tedarikçi, tek ay; her sipariş ve komisyonu satırlardan toplanır.",
       "chooseSupplier": "Tedarikçi seçin",
+      "supplier": "Tedarikçi",
       "month": "Ay",
       "openStatement": "Dökümü aç",
       "sent": "Ödeme gönderildi olarak işaretlendi.",

@@ -3,11 +3,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { inputClass, secondaryButton, Toggle } from "@/components/console/FormBits";
 import { saveHub } from "@/services/adminService";
+import { useAdminT } from "@/lib/adminI18n";
 
 const STATES = ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"];
 
 /** One hub: who runs it, where it is and which states it serves first. */
 export default function HubCard({ hub, canEdit }) {
+  const { t } = useAdminT();
   const queryClient = useQueryClient();
   const [draft, setDraft] = useState({
     name: hub.name ?? "",
@@ -25,7 +27,7 @@ export default function HubCard({ hub, canEdit }) {
     mutationFn: () => saveHub({ hub_id: hub.id, patch: { ...draft, fallback_rank: Number(draft.fallback_rank) || 1 } }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["hubs"] });
-      toast(`${draft.name || hub.hub_code} saved.`);
+      toast(t("page.hubs.saved", { name: draft.name || hub.hub_code }));
     },
     onError: (error) => toast(error.message),
   });
@@ -56,26 +58,26 @@ export default function HubCard({ hub, canEdit }) {
         <div>
           <h2 className="text-lead font-medium">{hub.name ?? hub.hub_code}</h2>
           <p className="tabular text-label text-app-meta">
-            {hub.hub_code} · {hub.on_shelf} sample units on the shelf
+            {hub.hub_code} · {t("page.hubs.unitsOnShelf", { count: hub.on_shelf })}
           </p>
         </div>
         {canEdit ? (
           <button type="button" onClick={() => save.mutate()} disabled={save.isPending} className={secondaryButton}>
-            {save.isPending ? "Saving" : "Save hub"}
+            {save.isPending ? t("common.saving") : t("page.hubs.save")}
           </button>
         ) : null}
       </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        {field("Hub name", "name")}
-        {field("Manager", "manager_name")}
-        {field("City", "city")}
-        {field("State", "state")}
-        {field("Street address", "street_address")}
-        {field("Fallback rank", "fallback_rank", "number")}
+        {field(t("page.hubs.fieldName"), "name")}
+        {field(t("page.hubs.fieldManager"), "manager_name")}
+        {field(t("page.hubs.fieldCity"), "city")}
+        {field(t("page.hubs.fieldState"), "state")}
+        {field(t("page.hubs.fieldStreet"), "street_address")}
+        {field(t("page.hubs.fieldRank"), "fallback_rank", "number")}
       </div>
 
-      <p className="mt-4 text-label text-app-meta">States this hub serves first</p>
+      <p className="mt-4 text-label text-app-meta">{t("page.hubs.statesFirst")}</p>
       <div className="mt-1.5 flex flex-wrap gap-1.5">
         {STATES.map((code) => {
           const on = draft.serves_states.includes(code);
@@ -97,7 +99,7 @@ export default function HubCard({ hub, canEdit }) {
         })}
       </div>
       <div className="mt-3">
-        <Toggle label="Taking sample requests" checked={draft.is_active} onChange={(value) => canEdit && set({ is_active: value })} />
+        <Toggle label={t("page.hubs.takingRequests")} checked={draft.is_active} onChange={(value) => canEdit && set({ is_active: value })} />
       </div>
     </section>
   );

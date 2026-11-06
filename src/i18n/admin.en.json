@@ -81,7 +81,18 @@
       "note": "{count} hubs taking samples. The first hub serves a member's state, the fallback rank decides which one is tried next.",
       "notePlain": "Who runs each hub, which states it serves first and which hub is tried next.",
       "emptyTitle": "No hubs set up yet.",
-      "emptyNote": "Brisbane and Sydney each need a manager and a fallback order."
+      "emptyNote": "Brisbane and Sydney each need a manager and a fallback order.",
+      "unitsOnShelf": "{count} sample units on the shelf",
+      "save": "Save hub",
+      "saved": "{name} saved.",
+      "fieldName": "Hub name",
+      "fieldManager": "Manager",
+      "fieldCity": "City",
+      "fieldState": "State",
+      "fieldStreet": "Street address",
+      "fieldRank": "Fallback rank",
+      "statesFirst": "States this hub serves first",
+      "takingRequests": "Taking sample requests"
     },
     "containers": {
       "title": "Containers",
@@ -106,9 +117,12 @@
       "allCategories": "All categories",
       "rejected": "Rejected {count}",
       "emptyTitle": "No factories in this view.",
-      "emptyNote": "Pick another category, or clear the filter."
-    },
-    "suppliers": {
+      "emptyNote": "Pick another category, or clear the filter.",
+      "nothing": "Nothing here.",
+      "missingOne": "{count} thing missing for live",
+      "missingMany": "{count} things missing for live",
+      "ready": "Ready for live"
+    },    "suppliers": {
       "title": "Suppliers",
       "note": "{total} factories on file, {live} live. A record holds the visit, the film, the checks and the money terms.",
       "notePlain": "Every factory we work with, live and in progress.",
@@ -203,8 +217,8 @@
       "markConfirmed": "Mark confirmed",
       "empty": "No payouts with that status.",
       "statementTitle": "Commission statement",
-      "statementNote": "One supplier, one month, every order and its commission, summed from the rows.",
-      "chooseSupplier": "Choose a supplier",
+      "statementNote": "One supplier, one month, every order and its commission, summed from the rows.",      "chooseSupplier": "Choose a supplier",
+      "supplier": "Supplier",
       "month": "Month",
       "openStatement": "Open statement",
       "sent": "Payout marked sent.",

@@ -1,11 +1,13 @@
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import PipelineCard from "@/components/console/pipeline/PipelineCard";
-import { STAGE_LABEL, STAGES } from "@/lib/supplier-rules";
+import { STAGES, stageKey } from "@/lib/supplier-rules";
+import { useAdminT } from "@/lib/adminI18n";
 
 const COLUMN = "w-[232px] shrink-0 rounded-card border border-edge bg-sheet p-2 lg:w-auto lg:shrink";
 
 /** Six columns plus Rejected. Dropping a card anywhere is a stage move. */
 export default function PipelineBoard({ rows, showRejected, onMove }) {
+  const { t } = useAdminT();
   const stages = showRejected ? [...STAGES, "rejected"] : STAGES;
 
   return (
@@ -27,7 +29,7 @@ export default function PipelineBoard({ rows, showRejected, onMove }) {
                   className={`${COLUMN} ${snapshot.isDraggingOver ? "border-data" : ""}`}
                 >
                   <h2 className="flex items-baseline justify-between px-1 pb-2 text-body font-medium">
-                    {STAGE_LABEL[stage]}
+                    {t(stageKey(stage))}
                     <span className="tabular text-label text-app-meta">{cards.length}</span>
                   </h2>
                   <div className="space-y-2">
@@ -41,7 +43,7 @@ export default function PipelineBoard({ rows, showRejected, onMove }) {
                       </Draggable>
                     ))}
                     {provided.placeholder}
-                    {!cards.length ? <p className="px-1 pb-2 text-label text-app-meta">Nothing here.</p> : null}
+                    {!cards.length ? <p className="px-1 pb-2 text-label text-app-meta">{t("page.pipeline.nothing")}</p> : null}
                   </div>
                 </section>
               )}

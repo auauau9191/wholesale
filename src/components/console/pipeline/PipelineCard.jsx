@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
+import { useAdminT } from "@/lib/adminI18n";
 
 /** One factory on the board: who, where, how it scored and what blocks it. */
 export default function PipelineCard({ row, dragging }) {
+  const { t } = useAdminT();
   return (
     <article
       className={[
@@ -32,10 +34,12 @@ export default function PipelineCard({ row, dragging }) {
       </div>
       {row.gaps.length ? (
         <p className="mt-2 text-label text-pill-amber-ink">
-          {row.gaps.length} {row.gaps.length === 1 ? "thing" : "things"} missing for live
+          {t(row.gaps.length === 1 ? "page.pipeline.missingOne" : "page.pipeline.missingMany", {
+            count: row.gaps.length,
+          })}
         </p>
       ) : row.pipeline_stage !== "live" ? (
-        <p className="mt-2 text-label text-app-meta">Ready for live</p>
+        <p className="mt-2 text-label text-app-meta">{t("page.pipeline.ready")}</p>
       ) : null}
     </article>
   );

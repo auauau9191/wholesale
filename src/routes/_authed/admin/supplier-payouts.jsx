@@ -9,6 +9,7 @@ import MarkSentDialog from "@/components/console/payouts/MarkSentDialog";
 import { getPayouts, markPayoutConfirmed, markPayoutSent } from "@/services/adminService";
 import { downloadCsv } from "@/lib/csv";
 import { formatAud, formatDate } from "@/lib/format";
+import { useAdminT } from "@/lib/adminI18n";
 
 export const Route = createFileRoute("/_authed/admin/supplier-payouts")({
   head: () => ({ meta: [{ title: "Supplier payouts · Wholesale System" }] }),
@@ -26,6 +27,7 @@ const CELL = "px-3 py-3 align-top first:pl-5 last:pr-5";
 const monthNow = () => new Date().toISOString().slice(0, 7);
 
 function PayoutsPage() {
+  const { t } = useAdminT();
   const queryClient = useQueryClient();
   const [status, setStatus] = useState("all");
   const [sending, setSending] = useState(null);
@@ -39,14 +41,14 @@ function PayoutsPage() {
     onSuccess: () => {
       setSending(null);
       refresh();
-      toast("Payout marked sent.");
+      toast(t("page.payouts.sent"));
     },
   });
   const confirm = useMutation({
     mutationFn: (row) => markPayoutConfirmed({ payout_id: row.id }),
     onSuccess: () => {
       refresh();
-      toast("Payout confirmed.");
+      toast(t("page.payouts.confirmed"));
     },
     onError: (error) => toast(error.message),
   });
@@ -68,11 +70,11 @@ function PayoutsPage() {
   return (
     <div className="space-y-6">
       <PageHead
-        title="Supplier payouts"
+        title={t("page.payouts.title")}
         note={
           data
-            ? `${scheduled.length} payouts to send, ${formatAud(scheduledNet)} net. The balance carries our commission; the deposit does not.`
-            : "Deposits and balances, with our commission withheld from the balance."
+            ? t("page.payouts.note", { count: scheduled.length, net: formatAud(scheduledNet) })
+            : t("page.payouts.notePlain")
         }
       />
 
@@ -93,11 +95,13 @@ function PayoutsPage() {
                   status === value ? "border-data bg-pill-green text-pill-green-ink" : "border-control",
                 ].join(" ")}
               >
-                {value === "all" ? `All ${data.rows.length}` : value[0].toUpperCase() + value.slice(1)}
+                {value === "all"
+                  ? `${t("payoutStatus.all")} ${data.rows.length}`
+                  : t(`payoutStatus.${value}`)}
               </button>
             ))}
             <button type="button" onClick={exportCsv} disabled={!rows.length} className={`ml-auto ${secondaryButton}`}>
-              Export CSV
+              {t("common.exportCsv")}
             </button>
           </div>
 
@@ -107,16 +111,16 @@ function PayoutsPage() {
                 <table className="w-full min-w-[940px] text-body">
                   <thead>
                     <tr>
-                      <th className={HEAD}>Payout</th>
-                      <th className={HEAD}>Supplier</th>
-                      <th className={HEAD}>Order</th>
-                      <th className={HEAD}>Stage</th>
-                      <th className={`${HEAD} text-right`}>Gross</th>
-                      <th className={`${HEAD} text-right`}>Commission withheld</th>
-                      <th className={`${HEAD} text-right`}>Net</th>
-                      <th className={HEAD}>Currency</th>
-                      <th className={HEAD}>Status</th>
-                      <th className={HEAD}><span className="sr-only">Action</span></th>
+                      <th className={HEAD}>{t("page.payouts.headPayout")}</th>
+                      <th className={HEAD}>{t("page.payouts.headSupplier")}</th>
+                      <th className={HEAD}>{t("page.payouts.headOrder")}</th>
+                      <th className={HEAD}>{t("page.payouts.headStage")}</th>
+                      <th className={`${HEAD} text-right`}>{t("page.payouts.headGross")}</th>
+                      <th className={`${HEAD} text-right`}>{t("page.payouts.headCommission")}</th>
+                      <th className={`${HEAD} text-right`}>{t("page.payouts.headNet")}</th>
+                      <th className={HEAD}>{t("page.payouts.headCurrency")}</th>
+                      <th className={HEAD}>{t("page.payouts.headStatus")}</th>
+                      <th className={HEAD}><span className="sr-only">{t("common.action")}</span></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -125,7 +129,7 @@ function PayoutsPage() {
                         <td className={`${CELL} tabular`}>{row.payout_no}</td>
                         <td className={CELL}>{row.supplier}</td>
                         <td className={`${CELL} tabular`}>{row.order_no}</td>
-                        <td className={CELL}>{row.stage}</td>
+                        <td className={CELL}>{t(`payoutStage.${row.stage}`)}</td>
                         <td className={`${CELL} tabular text-right`}>{formatAud(row.gross_aud)}</td>
                         <td className={`${CELL} tabular text-right`}>{formatAud(row.commission_withheld_aud ?? 0)}</td>
                         <td className={`${CELL} tabular text-right`}>{formatAud(row.net_aud)}</td>
@@ -134,18 +138,20 @@ function PayoutsPage() {
                           {row.amount_foreign ? <p className="tabular text-label text-app-meta">{Number(row.amount_foreign).toLocaleString("en-AU", { maximumFractionDigits: 2 })}</p> : null}
                         </td>
                         <td className={CELL}>
-                          <span className={`inline-flex rounded-full px-2 py-0.5 text-label ${TONE[row.status] ?? TONE.scheduled}`}>{row.status}</span>
+                          <span className={`inline-flex rounded-full px-2 py-0.5 text-label ${TONE[row.status] ?? TONE.scheduled}`}>
+                            {t(`payoutStatus.${row.status}`)}
+                          </span>
                           {row.sent_on ? <p className="tabular text-label text-app-meta">{formatDate(row.sent_on)}</p> : null}
                           {row.provider_ref ? <p className="tabular text-label text-app-meta">{row.provider_ref}</p> : null}
                         </td>
                         <td className={`${CELL} text-right`}>
                           {row.status === "scheduled" ? (
                             <button type="button" onClick={() => setSending(row)} className={secondaryButton}>
-                              Mark sent
+                              {t("page.payouts.markSent")}
                             </button>
                           ) : row.status === "sent" ? (
                             <button type="button" onClick={() => confirm.mutate(row)} disabled={confirm.isPending} className={secondaryButton}>
-                              Mark confirmed
+                              {t("page.payouts.markConfirmed")}
                             </button>
                           ) : null}
                         </td>
@@ -155,29 +161,29 @@ function PayoutsPage() {
                 </table>
               </div>
             ) : (
-              <p className="px-5 py-6 text-body text-app-meta">No payouts with that status.</p>
+              <p className="px-5 py-6 text-body text-app-meta">{t("page.payouts.empty")}</p>
             )}
           </section>
 
           <section className="rounded-card border border-edge bg-sheet p-5">
-            <h2 className="text-lead font-medium">Commission statement</h2>
-            <p className="mt-1 text-body text-app-meta">One supplier, one month, every order and its commission, summed from the rows.</p>
+            <h2 className="text-lead font-medium">{t("page.payouts.statementTitle")}</h2>
+            <p className="mt-1 text-body text-app-meta">{t("page.payouts.statementNote")}</p>
             <div className="mt-3 flex flex-wrap items-end gap-2">
               <label className="block">
-                <span className="text-label text-app-meta">Supplier</span>
+                <span className="text-label text-app-meta">{t("page.payouts.supplier")}</span>
                 <select
                   value={supplierCode}
                   onChange={(event) => setSupplierCode(event.target.value)}
                   className="mt-1 min-h-[36px] rounded-control border border-control bg-sheet px-2 text-body outline-none focus:border-app-ink"
                 >
-                  <option value="">Choose a supplier</option>
+                  <option value="">{t("page.payouts.chooseSupplier")}</option>
                   {data.suppliers.map((item) => (
                     <option key={item.code} value={item.code}>{item.label}</option>
                   ))}
                 </select>
               </label>
               <label className="block">
-                <span className="text-label text-app-meta">Month</span>
+                <span className="text-label text-app-meta">{t("page.payouts.month")}</span>
                 <input
                   type="month"
                   value={month}
@@ -192,7 +198,7 @@ function PayoutsPage() {
                   target="_blank"
                   className={secondaryButton}
                 >
-                  Open statement
+                  {t("page.payouts.openStatement")}
                 </Link>
               ) : null}
             </div>
