@@ -39,11 +39,10 @@ export default function AppFrame({ nav, brand, topBarRight, footer, bottomBar, c
                 <span className="block h-[1.5px] w-5 bg-app-ink" />
               </span>
             </button>
-            <span className="text-body font-medium md:hidden">Wholesale System</span>
             <div className="ml-auto flex items-center gap-2">{topBarRight}</div>
           </div>
 
-          <main className={`flex-1 px-2 pb-2 ${bottomBar ? "pb-20 md:pb-2" : ""}`}>
+          <main className={`flex-1 px-2 ${bottomBar ? "pb-20 md:pb-2" : "pb-2"}`}>
             <div className="min-h-[calc(100dvh-64px)] rounded-sheet border border-sheet-edge bg-sheet px-4 py-6 md:px-8 md:py-8">
               <PageFade>{children}</PageFade>
             </div>

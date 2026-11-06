@@ -15,7 +15,7 @@ export default function MemberPage({ title, note, emptyTitle, emptyNote }) {
 /** The same shape for the console, with the hub scope in its sentence. */
 export function ConsolePage({ title, note, emptyTitle, emptyNote, scoped = false }) {
   const { hub } = useHubScope();
-  const sentence = scoped ? `${note} ${HUB_LABEL[hub]}.` : note;
+  const sentence = scoped ? `${HUB_LABEL[hub]} · ${note}` : note;
 
   return (
     <div className="space-y-7">

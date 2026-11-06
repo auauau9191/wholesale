@@ -10,7 +10,7 @@ function OverviewPage() {
   return (
     <ConsolePage
       title="Overview"
-      note="What needs attention across"
+      note="What needs attention today."
       scoped
       emptyTitle="Nothing to report yet."
       emptyNote="Counts appear as members, suppliers, samples and orders arrive."
