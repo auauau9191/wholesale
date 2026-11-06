@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import SampleTag from "@/components/brand/SampleTag";
 import NavList from "@/components/shell/NavList";
-import PageFade from "@/components/motion/PageFade";
 
 /**
  * The framed sheet: sidebar and a 48px top bar share one frame colour, and the
@@ -44,7 +43,7 @@ export default function AppFrame({ nav, brand, topBarRight, footer, bottomBar, c
 
           <main className={`flex-1 px-2 ${bottomBar ? "pb-20 md:pb-2" : "pb-2"}`}>
             <div className="min-h-[calc(100dvh-64px)] rounded-sheet border border-sheet-edge bg-sheet px-4 py-6 md:px-8 md:py-8">
-              <PageFade>{children}</PageFade>
+              {children}
             </div>
           </main>
         </div>

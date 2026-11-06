@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Image } from "@/components/ui/image";
+import { VIDEOS, videoPoster } from "@/content/media";
 import { formatDate } from "@/lib/format";
 
 function embedUrl(raw, seconds) {
@@ -30,12 +32,21 @@ export default function FilmPanel({ supplier }) {
             className="absolute inset-0 h-full w-full border-0"
           />
         ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 px-6 text-center">
-            <p className="text-lead font-medium">Film being edited</p>
-            <p className="max-w-[320px] text-body text-sheet/70">
-              Our own footage of this factory goes up once the edit is signed off.
-            </p>
-          </div>
+          <>
+            <Image
+              src={videoPoster("factory-machine-close")}
+              alt={VIDEOS["factory-machine-close"].alt}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div aria-hidden="true" className="absolute inset-0 bg-app-ink/75" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 px-6 text-center">
+              <p className="text-lead font-medium">Film being edited</p>
+              <p className="max-w-[320px] text-body text-sheet/70">
+                Our own footage of this factory goes up once the edit is signed off.
+              </p>
+            </div>
+            <p className="absolute bottom-3 right-3 text-label text-sheet/70">Illustrative footage</p>
+          </>
         )}
         <p className="tabular absolute left-3 top-3 text-label text-sheet/70">
           {supplier.supplier_code}

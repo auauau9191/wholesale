@@ -9,6 +9,7 @@ import ReviewStep from "@/components/public/join/ReviewStep";
 import PlanLoading from "@/components/public/PlanLoading";
 import PublicHeader from "@/components/public/PublicHeader";
 import PublicFooter from "@/components/public/PublicFooter";
+import LoopVideo from "@/components/motion/LoopVideo";
 import DataBlock from "@/components/shell/DataBlock";
 import MembershipPending from "@/components/public/MembershipPending";
 import useAppSettings from "@/hooks/useAppSettings";
@@ -137,7 +138,8 @@ function JoinPage() {
   return (
     <div>
       <PublicHeader />
-      <main className="mx-auto w-full max-w-[820px] px-5 pb-16 pt-4 md:px-10 md:pt-8">
+      <div className="mx-auto grid w-full max-w-[1360px] gap-12 px-5 md:px-10 lg:grid-cols-[minmax(0,820px)_minmax(0,1fr)]">
+      <main className="min-w-0 pb-16 pt-4 md:pt-8">
       <h1 className="max-w-[600px] text-section font-medium tracking-[-0.02em]">
         Join, then hold the product in your hands.
       </h1>
@@ -230,6 +232,13 @@ function JoinPage() {
         </p>
       ) : null}
       </main>
+
+      <aside className="hidden lg:block">
+        <div className="sticky top-6 pt-8">
+          <LoopVideo name="hub-forklift-aisle" className="aspect-[3/4] w-full" caption />
+        </div>
+      </aside>
+      </div>
       <PublicFooter />
     </div>
   );

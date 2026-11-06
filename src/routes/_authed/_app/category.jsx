@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft } from "lucide-react";
+import LoopVideo from "@/components/motion/LoopVideo";
 import SupplierFilter from "@/components/member/SupplierFilter";
 import SupplierCard from "@/components/member/SupplierCard";
 import DataBlock from "@/components/shell/DataBlock";
@@ -47,6 +48,14 @@ function CategoryPage() {
     return tally;
   }, {});
 
+  // The band is atmosphere: apparel knits, homewares runs a fabric line, the rest packs.
+  const name = category?.name ?? "";
+  const headerClip = /apparel|textile/i.test(name)
+    ? "factory-yarn-cones"
+    : /homeware|kitchen/i.test(name)
+      ? "factory-fabric-line"
+      : "factory-packing-line";
+
   const shown = suppliers.filter((supplier) => {
     if (filter === "factory") return supplier.supplier_type === "factory";
     if (filter === "trading_company") return supplier.supplier_type === "trading_company";
@@ -79,6 +88,8 @@ function CategoryPage() {
           </p>
         </div>
       </div>
+
+      <LoopVideo name={headerClip} className="aspect-[16/5] w-full" caption />
 
       <SupplierFilter value={filter} onChange={setFilter} total={suppliers.length} />
 

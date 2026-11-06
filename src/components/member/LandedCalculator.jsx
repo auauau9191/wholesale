@@ -1,3 +1,4 @@
+import CountUp from "@/components/motion/CountUp";
 import DataBlock from "@/components/shell/DataBlock";
 import { landedCost, quantityChips } from "@/services/pricing";
 import { formatAud, formatQty, formatUsd } from "@/lib/format";
@@ -76,13 +77,17 @@ export default function LandedCalculator({ product, settings, quantity, onQuanti
 
       <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-rule pt-4">
         <p className="text-body font-medium">Landed per unit</p>
-        <p className="tabular text-title font-medium">{formatAud(cost.landed)}</p>
+        <p className="text-title font-medium">
+          <CountUp value={cost.landed} format={formatAud} />
+        </p>
       </div>
       <div className="mt-1 flex items-baseline justify-between gap-4">
         <p className="text-body text-app-soft">
           {formatQty(cost.quantity)} units, order total
         </p>
-        <p className="tabular text-body">{formatAud(cost.orderTotal)}</p>
+        <p className="text-body">
+          <CountUp value={cost.orderTotal} format={formatAud} />
+        </p>
       </div>
 
       <p className="mt-4 max-w-[520px] text-label text-app-meta">
