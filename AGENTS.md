@@ -1,7 +1,7 @@
 # Wholesale System — rules for coding agents
 
 This repository is the Wholesale System app (China → Australia verified wholesale and sample platform).
-Read this file before changing any screen. It applies to Base44's AI, Claude Code, Codex, Cursor and any other agent.
+Read this file before changing any screen. It applies to Claude Code, Codex, Cursor and any other agent. The app was first built on Base44 and now runs on Supabase + Cloudflare Workers (see README.md).
 
 ## Design skill
 
@@ -62,7 +62,7 @@ Radii: app cards 8, controls 6, sheet 16; public site square. Spacing on a 4px b
 - Every list has empty, loading (flat grey bars at real size) and error states inside its block.
 - Phone: the sidebar folds to a 48px top bar; tables become two-line rows; touch targets 44px.
 - Business rules (credits, eligibility, prices, statuses) run in backend functions, never in the browser.
-- All data access goes through `src/services/`; pages never call the Base44 SDK directly.
+- All data access goes through `src/services/`; pages never call the data layer directly. Access rules live in `base44/entities/*.jsonc` (`rls`) and are enforced by `src/lib/backend/`; regenerate `supabase/schema.sql` with `node scripts/gen-backend-schema.mjs` after changing an entity.
 
 ## Business model (1 Nov 2026)
 

@@ -37,7 +37,7 @@ function SupplierEditorPage() {
   const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
     queryKey: ["supplier-editor", supplierCode],
-    queryFn: () => getSupplierEditor({ code: supplierCode }),
+    queryFn: () => getSupplierEditor({ data: { code: supplierCode } }),
   });
   const [draft, setDraft] = useState(null);
 
@@ -47,11 +47,11 @@ function SupplierEditorPage() {
 
   const save = useMutation({
     mutationFn: () =>
-      saveSupplier({
+      saveSupplier({ data: {
         supplier_id: data.supplier.id,
         // An empty commission rate is meaningful (it falls back to the default); other blanks are left untouched.
         patch: Object.fromEntries(Object.entries(draft).filter(([key, value]) => value !== null || key === "commission_rate")),
-      }),
+      } }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["supplier-editor", supplierCode] });
       queryClient.invalidateQueries({ queryKey: ["supplier-board"] });

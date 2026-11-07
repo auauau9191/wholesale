@@ -1,23 +1,27 @@
-import { createClientFromRequest, getAccessToken } from "@base44/sdk";
 import { createMiddleware } from "@tanstack/react-start";
 import { getRequest, setResponseStatus } from "@tanstack/react-start/server";
+import { getFreshAccessToken } from "@/lib/backend/client";
+import { createClientFromRequest } from "@/lib/backend/client.server";
 
-// Both middlewares hand handlers the same lazy `context.getBase44()`: a
-// function, not the client, because the client needs the platform headers and
-// a handler that never touches Base44 must still answer without them. The
-// platform sets those headers on every request that reaches the server; a
-// visitor's Authorization header makes the client act as that visitor.
-const withGetBase44 = (next, request = getRequest()) => {
+// Both middlewares hand handlers the same lazy `context.getBase44()`: a function, not the
+// client, so a handler that never touches the data opens no database connection. The name
+// is kept from the app's Base44 days; it now returns the Supabase backend
+// (src/lib/backend/client.server.js) with the same API. The connection closes when the
+// handler is done.
+const withGetBase44 = async (next, request = getRequest()) => {
   let client;
-  return next({ context: { getBase44: () => (client ??= createClientFromRequest(request)) } });
+  try {
+    return await next({ context: { getBase44: () => (client ??= createClientFromRequest(request)) } });
+  } finally {
+    if (client) await client.end();
+  }
 };
 
-// Applied to every server function by src/start.js: sends the visitor's Base44
-// access token with the call so `context.getBase44()` acts as the visitor (entity
-// access rules apply). Anonymous visitors send nothing and get an anonymous client.
+// Applied to every server function by src/start.js: sends the visitor's access token with
+// the call so `context.getBase44()` acts as the visitor. Anonymous visitors send nothing.
 export const authMiddleware = createMiddleware({ type: "function" })
   .client(async ({ next }) => {
-    const token = typeof window === "undefined" ? null : getAccessToken();
+    const token = typeof window === "undefined" ? null : await getFreshAccessToken();
     return next({ headers: token ? { Authorization: `Bearer ${token}` } : {} });
   })
   .server(({ next }) => withGetBase44(next));
@@ -28,7 +32,7 @@ export const base44RequestMiddleware = createMiddleware({ type: "request" }).ser
   withGetBase44(next, request),
 );
 
-// Only an auth rejection means "not signed in"; outages and rate limits propagate as themselves.
+// Only an auth rejection means "not signed in"; outages propagate as themselves.
 const currentUser = (context) =>
   context
     .getBase44()
@@ -38,8 +42,8 @@ const currentUser = (context) =>
       throw error;
     });
 
-// Neither middleware authenticates anyone. Add this to a server function that
-// needs a signed-in caller; it rejects anonymous callers and sets `context.user`:
+// Add this to a server function that needs a signed-in caller; it rejects anonymous callers
+// and sets `context.user`:
 //   createServerFn().middleware([requireUser]).handler(({ context }) => context.user.id)
 export const requireUser = createMiddleware({ type: "function" }).server(async ({ next, context }) => {
   const user = await currentUser(context);
@@ -50,9 +54,7 @@ export const requireUser = createMiddleware({ type: "function" }).server(async (
   return next({ context: { user } });
 });
 
-// The same for a server route: `server: { middleware: [requireUserRoute], handlers }` answers
-// anonymous callers with 401 and sets `context.user`. Only on src/routes/api/* files: a route's
-// middleware also runs for every route under it, and page navigations carry no token.
+// The same for a server route: `server: { middleware: [requireUserRoute], handlers }`.
 export const requireUserRoute = createMiddleware({ type: "request" }).server(async ({ next, context }) => {
   const user = await currentUser(context);
   if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });

@@ -24,7 +24,7 @@ function PipelinePage() {
   const board = useQuery({ queryKey: ["supplier-board"], queryFn: getSupplierBoard });
 
   const move = useMutation({
-    mutationFn: ({ id, stage, note }) => moveSupplierStage({ supplier_id: id, to_stage: stage, note }),
+    mutationFn: ({ id, stage, note }) => moveSupplierStage({ data: { supplier_id: id, to_stage: stage, note } }),
     onSuccess: (result, vars) => {
       queryClient.invalidateQueries({ queryKey: ["supplier-board"] });
       if (result.ok) toast(`${vars.headline} moved to ${vars.label}.`);

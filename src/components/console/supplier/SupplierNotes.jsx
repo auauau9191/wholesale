@@ -11,7 +11,7 @@ export default function SupplierNotes({ code, notes }) {
   const queryClient = useQueryClient();
   const [note, setNote] = useState("");
   const add = useMutation({
-    mutationFn: () => addSupplierNote({ supplier_code: code, note: note.trim() }),
+    mutationFn: () => addSupplierNote({ data: { supplier_code: code, note: note.trim() } }),
     onSuccess: () => {
       setNote("");
       queryClient.invalidateQueries({ queryKey: ["supplier-editor", code] });

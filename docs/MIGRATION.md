@@ -1,5 +1,8 @@
 # Migration map: Base44 → Supabase
 
+> **Done (Nov 2026).** The app now runs on Supabase. The shape chosen: one Postgres table per entity (generated from `base44/entities` into `supabase/schema.sql`), reached only by the app's own server through `src/lib/backend/` with the same entity API the code was written against; the entity `rls` rules are enforced there; sign-in is Supabase Auth. Hosting is Cloudflare Workers. The table below is kept as the record of what was replaced. Deploy steps: `docs/DEPLOY.md`.
+
+
 Every place this code depends on Base44, and what it becomes on Supabase. The business logic in `src/lib/*.server.js` and the landed-cost maths in `src/services/pricing.js` are plain JavaScript with no SDK calls — they move unchanged. What changes is the data layer, the auth layer, and the transport between the browser and the rules.
 
 **Static assets move as they are.** `public/media` (clips and posters) and `public/fonts` (Switzer woff2) are plain files served by the web server. On Supabase they can stay in the front-end build output, or be uploaded to Storage as public objects; neither the paths in `src/content/media.js` nor the `@font-face` rules change except for the prefix.

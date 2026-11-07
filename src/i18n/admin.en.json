@@ -50,25 +50,104 @@
       "title": "Overview",
       "note": "What needs attention today.",
       "emptyTitle": "Nothing to report yet.",
-      "emptyNote": "Counts appear as members, suppliers, samples and orders arrive."
+      "emptyNote": "Counts appear as members, suppliers, samples and orders arrive.",
+      "noteCount": "{send} samples to send, {pending} members to activate, {overdue} decisions overdue.",
+      "tile": {
+        "pending_members": "Members to activate",
+        "active_members": "Active members",
+        "to_send": "Samples to send",
+        "samples_out": "Samples out",
+        "decisions_overdue": "Decisions overdue",
+        "qc_hold": "Units in QC hold",
+        "in_stock": "Units on the shelf",
+        "containers_this_week": "Containers due this week",
+        "orders_in_production": "Orders in production",
+        "live_suppliers": "Live suppliers"
+      },
+      "commission": "Commission withheld this month",
+      "commissionNote": "Summed from {count} balance payouts."
     },
     "inventory": {
       "title": "Sample inventory",
       "note": "Every unit on the shelf, from the master that never leaves to the ones out with members.",
       "emptyTitle": "No sample units yet.",
-      "emptyNote": "Units arrive with a container, are checked against the signed spec, then go on the shelf."
+      "emptyNote": "Units arrive with a container, are checked against the signed spec, then go on the shelf.",
+      "noteCount": "{hub} · {onShelf} units free to send; {low} products at or below the reorder level.",
+      "headProduct": "Product",
+      "headShelf": "Shelf",
+      "col": {
+        "in_transit": "In transit",
+        "qc_hold": "QC hold",
+        "in_stock": "On shelf",
+        "reserved": "Reserved",
+        "with_member": "With members",
+        "retired": "Retired"
+      },
+      "masterAt": "master at {hub}",
+      "low": "Low: {level} or fewer",
+      "lowShort": "Low",
+      "key": {
+        "master": "Master, stays",
+        "pack": "Being packed",
+        "shelf": "On the shelf",
+        "out": "With a member",
+        "retired": "Retired"
+      }
     },
     "members": {
       "title": "Members",
       "note": "Who has joined, who is waiting for review and whose plan needs attention.",
       "emptyTitle": "No members yet.",
-      "emptyNote": "A member appears the moment an ABN is submitted for review."
+      "emptyNote": "A member appears the moment an ABN is submitted for review.",
+      "noteCount": "{total} in total; {pending} waiting for you to check their ABN and payment, then activate.",
+      "activate": "Activate membership",
+      "putOnHold": "Put on hold",
+      "activated": "{name} is active. Their joining sample credit is ready.",
+      "held": "{name} is on hold.",
+      "noneInTab": "No one here right now.",
+      "tab": {
+        "pending_review": "Pending",
+        "active": "Active",
+        "on_hold": "On hold",
+        "suspended": "Suspended"
+      },
+      "headBusiness": "Business",
+      "headState": "State",
+      "headPlan": "Plan",
+      "headPayment": "Payment",
+      "headCredits": "Credits",
+      "headPaidUntil": "Paid until",
+      "headStatus": "Status",
+      "headAction": "Action",
+      "plan": {
+        "starter_quarter": "First 3 months",
+        "monthly": "Monthly",
+        "annual": "Annual"
+      },
+      "payment": {
+        "pending": "Not paid yet",
+        "settled": "Paid",
+        "failed": "Failed"
+      }
     },
     "categories": {
       "title": "Categories",
       "note": "What members can browse, and the risk tier behind each one.",
       "emptyTitle": "No categories yet.",
-      "emptyNote": "A category needs a code and a risk tier before products can join it."
+      "emptyNote": "A category needs a code and a risk tier before products can join it.",
+      "noteCount": "{live} of {total} categories are open to members.",
+      "headCategory": "Category",
+      "headRisk": "Risk",
+      "headSuppliers": "Live suppliers",
+      "headProducts": "Live products",
+      "headStatus": "Members see it",
+      "risk": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "live": "Open · hide",
+      "hidden": "Hidden · open"
     },
     "settings": {
       "title": "Settings",
@@ -122,7 +201,8 @@
       "missingOne": "{count} thing missing for live",
       "missingMany": "{count} things missing for live",
       "ready": "Ready for live"
-    },    "suppliers": {
+    },
+    "suppliers": {
       "title": "Suppliers",
       "note": "{total} factories on file, {live} live. A record holds the visit, the film, the checks and the money terms.",
       "notePlain": "Every factory we work with, live and in progress.",
@@ -217,7 +297,8 @@
       "markConfirmed": "Mark confirmed",
       "empty": "No payouts with that status.",
       "statementTitle": "Commission statement",
-      "statementNote": "One supplier, one month, every order and its commission, summed from the rows.",      "chooseSupplier": "Choose a supplier",
+      "statementNote": "One supplier, one month, every order and its commission, summed from the rows.",
+      "chooseSupplier": "Choose a supplier",
       "supplier": "Supplier",
       "month": "Month",
       "openStatement": "Open statement",
@@ -294,12 +375,30 @@
       "send_reminder": "Send reminder"
     },
     "filter": {
-      "awaiting": { "label": "Awaiting dispatch", "list": "To send today" },
-      "on_hold": { "label": "On hold", "list": "On hold" },
-      "in_transit": { "label": "In transit", "list": "In transit" },
-      "deciding": { "label": "Waiting on a decision", "list": "Waiting on a decision" },
-      "overdue": { "label": "Decisions overdue", "list": "Decisions overdue" },
-      "low": { "label": "Products low on samples", "list": "Low on samples" }
+      "awaiting": {
+        "label": "Awaiting dispatch",
+        "list": "To send today"
+      },
+      "on_hold": {
+        "label": "On hold",
+        "list": "On hold"
+      },
+      "in_transit": {
+        "label": "In transit",
+        "list": "In transit"
+      },
+      "deciding": {
+        "label": "Waiting on a decision",
+        "list": "Waiting on a decision"
+      },
+      "overdue": {
+        "label": "Decisions overdue",
+        "list": "Decisions overdue"
+      },
+      "low": {
+        "label": "Products low on samples",
+        "list": "Low on samples"
+      }
     }
   },
   "order": {
@@ -363,4 +462,5 @@
   "payoutStage": {
     "deposit": "Deposit",
     "balance": "Balance"
-  }}
+  }
+}

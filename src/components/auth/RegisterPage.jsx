@@ -38,7 +38,12 @@ export function RegisterPage() {
     }
     setBusy(true);
     try {
-      await base44.auth.register({ email, password });
+      const result = await base44.auth.register({ email, password });
+      // Signed in straight away when email confirmation is off in Supabase.
+      if (result?.access_token) {
+        window.location.href = returnTo;
+        return;
+      }
       setStep("otp");
     } catch (err) {
       setError(err.message || "Registration failed");
@@ -100,7 +105,8 @@ export function RegisterPage() {
       <AuthLayout icon={UserPlus} title="Create your account" subtitle="Sign up to get started">
         <form onSubmit={verify}>
           <p className="mb-4 text-sm text-muted-foreground">
-            We sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>.
+            We sent a confirmation email to <span className="font-medium text-foreground">{email}</span>. Click the link
+            in it, or type the 6-digit code here if the email shows one.
           </p>
           <AuthError>{error}</AuthError>
           <div className="mb-6 flex justify-center">

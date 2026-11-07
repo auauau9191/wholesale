@@ -1,4 +1,4 @@
-import { getAccessToken } from "@base44/sdk";
+import { getAccessToken } from "@/lib/backend/client";
 import { Loader2, ShieldCheck } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 import { AuthLayout } from "@/components/auth/AuthLayout";

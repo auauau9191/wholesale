@@ -31,7 +31,7 @@ function CommissionStatementPage() {
   const options = useQuery({ queryKey: ["payouts"], queryFn: getPayouts });
   const { data, isLoading, error } = useQuery({
     queryKey: ["commission-statement", supplier, month],
-    queryFn: () => getCommissionStatement({ supplier_code: supplier, month }),
+    queryFn: () => getCommissionStatement({ data: { supplier_code: supplier, month } }),
     enabled: Boolean(supplier),
   });
 

@@ -1,16 +1,29 @@
 import { Link } from "@tanstack/react-router";
 import { AlertTriangle, Lock } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
+import { getSupabase } from "@/lib/backend/client";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { AuthError, SubmitButton } from "@/components/auth/parts";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-// The /reset-password page; the reset email links here with ?token=.
+// The /reset-password page. Supabase's reset email links here and signs the person in for
+// this one purpose (the link carries a recovery session); then they choose a new password.
 export function ResetPasswordPage() {
-  // Read raw: the router's search parser would turn an all-digit token into a number.
-  const token = new URLSearchParams(window.location.search).get("token");
+  const [token, setToken] = useState(() =>
+    /type=recovery|access_token=|code=/.test(window.location.hash + window.location.search) ? "pending" : null,
+  );
+  useEffect(() => {
+    const supabase = getSupabase();
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" || (session && token === "pending")) setToken("ready");
+    });
+    supabase.auth.getSession().then(({ data: s }) => {
+      if (s.session) setToken((t) => t ?? "ready");
+    });
+    return () => data.subscription.unsubscribe();
+  }, []);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
@@ -26,7 +39,7 @@ export function ResetPasswordPage() {
     setBusy(true);
     try {
       await base44.auth.resetPassword({ resetToken: token, newPassword: password });
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (err) {
       setError(err.message || "Failed to reset password");
       setBusy(false);
