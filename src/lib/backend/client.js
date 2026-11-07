@@ -6,18 +6,40 @@ const isBrowser = typeof window !== "undefined";
 export const AUTH_STORAGE_KEY = "wholesale-auth";
 export const GOOGLE_ENABLED = import.meta.env.VITE_ENABLE_GOOGLE_LOGIN === "true";
 
+// The Supabase address and public key. Read from the build (VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY)
+// when they were set there; otherwise asked from the app's own server, which reads the same names
+// from the Worker's runtime variables — so they can live with the other settings in the dashboard.
+let configPromise;
+function supabaseConfig() {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (url && key) return Promise.resolve({ url, key });
+  configPromise ??= fetch("/api/public-config")
+    .then((r) => (r.ok ? r.json() : {}))
+    .catch(() => ({}))
+    .then((c) => {
+      if (!c.url || !c.key) {
+        configPromise = undefined;
+        throw new Error("Supabase isn't configured: add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to the Worker's variables.");
+      }
+      return c;
+    });
+  return configPromise;
+}
+
 let supabase;
-export function getSupabase() {
+export async function getSupabase() {
   if (!supabase) {
-    const url = import.meta.env.VITE_SUPABASE_URL;
-    const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
-    if (!url || !key) throw new Error("Supabase isn't configured: set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.");
-    supabase = createSupabase(url, key, {
+    const { url, key } = await supabaseConfig();
+    supabase ??= createSupabase(url, key, {
       auth: { storageKey: AUTH_STORAGE_KEY, persistSession: isBrowser, autoRefreshToken: isBrowser, detectSessionInUrl: isBrowser },
     });
   }
   return supabase;
 }
+
+// Start the client as soon as the page loads, so sessions refresh and reset links are read.
+if (isBrowser) getSupabase().catch(() => {});
 
 const storedSession = () => {
   if (!isBrowser) return null;
@@ -37,7 +59,7 @@ export function getAccessToken() {
 export async function getFreshAccessToken() {
   if (!isBrowser) return null;
   if (!storedSession()) return null;
-  const { data } = await getSupabase().auth.getSession();
+  const { data } = await (await getSupabase()).auth.getSession();
   return data.session?.access_token ?? null;
 }
 
@@ -80,12 +102,12 @@ export function createClient() {
       me: () => call({ op: "me" }),
       updateMe: (data) => call({ op: "updateMe", args: [data] }),
       async loginViaEmailPassword(email, password) {
-        const { data, error } = await getSupabase().auth.signInWithPassword({ email, password });
+        const { data, error } = await (await getSupabase()).auth.signInWithPassword({ email, password });
         if (error) throw authError(error);
         return { access_token: data.session?.access_token, user: data.user };
       },
       async register({ email, password }) {
-        const { data, error } = await getSupabase().auth.signUp({
+        const { data, error } = await (await getSupabase()).auth.signUp({
           email,
           password,
           options: { emailRedirectTo: `${window.location.origin}/` },
@@ -95,31 +117,31 @@ export function createClient() {
         return { access_token: data.session?.access_token ?? null, needs_verification: !data.session };
       },
       async verifyOtp({ email, otpCode }) {
-        const { data, error } = await getSupabase().auth.verifyOtp({ email, token: otpCode, type: "signup" });
+        const { data, error } = await (await getSupabase()).auth.verifyOtp({ email, token: otpCode, type: "signup" });
         if (error) throw authError(error);
         return { access_token: data.session?.access_token };
       },
       async resendOtp(email) {
-        const { error } = await getSupabase().auth.resend({ type: "signup", email });
+        const { error } = await (await getSupabase()).auth.resend({ type: "signup", email });
         if (error) throw authError(error);
       },
       async resetPasswordRequest(email) {
-        const { error } = await getSupabase().auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` });
+        const { error } = await (await getSupabase()).auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` });
         if (error) throw authError(error);
       },
       async resetPassword({ newPassword }) {
-        const { error } = await getSupabase().auth.updateUser({ password: newPassword });
+        const { error } = await (await getSupabase()).auth.updateUser({ password: newPassword });
         if (error) throw authError(error);
       },
       async loginWithProvider(provider, returnTo) {
-        const { error } = await getSupabase().auth.signInWithOAuth({
+        const { error } = await (await getSupabase()).auth.signInWithOAuth({
           provider,
           options: { redirectTo: new URL(returnTo || "/", window.location.origin).href },
         });
         if (error) throw authError(error);
       },
       async logout(redirectUrl) {
-        await getSupabase().auth.signOut().catch(() => {});
+        await (await getSupabase()).auth.signOut().catch(() => {});
         try {
           window.localStorage.removeItem(AUTH_STORAGE_KEY);
         } catch {

@@ -9,8 +9,8 @@ export function serverEnv(name) {
   return workerEnv?.[name] ?? globalThis.process?.env?.[name] ?? import.meta.env?.[name];
 }
 
-const supabaseUrl = () => serverEnv("VITE_SUPABASE_URL") ?? import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = () => serverEnv("VITE_SUPABASE_ANON_KEY") ?? import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = () => serverEnv("VITE_SUPABASE_URL") ?? serverEnv("SUPABASE_URL");
+const supabaseAnonKey = () => serverEnv("VITE_SUPABASE_ANON_KEY") ?? serverEnv("SUPABASE_ANON_KEY");
 
 const adminEmails = () =>
   String(serverEnv("ADMIN_EMAILS") ?? "")
