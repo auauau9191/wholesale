@@ -9,7 +9,7 @@ import { AuthError, AuthLink, GoogleButton, OrDivider, SubmitButton } from "@/co
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
-import { safeReturnTo } from "@/lib/authReturnTo";
+import { homeAfterSignIn, safeReturnTo } from "@/lib/authReturnTo";
 
 const isAlreadyVerified = (err) => err?.status === 400 && /already verified/i.test(err?.message ?? "");
 
@@ -41,7 +41,7 @@ export function RegisterPage() {
       const result = await base44.auth.register({ email, password });
       // Signed in straight away when email confirmation is off in Supabase.
       if (result?.access_token) {
-        window.location.href = returnTo;
+        window.location.href = await homeAfterSignIn(returnTo);
         return;
       }
       setStep("otp");
@@ -63,7 +63,7 @@ export function RegisterPage() {
         return;
       }
       if (result?.access_token) base44.auth.setToken(result.access_token);
-      window.location.href = returnTo;
+      window.location.href = await homeAfterSignIn(returnTo);
     } catch (err) {
       // Verified server-side but the answer never arrived: the code is spent and
       // there is no token, so the only way forward is a normal sign-in.

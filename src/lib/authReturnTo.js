@@ -55,3 +55,17 @@ export function currentUrl() {
 export function returnToSearch(returnTo) {
   return returnTo && returnTo !== "/" ? { returnTo } : {};
 }
+
+// Where to land after signing in when no page asked for one: staff go to the console,
+// everyone else to the catalogue (which shows how to join when there is no membership yet).
+export async function homeAfterSignIn(returnTo) {
+  if (returnTo && returnTo !== "/") return returnTo;
+  try {
+    const { base44 } = await import("@/api/base44Client");
+    const user = await base44.auth.me();
+    if (user?.role === "admin" || ["BNE", "SYD", "ALL"].includes(user?.hub_code)) return "/admin";
+    return "/browse";
+  } catch {
+    return "/";
+  }
+}

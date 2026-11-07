@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { MfaFlow } from "@/components/auth/MfaFlow";
 import { MfaScreen } from "@/components/auth/MfaParts";
 import { loginWithMfa } from "@/lib/authMfa";
-import { safeReturnTo } from "@/lib/authReturnTo";
+import { homeAfterSignIn, safeReturnTo } from "@/lib/authReturnTo";
 
 // The /login page. ?returnTo= (or the platform's ?from_url=) is where the visitor
 // goes after signing in — the login gate and the MCP consent page send people here with it.
@@ -30,7 +30,7 @@ export function LoginPage() {
         return;
       }
       // A hard redirect: the app re-initializes with the new session.
-      window.location.href = returnTo;
+      window.location.href = await homeAfterSignIn(returnTo);
     } catch (err) {
       setError(err.message || "Invalid email or password");
       setBusy(false);
