@@ -15,14 +15,23 @@ export function ResetPasswordPage() {
     /type=recovery|access_token=|code=/.test(window.location.hash + window.location.search) ? "pending" : null,
   );
   useEffect(() => {
-    const supabase = getSupabase();
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY" || (session && token === "pending")) setToken("ready");
-    });
-    supabase.auth.getSession().then(({ data: s }) => {
-      if (s.session) setToken((t) => t ?? "ready");
-    });
-    return () => data.subscription.unsubscribe();
+    let subscription;
+    let gone = false;
+    getSupabase()
+      .then((supabase) => {
+        if (gone) return;
+        subscription = supabase.auth.onAuthStateChange((event, session) => {
+          if (event === "PASSWORD_RECOVERY" || (session && token === "pending")) setToken("ready");
+        }).data.subscription;
+        return supabase.auth.getSession().then(({ data: s }) => {
+          if (s.session) setToken((t) => t ?? "ready");
+        });
+      })
+      .catch(() => {});
+    return () => {
+      gone = true;
+      subscription?.unsubscribe();
+    };
   }, []);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");

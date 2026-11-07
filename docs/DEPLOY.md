@@ -41,15 +41,15 @@ Click **Connect** at the top of the Supabase project page and copy these:
 2. Fill in **Build settings**:
    - Build command: `npm run build`.
    - Deploy command: `npx wrangler deploy`.
-3. Under **Build variables**, add:
-   - `VITE_SUPABASE_URL` = the Project URL;
-   - `VITE_SUPABASE_ANON_KEY` = the public key.
-4. Press **Deploy**.
-5. When the deploy finishes, open the Worker's **Settings → Variables and Secrets** and add:
+3. Press **Deploy**.
+4. When the deploy finishes, open the Worker's **Settings → Runtime variables and secrets** and add:
    - `DATABASE_URL`, as type **Secret** = the Transaction pooler connection string;
-   - `ADMIN_EMAILS` = your email, plus your partner's, separated by a comma.
-6. Click **Deployments → Retry deployment** (or push any commit) so the Worker picks up the new values.
-7. Your app is at `https://wholesale.<your-subdomain>.workers.dev`. Open it on your phone, sign up with the email you put in `ADMIN_EMAILS`, and you're the admin.
+   - `VITE_SUPABASE_URL`, as type **Text** = the Project URL;
+   - `VITE_SUPABASE_ANON_KEY`, as type **Text** = the public key. It's safe to show in the browser.
+
+   `ADMIN_EMAILS` is set in `wrangler.jsonc`.
+5. Click **Deploy** in that panel.
+6. Your app is at `https://wholesale.<your-subdomain>.workers.dev`. Open it on your phone, sign up with the email you put in `ADMIN_EMAILS`, and you're the admin.
 
 ## 5. Add it to the phone home screen
 
