@@ -80,7 +80,7 @@ export default function LoopVideo({ name, className = "", caption = false, posit
   }, [onScreen, plays]);
 
   return (
-    <figure className={`relative m-0 overflow-hidden bg-ink ${className}`}>
+    <figure ref={frame} className={`relative m-0 overflow-hidden bg-ink ${className}`}>
       {plays ? (
         <video
           ref={element}
