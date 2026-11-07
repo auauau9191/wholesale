@@ -6,6 +6,8 @@
   "main": "src/server.js",
   // Keep the variables and secrets set in the Cloudflare dashboard (DATABASE_URL, ADMIN_EMAILS…) on every deploy.
   "keep_vars": true,
+  // Emails that become admins when they sign in (comma-separated). DATABASE_URL stays a dashboard secret.
+  "vars": { "ADMIN_EMAILS": "nurali.rustamov.projects@gmail.com" },
   // 19:00 UTC = 6:00 am in Sydney during daylight saving (5:00 am in winter).
   "triggers": { "crons": ["0 19 * * *"] },
   "observability": { "enabled": true }
