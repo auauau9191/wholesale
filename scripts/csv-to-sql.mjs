@@ -60,6 +60,7 @@ for (const file of files) {
   if (!name) { report.push(`skipped ${file} (no matching entity)`); continue; }
   const { table, fields } = ENTITIES[name];
   const [header, ...rows] = parseCsv(readFileSync(join(dir, file), "utf8").replace(/^\uFEFF/, ""));
+  if (!header) { report.push(`${file} → ${table}: empty, nothing to import`); continue; }
   const cols = header.map((h) => h.trim());
   let count = 0;
   for (const r of rows) {
