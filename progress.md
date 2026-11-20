@@ -14,8 +14,12 @@ Brief: award-level, fast, accessible public site that converts visitors into mem
 
 - **Round 1 rejected; Round 2 made (20 Nov 2026).** Seam, Docket and Container, each prototyped in HTML (`docs/rebuild/concepts-r2/`), checked at 1440 and 390, then ported to the Design artifact (page "Round 2").
 
+- **Gate 2 passed (20 Nov 2026).** Owner chose Docket, with no pink. The motion prototype is in `docs/rebuild/docket-prototype/`. Draft PR #11 opened.
+- **Step 3, plan drafted (20 Nov 2026).** It's in the Claude Doc "Lotwise: rebuild plan": sitemap, content model, editing workflow, architecture, hosting, security, analytics and payments, 190 hours over 8 phases, risks, decisions.
+
 ## Next
-- **Gate 2:** owner chooses one direction or combines them. Then step 3: the plan.
+- **Gate 3:** owner approves the plan and answers its decisions (Workers Paid plan, public category pages, GST-inclusive prices, AI training bots, editors, first guides).
+- Then phase 0: foundations.
 - Owner to run PageSpeed Insights on the live URL.
 
 ## Notes
