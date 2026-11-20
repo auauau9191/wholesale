@@ -12,6 +12,8 @@ Brief: award-level, fast, accessible public site that converts visitors into mem
 
 - **Step 2, three concepts (20 Nov 2026).** A Carton, B Field film and C Racking, each with a website home and an app product page, on phone and desktop. They're in the Design artifact "Lotwise: three concepts", with a copy in `docs/rebuild/concepts/`. All the data shown is the demo set (product CF-CN208-0385; landed costs computed with `landedLines`), and every photo and film area is a labelled placeholder.
 
+- **Round 1 rejected; Round 2 made (20 Nov 2026).** Seam, Docket and Container, each prototyped in HTML (`docs/rebuild/concepts-r2/`), checked at 1440 and 390, then ported to the Design artifact (page "Round 2").
+
 ## Next
 - **Gate 2:** owner chooses one direction or combines them. Then step 3: the plan.
 - Owner to run PageSpeed Insights on the live URL.

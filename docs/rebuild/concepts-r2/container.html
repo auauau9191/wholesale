@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lotwise: open the container</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@100..900&family=Familjen+Grotesk:wght@400..700&display=swap">
+<style>
+:root{
+  --livery:oklch(0.43 0.09 165);     /* our container's paint: everything that belongs to Lotwise */
+  --livery-dark:oklch(0.33 0.08 165);
+  --steel:oklch(0.24 0.015 200);      /* the inside of the box */
+  --stencil:oklch(0.96 0.01 100);     /* stencilled facts */
+  --cam:oklch(0.86 0.17 95);          /* the yellow cam handles: the only thing you pull, every action */
+  --mute:oklch(0.76 0.02 190);
+  --stencilfont:"Big Shoulders Stencil Display",sans-serif;
+  font-family:"Familjen Grotesk",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--steel);color:var(--stencil)}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--cam);outline-offset:3px}
+
+.top{position:fixed;inset:0 0 auto;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(16px,3vw,36px);pointer-events:none}
+.top > *{pointer-events:auto}
+.logo{font-family:var(--stencilfont);font-weight:800;font-size:34px;letter-spacing:.01em;text-decoration:none;line-height:1;background:var(--steel);padding:6px 12px 4px;border-radius:3px}
+.top nav{display:flex;gap:6px}
+.top nav a{text-decoration:none;font-size:15px;padding:11px 14px;border-radius:3px;background:oklch(0.24 0.015 200 / .7);backdrop-filter:blur(8px)}
+.top nav a.join{background:var(--cam);color:var(--steel);font-weight:700}
+
+/* THE DOORS */
+.stage{position:relative}
+.box{position:relative;height:min(100vh,920px);min-height:640px;overflow:hidden;perspective:1800px;perspective-origin:50% 45%}
+.inside{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(20px,5vw,80px) clamp(40px,8vh,96px)}
+.inside video,.inside img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.inside::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,oklch(0.24 0.015 200 / .5),oklch(0.24 0.015 200 / .15) 40%,oklch(0.24 0.015 200 / .9))}
+.inside > *:not(video):not(img){position:relative;z-index:2}
+.inside h1{margin:0;font-family:var(--stencilfont);font-weight:850;font-size:clamp(60px,8.6vw,164px);line-height:.88;letter-spacing:-.005em;max-width:9ch}
+.inside p{margin:22px 0 0;max-width:44ch;font-size:clamp(17px,1.5vw,21px);line-height:1.5}
+.inside .ctas{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;min-height:54px;padding:0 26px;border-radius:3px;background:var(--cam);color:var(--steel);font-weight:700;font-size:18px;text-decoration:none;white-space:nowrap}
+.btn.line{background:transparent;color:var(--stencil);box-shadow:inset 0 0 0 2px var(--stencil)}
+.inside .credit{position:absolute;right:clamp(20px,5vw,80px);bottom:20px;font-size:12px;color:var(--mute);margin:0}
+
+.door{position:absolute;top:0;bottom:0;width:50%;z-index:5;background:
+  linear-gradient(90deg,oklch(0 0 0 / .18),transparent 8%,transparent 92%,oklch(0 0 0 / .25)),
+  repeating-linear-gradient(90deg,var(--livery) 0 22px,oklch(0.47 0.09 165) 22px 30px,var(--livery-dark) 30px 36px,var(--livery) 36px 44px);
+  box-shadow:inset 0 0 0 10px var(--livery-dark);transform-style:preserve-3d;backface-visibility:hidden}
+.door.l{left:0;transform-origin:left center}
+.door.r{right:0;transform-origin:right center}
+.rod{position:absolute;top:0;bottom:0;width:12px;border-radius:6px;background:linear-gradient(90deg,oklch(0.55 0.02 200),oklch(0.78 0.01 200) 40%,oklch(0.5 0.02 200))}
+.handle{position:absolute;top:55%;width:56px;height:16px;border-radius:8px;background:var(--cam);box-shadow:0 3px 0 oklch(0.6 0.12 95)}
+.keeper{position:absolute;width:26px;height:20px;background:oklch(0.62 0.02 200);border-radius:3px}
+.door.l .rod.a{left:22%}.door.l .rod.b{left:62%}
+.door.r .rod.a{right:22%}.door.r .rod.b{right:62%}
+.door.l .handle.a{left:calc(22% + 6px)}.door.l .handle.b{left:calc(62% + 6px)}
+.door.r .handle.a{right:calc(22% + 6px)}.door.r .handle.b{right:calc(62% + 6px)}
+.keeper.t{top:8%}.keeper.btm{bottom:8%}
+.door.l .keeper.a{left:calc(22% - 7px)}.door.l .keeper.b{left:calc(62% - 7px)}
+.door.r .keeper.a{right:calc(22% - 7px)}.door.r .keeper.b{right:calc(62% - 7px)}
+.mark{position:absolute;font-family:var(--stencilfont);color:var(--stencil);line-height:.85}
+.door.l .word{right:4%;top:18%;font-size:clamp(80px,13vw,240px);font-weight:900}
+.door.r .word{left:4%;top:18%;font-size:clamp(80px,13vw,240px);font-weight:900}
+.door.l .word{clip-path:inset(0 0 0 0)}
+.plate{position:absolute;left:8%;bottom:9%;width:min(360px,70%);background:oklch(0.85 0.01 200);color:var(--steel);padding:14px 16px;border-radius:2px;box-shadow:inset 0 0 0 2px oklch(0.6 0.01 200);font-size:13px;line-height:1.35}
+.plate::before,.plate::after{content:"";position:absolute;top:6px;width:6px;height:6px;border-radius:50%;background:oklch(0.55 0.01 200)}
+.plate::before{left:6px}.plate::after{right:6px}
+.plate b{display:block;font-family:var(--stencilfont);font-size:22px;font-weight:800;margin-bottom:6px}
+.plate dl{margin:0;display:grid;grid-template-columns:auto auto;gap:3px 14px}
+.plate dd{margin:0;font-weight:700;text-align:right}
+.door.r .stencil-note{right:8%;bottom:10%;font-size:clamp(22px,2.2vw,34px);font-weight:700;text-align:right}
+.pull{position:absolute;left:50%;bottom:24px;z-index:6;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--steel);background:var(--cam);padding:10px 16px;border-radius:3px}
+
+@media (prefers-reduced-motion:no-preference){
+  .doors-open .door.l{animation:openL 2.4s cubic-bezier(.5,0,.2,1) 1.2s both}
+  .doors-open .door.r{animation:openR 2.4s cubic-bezier(.5,0,.2,1) 1.35s both}
+  .doors-open .pull{animation:fadeout .4s linear 1s both}
+  .doors-open .inside h1,.doors-open .inside > p,.doors-open .inside .ctas{animation:rise .9s ease-out 2.6s both}
+}
+@keyframes openL{to{transform:rotateY(-108deg)}}
+@keyframes openR{to{transform:rotateY(108deg)}}
+@keyframes fadeout{to{opacity:0}}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.doors-open .door.l{transform:rotateY(-104deg)}.doors-open .door.r{transform:rotateY(104deg)}.doors-open .pull{display:none}}
+
+/* INSIDE THE BOX: the rest of the page */
+.hold{position:relative;z-index:2;background:
+  repeating-linear-gradient(90deg,oklch(0.26 0.015 200) 0 34px,oklch(0.235 0.015 200) 34px 40px,oklch(0.25 0.015 200) 40px 48px)}
+.sec{max-width:1280px;margin:0 auto;padding:clamp(72px,10vw,140px) clamp(20px,4vw,56px)}
+.sec h2{margin:0;font-family:var(--stencilfont);font-weight:850;font-size:clamp(48px,7vw,120px);line-height:.85;max-width:12ch}
+.sec .ans{margin:24px 0 0;font-size:clamp(18px,1.7vw,23px);line-height:1.5;max-width:46ch;color:oklch(0.9 0.01 190)}
+.answer{background:var(--livery);}
+.answer .sec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,5vw,80px);align-items:start}
+.answer .ans{margin:0;color:var(--stencil);font-size:clamp(20px,2vw,28px)}
+
+.lane{list-style:none;margin:64px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;position:relative}
+.lane::before{content:"";position:absolute;left:0;right:0;top:27px;height:4px;background:repeating-linear-gradient(90deg,var(--cam) 0 18px,transparent 18px 30px)}
+.lane li{position:relative;padding:0 24px 0 0}
+.lane .n{display:grid;place-items:center;width:58px;height:58px;background:var(--cam);color:var(--steel);font-family:var(--stencilfont);font-weight:900;font-size:34px;border-radius:3px;position:relative}
+.lane h3{margin:22px 0 8px;font-family:var(--stencilfont);font-weight:800;font-size:clamp(28px,2.6vw,40px);line-height:.95}
+.lane p{margin:0;font-size:16px;line-height:1.55;color:oklch(0.86 0.01 190)}
+.lane figure{margin:18px 0 0;aspect-ratio:4/3;border-radius:2px;overflow:hidden;position:relative}
+.lane figure img{width:100%;height:100%;object-fit:cover;filter:saturate(.75)}
+.lane figcaption{position:absolute;left:8px;bottom:6px;font-size:11px;background:oklch(0 0 0 / .5);padding:2px 6px}
+
+.cartons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:56px}
+.carton{aspect-ratio:1/1;background:linear-gradient(180deg,oklch(0.7 0.07 70),oklch(0.64 0.075 65));color:oklch(0.25 0.03 60);padding:14px;display:flex;flex-direction:column;justify-content:space-between;position:relative;border-radius:2px;box-shadow:inset 0 -10px 0 oklch(0.58 0.07 62)}
+.carton::before{content:"";position:absolute;left:0;right:0;top:46%;height:16px;background:oklch(0.78 0.04 75 / .7)}
+.carton b{font-family:var(--stencilfont);font-weight:800;font-size:clamp(20px,1.8vw,28px);line-height:.95;position:relative}
+.carton span{font-size:12px;position:relative;font-weight:600}
+.carton svg{position:relative}
+
+.platewrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center}
+.bigplate{background:linear-gradient(160deg,oklch(0.88 0.01 200),oklch(0.78 0.012 200));color:var(--steel);padding:30px 32px 26px;border-radius:4px;box-shadow:inset 0 0 0 3px oklch(0.62 0.01 200),0 30px 60px -30px oklch(0 0 0 / .7);position:relative}
+.bigplate .rv{position:absolute;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,oklch(0.9 0 0),oklch(0.5 0.01 200))}
+.bigplate h3{margin:0 0 4px;font-family:var(--stencilfont);font-weight:900;font-size:40px;line-height:.9}
+.bigplate p{margin:0 0 18px;font-size:14px}
+.bigplate dl{margin:0;display:grid}
+.bigplate dl div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:11px 0;border-top:2px solid oklch(0.24 0.015 200 / .2);font-size:16px}
+.bigplate dd{margin:0;font-family:var(--stencilfont);font-weight:800;font-size:26px;line-height:.9}
+
+details{border-top:2px solid oklch(1 0 0 / .14);padding:22px 0}
+details:last-of-type{border-bottom:2px solid oklch(1 0 0 / .14)}
+summary{font-family:var(--stencilfont);font-weight:750;font-size:clamp(26px,2.6vw,38px);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;line-height:1}
+summary::after{content:"+";color:var(--cam)}
+details[open] summary::after{content:"–"}
+details p{margin:12px 0 0;font-size:18px;line-height:1.55;max-width:60ch;color:oklch(0.88 0.01 190)}
+.faq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(24px,5vw,80px)}
+
+footer{background:var(--livery-dark)}
+footer .sec{padding-top:48px;padding-bottom:48px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px;font-size:15px;line-height:1.6}
+footer .wm{font-family:var(--stencilfont);font-weight:900;font-size:56px;line-height:.9;margin:0}
+
+@media (max-width:760px){
+  .top nav a:not(.join){display:none}
+  .logo{font-size:28px}
+  .door.l .word,.door.r .word{font-size:23vw;top:16%}
+  .plate{left:6%;width:84%;font-size:11.5px;padding:10px 12px;bottom:14%}
+  .plate b{font-size:18px}
+  .door.r .stencil-note{font-size:18px;bottom:16%}
+  .rod{width:8px}
+  .handle{width:30px;height:12px}
+  .answer .sec,.platewrap,.faq{grid-template-columns:1fr}
+  .lane{grid-template-columns:1fr;gap:36px}
+  .lane::before{left:27px;right:auto;top:0;bottom:0;width:4px;height:auto;background:repeating-linear-gradient(180deg,var(--cam) 0 18px,transparent 18px 30px)}
+  .lane li{padding:0 0 0 80px}
+  .lane .n{position:absolute;left:0;top:0}
+  .lane h3{margin-top:10px}
+  .cartons{grid-template-columns:1fr 1fr}
+  footer .sec{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="#" aria-label="Lotwise home">LOTWISE</a>
+  <nav aria-label="Main"><a href="#inside">What's inside</a><a href="#route">How it works</a><a href="#plate">Prices</a><a href="#">Sign in</a><a class="join" href="#">Join</a></nav>
+</header>
+
+<main class="doors-open">
+<div class="stage">
+  <div class="box">
+    <section class="inside" aria-labelledby="h1">
+      <video autoplay muted loop playsinline poster="media/hub-forklift-aisle.jpg" src="media/hub-forklift-aisle.mp4" aria-hidden="true"></video>
+      <h1 id="h1">Hold the sample. Then order the lot.</h1>
+      <p>Wholesale from Chinese factories our team has visited and filmed. A sample of every product waits on a shelf in Brisbane or Sydney, and every lot is inspected against it before it sails.</p>
+      <div class="ctas"><a class="btn" href="#">Join for A$60</a><a class="btn line" href="#route">How it works</a></div>
+      <p class="credit">Illustrative footage, not our hub</p>
+    </section>
+    <div class="door l" aria-hidden="true">
+      <span class="rod a"></span><span class="rod b"></span>
+      <span class="handle a"></span><span class="handle b"></span>
+      <span class="keeper t a"></span><span class="keeper t b"></span><span class="keeper btm a"></span><span class="keeper btm b"></span>
+      <span class="mark word">LOT</span>
+      <div class="plate"><b>LOTWISE MEMBERSHIP</b><dl><dt>First 3 months</dt><dd>A$60</dd><dt>Then a month</dt><dd>A$45</dd><dt>Fee on your orders</dt><dd>A$0</dd></dl></div>
+    </div>
+    <div class="door r" aria-hidden="true">
+      <span class="rod a"></span><span class="rod b"></span>
+      <span class="handle a"></span><span class="handle b"></span>
+      <span class="keeper t a"></span><span class="keeper t b"></span><span class="keeper btm a"></span><span class="keeper btm b"></span>
+      <span class="mark word">WISE</span>
+      <span class="mark stencil-note">SAMPLE FIRST.<br>INSPECTED<br>BEFORE IT SAILS.</span>
+    </div>
+    <p class="pull" aria-hidden="true">Opening the doors</p>
+  </div>
+</div>
+
+<div class="hold">
+<section class="answer" aria-labelledby="what">
+  <div class="sec">
+    <h2 id="what">What is Lotwise?</h2>
+    <p class="ans">A wholesale membership for Australian businesses buying from Chinese factories. We visit and film every factory, keep its samples on our shelves here, and inspect your lot against the sample you held. A$60 for your first three months, then A$45 a month. No fee on your orders.</p>
+  </div>
+</section>
+
+<section class="sec" id="inside" aria-labelledby="inside-h">
+  <h2 id="inside-h">What's inside?</h2>
+  <p class="ans">Ten categories open now. Each carton is a shelf of samples you can hold, from factories that scored 70 or more out of 100.</p>
+  <div class="cartons">
+    <div class="carton"><b>Café supplies</b><span>CF</span></div>
+    <div class="carton"><b>Homewares and kitchen</b><span>HW</span></div>
+    <div class="carton"><b>Packaging and mailers</b><span>PK</span></div>
+    <div class="carton"><b>Phone accessories</b><span>PC</span></div>
+    <div class="carton"><b>Bags and backpacks</b><span>BG</span></div>
+    <div class="carton"><b>Stationery</b><span>ST</span></div>
+    <div class="carton"><b>Fitness accessories</b><span>FT</span></div>
+    <div class="carton"><b>Apparel accessories</b><span>AA</span></div>
+    <div class="carton"><b>Pet accessories</b><span>PT</span></div>
+    <div class="carton"><b>Hand tools</b><span>TL</span></div>
+  </div>
+</section>
+
+<section class="sec" id="route" aria-labelledby="route-h">
+  <h2 id="route-h">How does an order work?</h2>
+  <p class="ans">Four stops from the factory floor to your door. Nothing ships until it matches the sample you held.</p>
+  <ol class="lane">
+    <li><span class="n">1</span><h3>See the factory on our film</h3><p>Gate, line, QC bench and packing, with the supplier code and date on a board. Under 70 out of 100 isn't listed.</p><figure><img src="media/factory-operator.jpg" alt="A machine operator on a production line"><figcaption>Illustrative</figcaption></figure></li>
+    <li><span class="n">2</span><h3>Hold the sample here</h3><p>Sent from Brisbane or Sydney within 2 business days. You have 14 days to say yes, no or change it.</p><figure><img src="media/hub-team-carrying-800.jpg" alt="Two people carrying cartons down a warehouse aisle"><figcaption>Illustrative</figcaption></figure></li>
+    <li><span class="n">3</span><h3>Order the lot</h3><p>Locked to the unit you held and its signed spec. You pay 30% to start production.</p><figure><img src="media/factory-packing-line.jpg" alt="Packers at a long table"><figcaption>Illustrative</figcaption></figure></li>
+    <li><span class="n">4</span><h3>Inspected before it sails</h3><p>Compared with the sealed master on our shelf. The factory gets the other 70% only when it matches.</p><figure><img src="media/hub-boxes-stacked-800.jpg" alt="Stacked cartons in a warehouse"><figcaption>Illustrative</figcaption></figure></li>
+  </ol>
+</section>
+
+<section class="sec" id="plate" aria-labelledby="plate-h">
+  <div class="platewrap">
+    <div>
+      <h2 id="plate-h">What does it cost?</h2>
+      <p class="ans">Everything is on the plate. Factories pay us 5% from their side, so there's no fee on your orders.</p>
+      <p style="margin-top:28px"><a class="btn" href="#">Join for A$60</a></p>
+    </div>
+    <div class="bigplate">
+      <span class="rv" style="left:10px;top:10px"></span><span class="rv" style="right:10px;top:10px"></span><span class="rv" style="left:10px;bottom:10px"></span><span class="rv" style="right:10px;bottom:10px"></span>
+      <h3>Membership plate</h3>
+      <p>All prices in Australian dollars</p>
+      <dl>
+        <div><dt>First three months</dt><dd>A$60</dd></div>
+        <div><dt>Each month after</dt><dd>A$45</dd></div>
+        <div><dt>Or a year up front</dt><dd>A$450</dd></div>
+        <div><dt>Your first sample</dt><dd>A$0</dd></div>
+        <div><dt>Other samples, credited within 90 days</dt><dd>A$25</dd></div>
+        <div><dt>Our fee on your order</dt><dd>A$0</dd></div>
+        <div><dt>Inspection, at cost</dt><dd>A$470</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="sec faq" aria-labelledby="q-h">
+  <h2 id="q-h">Questions, answered</h2>
+  <div>
+    <details open><summary>How is this different from Alibaba?</summary><p>Alibaba is a directory: you find a factory, then carry the risk yourself. We visit the factory, film it, hold a sample in Australia, and lock your order to that sample.</p></details>
+    <details><summary>What if the goods don't match?</summary><p>They don't ship. The factory reworks, and the inspection is booked again before the balance falls due.</p></details>
+    <details><summary>Do I pay import duty?</summary><p>Often not. With a ChAFTA origin certificate goods enter duty free; without one, duty is about 5% of the goods value.</p></details>
+    <details><summary>Do I need an ABN?</summary><p>Yes. We check it, then activate your account within one business day.</p></details>
+  </div>
+</section>
+</div>
+</main>
+<footer>
+  <div class="sec">
+    <div><p class="wm">LOTWISE</p><p>Trading name of [legal entity placeholder], ABN [placeholder]. Footage and photos are illustrative stock until our own replace them.</p></div>
+    <div><strong>Hubs</strong><br>Brisbane, run by Yusuf<br>Sydney<br>[Addresses placeholder]</div>
+    <div><strong>Contact</strong><br>[Email placeholder]<br>[Phone placeholder]<br><a href="#">Factories: ask for a visit</a></div>
+  </div>
+</footer>
+</body>
+</html>

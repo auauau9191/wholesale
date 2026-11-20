@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lotwise: what will it really cost you?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap">
+<script src="data.js"></script>
+<style>
+:root{
+  --copy:oklch(0.86 0.065 8);      /* the customer's copy: the pink sheet you keep. The page you stand on. */
+  --copy-deep:oklch(0.78 0.08 8);
+  --paper:oklch(0.985 0.004 95);   /* the docket itself */
+  --print:oklch(0.2 0.01 280);     /* thermal print */
+  --carbon:oklch(0.47 0.2 268);    /* carbon pen: every mark a person at our hub made (ticks, circles, notes) */
+  --fade:oklch(0.48 0.01 280);
+  font-family:"Martian Mono",monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--copy);color:var(--print);font-stretch:87.5%}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--carbon);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* faint carbon texture on the copy sheet */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,oklch(0.2 0.01 280 / .025) 0 1px,transparent 1px 4px);z-index:0}
+
+.top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(16px,3vw,40px);gap:16px}
+.logo{display:flex;flex-direction:column;text-decoration:none;line-height:1}
+.logo b{font-size:24px;font-weight:800;font-stretch:112.5%;letter-spacing:-.04em}
+.logo i{display:block;height:6px;margin-top:4px;background:linear-gradient(135deg,var(--copy) 33%,transparent 33%) 0 0/6px 6px,linear-gradient(225deg,var(--copy) 33%,transparent 33%) 0 0/6px 6px,var(--print)}
+.top nav{display:flex;gap:4px;align-items:center;font-size:13px}
+.top nav a{text-decoration:none;padding:10px 12px}
+.top nav a.join{background:var(--print);color:var(--paper);border-radius:4px;padding:12px 16px;font-weight:700}
+
+/* HERO: the question on the counter, the docket printing beside it */
+.hero{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,4vw,72px);padding:clamp(16px,3vw,40px) clamp(16px,4vw,64px) 0;max-width:1440px;margin:0 auto;align-items:start}
+.q h1{margin:0;font-weight:800;font-stretch:75%;font-size:clamp(46px,6.6vw,112px);line-height:.92;letter-spacing:-.055em}
+.q .lede{margin:24px 0 0;font-size:clamp(14px,1.15vw,17px);line-height:1.6;max-width:50ch;font-stretch:75%}
+.pick{margin-top:34px}
+.pick legend{font-size:12px;font-weight:600;margin-bottom:10px;padding:0}
+fieldset{border:0;margin:0;padding:0}
+.prods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.prod{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:6px;background:var(--paper);border:0;border-radius:3px 3px 3px 3px;padding:14px 14px 12px 34px;font:inherit;font-size:13px;color:inherit;cursor:pointer;box-shadow:0 1px 0 var(--copy-deep);min-height:64px}
+.prod::before{content:"";position:absolute;left:12px;top:16px;width:10px;height:10px;border-radius:50%;border:2px solid var(--print)}
+.prod small{font-size:11px;color:var(--fade)}
+.prod[aria-pressed="true"]{outline:2px solid var(--print)}
+.prod[aria-pressed="true"]::before{background:var(--print)}
+.qtys{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.qty{min-height:48px;min-width:96px;border:2px solid var(--print);background:transparent;font:inherit;font-weight:700;font-size:15px;cursor:pointer;border-radius:3px;color:inherit}
+.qty[aria-pressed="true"]{background:var(--print);color:var(--paper)}
+
+.printer{position:relative}
+.slot{height:26px;background:var(--print);border-radius:8px 8px 0 0;position:relative;z-index:2;box-shadow:0 10px 18px -8px oklch(0 0 0 / .5)}
+.slot::after{content:"";position:absolute;left:18px;right:18px;bottom:6px;height:4px;border-radius:2px;background:oklch(0 0 0 / .8)}
+.docket{position:relative;margin:0 18px;background:var(--paper);padding:26px 26px 0;box-shadow:0 30px 40px -30px oklch(0.3 0.05 8 / .6);transform-origin:top}
+@media (prefers-reduced-motion:no-preference){
+  .docket{animation:print 1.4s steps(14,end) both}
+  @keyframes print{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+}
+.docket::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;background:linear-gradient(135deg,var(--paper) 33%,transparent 33%) 0 0/14px 14px,linear-gradient(225deg,var(--paper) 33%,transparent 33%) 0 0/14px 14px}
+.dh{display:flex;justify-content:space-between;font-size:11px;color:var(--fade);border-bottom:1px dashed var(--fade);padding-bottom:12px}
+.dname{margin:16px 0 2px;font-size:20px;font-weight:700;letter-spacing:-.02em}
+.dmeta{margin:0 0 14px;font-size:11px;color:var(--fade)}
+.line{display:grid;grid-template-columns:minmax(0,1fr) auto 150px;align-items:stretch;font-size:13px;border-top:1px dotted oklch(0.2 0.01 280 / .3)}
+.line > span{padding:11px 0}
+.line .amt{text-align:right;font-weight:700;padding-right:14px;font-variant-numeric:tabular-nums}
+.stub{position:relative;border-left:2px dashed oklch(0.2 0.01 280 / .35);padding:9px 0 9px 16px!important;font-size:10.5px;line-height:1.35;color:var(--carbon);font-weight:500}
+.stub svg{position:absolute;left:-9px;top:9px;background:var(--paper)}
+.total{display:grid;grid-template-columns:minmax(0,1fr) 150px;align-items:end;border-top:2px solid var(--print);margin-top:4px;padding:14px 0 18px}
+.total .big{font-size:clamp(54px,6vw,88px);font-weight:200;font-stretch:75%;letter-spacing:-.06em;line-height:.85}
+.total .big small{font-size:14px;font-weight:600;letter-spacing:0;margin-left:6px}
+.total .stub{border-left:2px dashed oklch(0.2 0.01 280 / .35);align-self:stretch;display:flex;align-items:flex-end}
+.lot{font-size:12px;line-height:1.6;border-top:1px dashed var(--fade);padding:12px 0 26px;color:var(--print)}
+.lot b{font-weight:700}
+.tick{stroke:var(--carbon);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:0}
+@media (prefers-reduced-motion:no-preference){
+  .tick{animation:draw .5s ease-out both}
+  .line:nth-of-type(1) .tick{animation-delay:1.5s}.line:nth-of-type(2) .tick{animation-delay:1.65s}.line:nth-of-type(3) .tick{animation-delay:1.8s}.line:nth-of-type(4) .tick{animation-delay:1.95s}.line:nth-of-type(5) .tick{animation-delay:2.1s}
+  @keyframes draw{from{stroke-dashoffset:30}to{stroke-dashoffset:0}}
+}
+.circled{position:absolute;inset:-10px -16px -6px -12px;pointer-events:none}
+.circled path{stroke:var(--carbon);stroke-width:2;fill:none}
+
+/* After the hero: the docket keeps printing down the page */
+.roll{position:relative;z-index:1;max-width:820px;margin:120px auto 0;background:var(--paper);padding:clamp(28px,4vw,56px) clamp(20px,4vw,56px) 40px;box-shadow:0 30px 60px -40px oklch(0.3 0.05 8 / .6)}
+.roll::before,.roll::after{content:"";position:absolute;left:0;right:0;height:10px}
+.roll::before{top:-10px;background:linear-gradient(315deg,var(--paper) 33%,transparent 33%) 0 0/14px 14px,linear-gradient(45deg,var(--paper) 33%,transparent 33%) 0 0/14px 14px}
+.roll::after{bottom:-10px;background:linear-gradient(135deg,var(--paper) 33%,transparent 33%) 0 0/14px 14px,linear-gradient(225deg,var(--paper) 33%,transparent 33%) 0 0/14px 14px}
+.sec{border-top:2px solid var(--print);padding:28px 0 36px}
+.sec:first-child{border-top:0;padding-top:0}
+.sec h2{margin:0 0 6px;font-size:clamp(26px,3.2vw,42px);font-weight:800;font-stretch:75%;letter-spacing:-.05em;line-height:1}
+.sec .ans{margin:0 0 22px;font-size:15px;line-height:1.6;font-stretch:75%;max-width:62ch}
+.rows{display:grid}
+.rows div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:12px 0;border-top:1px dotted oklch(0.2 0.01 280 / .3);font-size:13px}
+.rows dd{margin:0;font-weight:700}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px dotted oklch(0.2 0.01 280 / .3);font-size:13px;line-height:1.6;counter-increment:s}
+.steps li::before{content:counter(s,decimal-leading-zero);font-weight:800;font-size:22px;font-stretch:75%;letter-spacing:-.04em}
+.steps b{display:block;font-size:15px}
+.note{position:relative;margin:4px 0 0;font-size:12px;color:var(--carbon);font-weight:500;transform:rotate(-1.2deg);max-width:44ch}
+.rollwrap{position:relative}
+.giant{position:absolute;z-index:0;top:0;bottom:0;left:calc(50% + 430px);right:0;pointer-events:none}
+.giant b{position:sticky;top:120px;display:block;font-size:clamp(120px,16vw,260px);font-weight:100;font-stretch:75%;letter-spacing:-.08em;line-height:.8;color:var(--print)}
+.giant span{position:sticky;top:340px;display:block;font-size:13px;margin-top:10px}
+@media (max-width:1300px){.giant{display:none}}
+details{border-top:1px dotted oklch(0.2 0.01 280 / .3);padding:14px 0}
+summary{font-size:14px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";color:var(--carbon)}
+details[open] summary::after{content:"-"}
+details p{margin:10px 0 0;font-size:13px;line-height:1.6;font-stretch:75%}
+
+.tear{position:relative;z-index:1;max-width:820px;margin:0 auto 120px;background:var(--print);color:var(--paper);display:flex;align-items:center;justify-content:space-between;gap:20px;padding:28px clamp(20px,4vw,56px);flex-wrap:wrap}
+.tear p{margin:0;font-size:14px;line-height:1.5}
+.tear p b{display:block;font-size:22px;font-stretch:75%;letter-spacing:-.03em}
+.tear a{background:var(--copy);color:var(--print);text-decoration:none;font-weight:800;padding:16px 24px;border-radius:3px;font-size:15px;white-space:nowrap}
+.tearline{max-width:820px;margin:0 auto;position:relative;z-index:1;border-top:2px dashed var(--print);font-size:11px;padding:6px 0 0;text-align:center}
+footer{position:relative;z-index:1;font-size:12px;line-height:1.7;max-width:1440px;margin:0 auto;padding:0 clamp(16px,4vw,64px) 48px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+
+@media (max-width:760px){
+  .top nav a:not(.join){display:none}
+  .hero{grid-template-columns:1fr}
+  .prods{grid-template-columns:1fr 1fr}
+  .qty{min-width:0;flex:1}
+  .docket{margin:0 8px;padding:20px 16px 0}
+  .line{grid-template-columns:minmax(0,1fr) auto;}
+  .line .stub{grid-column:1 / -1;border-left:0;border-top:1px dashed oklch(0.2 0.01 280 / .3);padding:6px 0 10px 24px!important}
+  .stub svg{left:0;top:6px}
+  .line .amt{padding-right:0}
+  .total{grid-template-columns:1fr}
+  .total .stub{border-left:0;padding:8px 0 0!important}
+  .roll{margin-top:64px}
+  .giant{display:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="#" aria-label="Lotwise home"><b>lotwise</b><i></i></a>
+  <nav aria-label="Main"><a href="#how">How it works</a><a href="#cost">Membership</a><a href="#q">Questions</a><a href="#">Sign in</a><a class="join" href="#">Join for A$60</a></nav>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="q">
+    <h1 id="h1">What will it really cost you, landed?</h1>
+    <p class="lede">Pick a product from our shelf and a quantity. This is the same sheet members see before they order: every cost to your door, and the proof behind each line, checked by our team in China and Australia.</p>
+    <fieldset class="pick">
+      <legend>1. Pick a product (examples from our demo shelf)</legend>
+      <div class="prods" id="prods"></div>
+    </fieldset>
+    <fieldset class="pick">
+      <legend>2. How many?</legend>
+      <div class="qtys" id="qtys"></div>
+    </fieldset>
+  </div>
+
+  <div class="printer" aria-live="polite">
+    <div class="slot" aria-hidden="true"></div>
+    <div class="docket" id="docket"></div>
+  </div>
+</section>
+
+<div class="rollwrap"><div class="giant" aria-hidden="true"><b>0%</b><span>our fee on your order</span></div>
+<div class="roll">
+  <section class="sec" id="cost" aria-labelledby="mem">
+    <h2 id="mem">What does membership cost?</h2>
+    <p class="ans">A$60 for your first three months, then A$45 a month or A$450 a year. There's no fee on your orders: the factory pays us 5% from its side and signs one price list for every member.</p>
+    <dl class="rows">
+      <div><dt>First 3 months, paid once</dt><dd>A$60.00</dd></div>
+      <div><dt>Each month after</dt><dd>A$45.00</dd></div>
+      <div><dt>Or a year up front (two months free)</dt><dd>A$450.00</dd></div>
+      <div><dt>Your first sample, once per ABN</dt><dd>A$0.00</dd></div>
+      <div><dt>Two free samples after each bulk order</dt><dd>A$0.00</dd></div>
+      <div><dt>Any other sample, credited if you order in 90 days</dt><dd>A$25.00</dd></div>
+      <div><dt>Our fee on your order</dt><dd>A$0.00</dd></div>
+    </dl>
+    <p class="note">We email you 7 days before the monthly plan starts. Cancel any time after the first three months.</p>
+  </section>
+
+  <section class="sec" id="how" aria-labelledby="how-h">
+    <h2 id="how-h">How does an order work?</h2>
+    <p class="ans">You hold the sample first. Nothing ships until the goods match it.</p>
+    <ol class="steps">
+      <li><span><b>See the factory on our film.</b>Gate, line, QC bench and packing, with the supplier code and date on a board. Under 70 out of 100, it isn't listed.</span></li>
+      <li><span><b>Hold the sample in Australia.</b>From Brisbane or Sydney within 2 business days. 14 days to say yes, no or change it.</span></li>
+      <li><span><b>Order against that sample.</b>Locked to the unit you held and its signed spec. 30% starts production.</span></li>
+      <li><span><b>Inspected before it sails.</b>Compared with the sealed master. The factory gets the other 70% only when it matches.</span></li>
+    </ol>
+  </section>
+
+  <section class="sec" id="q" aria-labelledby="q-h">
+    <h2 id="q-h">Questions, answered</h2>
+    <details open><summary>How is this different from Alibaba?</summary><p>Alibaba is a directory: you find a factory, then carry the risk yourself. We visit the factory, film it, hold a sample in Australia, and lock your order to that sample.</p></details>
+    <details><summary>Where do these numbers come from?</summary><p>The factory's price for that quantity, converted at our current rate, plus estimated sea freight, duty, our broker's fee shared across your lot, and GST. Every product page shows the same sheet.</p></details>
+    <details><summary>Do I need an ABN?</summary><p>Yes. We check it against the register, then activate your account within one business day.</p></details>
+  </section>
+</div>
+</div>
+<p class="tearline" aria-hidden="true">tear here</p>
+<div class="tear">
+  <p><b>Keep the pink copy.</b>Join and see this sheet for every product, film and supplier.</p>
+  <a href="#">Join for A$60</a>
+</div>
+</main>
+<footer>
+  <span>Lotwise, trading name of [legal entity placeholder], ABN [placeholder].<br>Hubs in Brisbane (run by Yusuf) and Sydney. [Addresses placeholder]</span>
+  <span>[Email placeholder]<br><a href="#">Factories: ask for a visit</a></span>
+</footer>
+
+<script>
+const L = window.LW, st = { p: 0, q: 1 };
+const money = (v) => "A$" + v.toFixed(2);
+const tick = '<svg width="16" height="14" viewBox="0 0 16 14" aria-hidden="true"><path class="tick" d="M2 7.5l4 4L14 2"/></svg>';
+function render(){
+  const p = L.products[st.p], q = p.qtys[st.q], r = L.landed(p, q), s = L.settings;
+  document.getElementById("prods").innerHTML = L.products.map((x,i)=>`<button type="button" class="prod" aria-pressed="${i===st.p}" data-i="${i}">${x.name}<small>${x.cat}, MOQ ${x.moq.toLocaleString("en-AU")}</small></button>`).join("");
+  document.getElementById("qtys").innerHTML = p.qtys.map((x,i)=>`<button type="button" class="qty" aria-pressed="${i===st.q}" data-q="${i}">${x.toLocaleString("en-AU")}</button>`).join("");
+  const film = p.filmed ? `Filmed ${p.filmed}, supplier ${p.supplier} scored ${p.score}/100` : `Supplier ${p.supplier}, filmed on visit`;
+  const lines = [
+    ["Product, US$" + r.fob.toFixed(2) + " at " + s.fx, r.goods, film],
+    ["Sea freight, estimate", r.freight, "Estimate, FOB " + p.port],
+    ["Import duty", r.duty, p.chafta ? "0%: ChAFTA origin certificate on file" : "About 5%: no origin certificate"],
+    ["Broker and port, A$350 ÷ " + q.toLocaleString("en-AU"), r.broker, "Our customs broker partner, at cost"],
+    ["GST, 10%", r.gst, "On goods, freight and duty"],
+  ];
+  const lotTotal = (r.landed * q);
+  document.getElementById("docket").innerHTML = `
+    <div class="dh"><span>LANDED COST SHEET</span><span>${p.id}</span></div>
+    <p class="dname">${p.name}</p>
+    <p class="dmeta">${q.toLocaleString("en-AU")} units to your door in Australia. Per unit, A$.</p>
+    ${lines.map(l=>`<div class="line"><span>${l[0]}</span><span class="amt">${money(l[1])}</span><span class="stub">${l[2]}</span></div>`).join("")}
+    <div class="total"><span class="big">${money(r.landed)}<small>a unit</small></span><span class="stub">Sample of this unit on our shelf. Inspected against it before it sails.</span></div>
+    <div class="lot">Your lot: <b>${q.toLocaleString("en-AU")} × ${money(r.landed)} = A$${lotTotal.toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:2})}</b><br>plus pre-shipment inspection, A$${s.inspection} at cost. You pay ${s.deposit*100}% to start production.</div>`;
+  document.querySelectorAll(".line .stub").forEach(el=>el.insertAdjacentHTML("beforeend",tick));
+  const d = document.getElementById("docket"); d.style.animation="none"; d.offsetHeight; d.style.animation="";
+}
+document.addEventListener("click",(e)=>{const b=e.target.closest("[data-i],[data-q]");if(!b)return;if(b.dataset.i){st.p=+b.dataset.i;st.q=1}else st.q=+b.dataset.q;render()});
+render();
+</script>
+</body>
+</html>
