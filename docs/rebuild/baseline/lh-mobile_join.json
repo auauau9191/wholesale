@@ -1,0 +1,22 @@
+{
+ "url": "http://127.0.0.1:4173/join",
+ "fetchTime": "2026-11-20T06:39:25.255Z",
+ "lighthouse": "13.6.0",
+ "formFactor": "mobile",
+ "scores": {
+  "performance": 99,
+  "accessibility": 100,
+  "best-practices": 96,
+  "seo": 100,
+  "agentic-browsing": 100
+ },
+ "metrics": {
+  "first-contentful-paint": "1.6 s",
+  "largest-contentful-paint": "1.6 s",
+  "total-blocking-time": "90 ms",
+  "cumulative-layout-shift": "0",
+  "speed-index": "1.6 s",
+  "interactive": "7.0 s"
+ },
+ "weight": "Total size was 884 KiB"
+}
