@@ -8,7 +8,7 @@ Brief: award-level, fast, accessible public site that converts visitors into mem
   - Research with sources is in `docs/rebuild/research.md`.
   - The ranked findings are in the audit doc (Claude Doc "Wholesale System: site audit").
 
-- **Gate 1 passed (20 Nov 2026).** Owner confirmed the priorities. Their answers are recorded in decisions.md: brand Shelfproof, Stripe, Cloudflare Web Analytics, placeholders, draft legal pages.
+- **Gate 1 passed (20 Nov 2026).** Owner confirmed the priorities. Their answers are recorded in decisions.md: brand Lotwise (website and app), Stripe, Cloudflare Web Analytics, placeholders, draft legal pages.
 
 ## Next
 - **Step 2:** three concept directions (home + one inner page, phone and desktop), made as Design artifacts. Then gate 2: owner chooses or combines.
