@@ -15,3 +15,16 @@ Each entry: the date, the decision, and why.
 - **2026-11-20. Round 1 concepts rejected by the owner ("not creative enough").** Our own critique: all three used the same section template (hero, what-is, four steps, prices, FAQ) and only changed colour and type, and the empty placeholders made them look thin. Round 2 rules: each concept is built around one structural idea tied to the business; we use the licensed stock we already have (labelled "Illustrative") instead of blank boxes; every concept is prototyped in real HTML and checked in screenshots at 1440 and 390 before the owner sees it.
 - **2026-11-20. Round 2 directions.** (1) Seam: the page split between China and Australia, with live local clocks, because standing on both sides of the trade is what we sell. (2) Docket: the landed-cost calculator is the hero and prints a docket with proof beside every line, because "what will it cost me?" is the buyer's first question. (3) Container: the site opens at container doors, because the lot arrives in one. Prototypes are in `docs/rebuild/concepts-r2/`; the editable versions are on the "Round 2" page of the Design artifact.
 - **2026-11-20. Owner chose the Docket direction, without pink.** The ground is now carbon paper, and red is the printer's second colour, used only for totals and actions. The motion system has three actors (machine prints, team marks, you tear) and covers page transitions (View Transitions), Lottie marks, a WebGL sample (three.js 0.160, loaded only when it's near the screen), parallax and scroll-driven effects, all off under reduced motion. Prototype and notes: `docs/rebuild/docket-prototype/`.
+- **2026-11-20. Plan approved (gate 3), with the defaults for its open decisions.** These are:
+  - move to the Cloudflare Workers Paid plan before launch (the owner does this in the Cloudflare dashboard);
+  - public category pages, with no per-product prices;
+  - prices are GST-inclusive;
+  - AI training crawlers are blocked and search crawlers allowed;
+  - the owner and partner are Admins;
+  - the first guides are landed cost, ChAFTA certificates, and MOQ and price tiers.
+- **2026-11-20. Phase 0 build choices.**
+  - Docket styles are scoped under `.dk` and loaded only by Docket pages, so the member app is untouched until phase 5.
+  - The font is self-hosted as one 35 KB variable subset.
+  - Lottie marks load on demand, and CSS overrides their stroke so the pen reads on both carbon and paper.
+  - The printer keeps the old docket's content while it tears away.
+  - CI runs page checks (7 widths, overflow, axe, links, console, complete-at-rest) and Lighthouse on mobile. Pages not rebuilt yet are reported but don't fail CI.

@@ -1,132 +1,144 @@
 {
- "updated": "2026-11-20",
- "baseline_note": "Local production build, Lighthouse 13, Chromium headless, mobile = simulated throttling. Live field data pending.",
- "checks": [
-  {
-   "id": "perf-lh",
-   "item": "Lighthouse mobile 95+ in all four categories",
-   "status": "fail",
-   "evidence": "Home mobile: perf 88, a11y 92, best 96, SEO 100 (docs/rebuild/baseline/lh-mobile_home.json). /join 99/100/96/100, /login 98/98/96/100, /register 96/98/96/100."
-  },
-  {
-   "id": "cwv",
-   "item": "Field Core Web Vitals good (LCP, INP, CLS)",
-   "status": "unknown",
-   "evidence": "No field data accessible from sandbox; owner to run PageSpeed Insights. Lab: home LCP 1.9 s, TBT 420 ms, CLS 0."
-  },
-  {
-   "id": "speculation",
-   "item": "Speculation rules where they help",
-   "status": "fail",
-   "evidence": "None present. Per Chrome guidance, only for document loads (public \u2192 app)."
-  },
-  {
-   "id": "wcag",
-   "item": "WCAG 2.2 AA",
-   "status": "fail",
-   "evidence": "axe: home dl/dt misuse (21 nodes, serious), duplicate nav landmark; auth pages missing <main> (landmark-one-main, region)."
-  },
-  {
-   "id": "keyboard",
-   "item": "Full keyboard support",
-   "status": "unknown",
-   "evidence": "Not yet tested end to end."
-  },
-  {
-   "id": "reduced-motion",
-   "item": "Reduced motion respected",
-   "status": "partial",
-   "evidence": "LoopVideo and framer-motion respect it; 5 blocks ship opacity:0 in server HTML and only appear after JS reveal."
-  },
-  {
-   "id": "widths",
-   "item": "Correct at 360\u20132560 px",
-   "status": "partial",
-   "evidence": "No horizontal overflow at 360/390/768/1024/1440/1920/2560 on 5 public pages. Phone: hero tag cropped, nav brand wraps; join header misaligned at 1440."
-  },
-  {
-   "id": "browsers",
-   "item": "Chrome, Safari, Firefox, Edge",
-   "status": "unknown",
-   "evidence": "Only Chromium tested in sandbox."
-  },
-  {
-   "id": "links",
-   "item": "Zero broken links",
-   "status": "pass",
-   "evidence": "11 internal links/anchors on public pages all resolve."
-  },
-  {
-   "id": "urls",
-   "item": "Every old URL handled",
-   "status": "pass",
-   "evidence": "Public URLs: / /join /login /register /forgot-password /reset-password /mfa. Base44 domain deleted, nothing to redirect."
-  },
-  {
-   "id": "metadata",
-   "item": "Metadata: unique titles, descriptions, canonical, OG",
-   "status": "fail",
-   "evidence": "No canonical, no Open Graph/Twitter tags; /login /register /forgot-password share the generic title."
-  },
-  {
-   "id": "sitemap",
-   "item": "sitemap.xml and robots.txt",
-   "status": "fail",
-   "evidence": "Both 404."
-  },
-  {
-   "id": "schema",
-   "item": "Structured data",
-   "status": "fail",
-   "evidence": "No JSON-LD on any page."
-  },
-  {
-   "id": "indexed",
-   "item": "Indexed in Google and Bing",
-   "status": "unknown",
-   "evidence": "Needs Search Console / Bing Webmaster access; workers.dev subdomain, no custom domain."
-  },
-  {
-   "id": "headers",
-   "item": "Security headers A grade",
-   "status": "fail",
-   "evidence": "Response carries none of CSP, HSTS, X-Content-Type-Options, X-Frame-Options/frame-ancestors, Referrer-Policy, Permissions-Policy."
-  },
-  {
-   "id": "secrets",
-   "item": "No secrets in code",
-   "status": "pass",
-   "evidence": "DATABASE_URL is a dashboard secret; only public Supabase URL in wrangler.jsonc."
-  },
-  {
-   "id": "forms",
-   "item": "Forms tested end to end",
-   "status": "partial",
-   "evidence": "Register/join/login tested on 7 Nov with stand-in auth; not on live."
-  },
-  {
-   "id": "conversion",
-   "item": "Clear conversion path on every page",
-   "status": "partial",
-   "evidence": "Home has 'Join for A$60'; /login, /register, /forgot-password and 404 have none back to joining."
-  },
-  {
-   "id": "analytics",
-   "item": "Analytics events",
-   "status": "fail",
-   "evidence": "No analytics at all."
-  },
-  {
-   "id": "editor",
-   "item": "Non-technical editor can publish a post",
-   "status": "fail",
-   "evidence": "No content/blog system exists."
-  },
-  {
-   "id": "before-after",
-   "item": "Before/after improves on every measure",
-   "status": "pending",
-   "evidence": "Baseline recorded."
-  }
- ]
+  "updated": "2026-11-20",
+  "baseline_note": "Local production build, Lighthouse 13, Chromium headless, mobile = simulated throttling. Live field data pending.",
+  "checks": [
+    {
+      "id": "design-system",
+      "item": "Design system recorded in DESIGN.md, referenced from CLAUDE.md, shown at /design",
+      "status": "pass",
+      "evidence": "DESIGN.md; /design passes scripts/qa/check.mjs at 7 widths (no overflow, no axe violations, complete at rest), 20 Nov 2026"
+    },
+    {
+      "id": "qa-automation",
+      "item": "Automated checks on every push (screenshots at 7 widths, overflow, axe, links, console, complete-at-rest, Lighthouse mobile)",
+      "status": "pass",
+      "evidence": ".github/workflows/quality.yml, scripts/qa/check.mjs, lighthouserc.json. Pages not rebuilt yet are reported only."
+    },
+    {
+      "id": "perf-lh",
+      "item": "Lighthouse mobile 95+ in all four categories",
+      "status": "fail",
+      "evidence": "Home mobile: perf 88, a11y 92, best 96, SEO 100 (docs/rebuild/baseline/lh-mobile_home.json). /join 99/100/96/100, /login 98/98/96/100, /register 96/98/96/100."
+    },
+    {
+      "id": "cwv",
+      "item": "Field Core Web Vitals good (LCP, INP, CLS)",
+      "status": "unknown",
+      "evidence": "No field data accessible from sandbox; owner to run PageSpeed Insights. Lab: home LCP 1.9 s, TBT 420 ms, CLS 0."
+    },
+    {
+      "id": "speculation",
+      "item": "Speculation rules where they help",
+      "status": "fail",
+      "evidence": "None present. Per Chrome guidance, only for document loads (public → app)."
+    },
+    {
+      "id": "wcag",
+      "item": "WCAG 2.2 AA",
+      "status": "fail",
+      "evidence": "axe: home dl/dt misuse (21 nodes, serious), duplicate nav landmark; auth pages missing <main> (landmark-one-main, region)."
+    },
+    {
+      "id": "keyboard",
+      "item": "Full keyboard support",
+      "status": "unknown",
+      "evidence": "Not yet tested end to end."
+    },
+    {
+      "id": "reduced-motion",
+      "item": "Reduced motion respected",
+      "status": "partial",
+      "evidence": "LoopVideo and framer-motion respect it; 5 blocks ship opacity:0 in server HTML and only appear after JS reveal."
+    },
+    {
+      "id": "widths",
+      "item": "Correct at 360–2560 px",
+      "status": "partial",
+      "evidence": "No horizontal overflow at 360/390/768/1024/1440/1920/2560 on 5 public pages. Phone: hero tag cropped, nav brand wraps; join header misaligned at 1440."
+    },
+    {
+      "id": "browsers",
+      "item": "Chrome, Safari, Firefox, Edge",
+      "status": "unknown",
+      "evidence": "Only Chromium tested in sandbox."
+    },
+    {
+      "id": "links",
+      "item": "Zero broken links",
+      "status": "pass",
+      "evidence": "11 internal links/anchors on public pages all resolve."
+    },
+    {
+      "id": "urls",
+      "item": "Every old URL handled",
+      "status": "pass",
+      "evidence": "Public URLs: / /join /login /register /forgot-password /reset-password /mfa. Base44 domain deleted, nothing to redirect."
+    },
+    {
+      "id": "metadata",
+      "item": "Metadata: unique titles, descriptions, canonical, OG",
+      "status": "fail",
+      "evidence": "No canonical, no Open Graph/Twitter tags; /login /register /forgot-password share the generic title."
+    },
+    {
+      "id": "sitemap",
+      "item": "sitemap.xml and robots.txt",
+      "status": "fail",
+      "evidence": "Both 404."
+    },
+    {
+      "id": "schema",
+      "item": "Structured data",
+      "status": "fail",
+      "evidence": "No JSON-LD on any page."
+    },
+    {
+      "id": "indexed",
+      "item": "Indexed in Google and Bing",
+      "status": "unknown",
+      "evidence": "Needs Search Console / Bing Webmaster access; workers.dev subdomain, no custom domain."
+    },
+    {
+      "id": "headers",
+      "item": "Security headers A grade",
+      "status": "fail",
+      "evidence": "Response carries none of CSP, HSTS, X-Content-Type-Options, X-Frame-Options/frame-ancestors, Referrer-Policy, Permissions-Policy."
+    },
+    {
+      "id": "secrets",
+      "item": "No secrets in code",
+      "status": "pass",
+      "evidence": "DATABASE_URL is a dashboard secret; only public Supabase URL in wrangler.jsonc."
+    },
+    {
+      "id": "forms",
+      "item": "Forms tested end to end",
+      "status": "partial",
+      "evidence": "Register/join/login tested on 7 Nov with stand-in auth; not on live."
+    },
+    {
+      "id": "conversion",
+      "item": "Clear conversion path on every page",
+      "status": "partial",
+      "evidence": "Home has 'Join for A$60'; /login, /register, /forgot-password and 404 have none back to joining."
+    },
+    {
+      "id": "analytics",
+      "item": "Analytics events",
+      "status": "fail",
+      "evidence": "No analytics at all."
+    },
+    {
+      "id": "editor",
+      "item": "Non-technical editor can publish a post",
+      "status": "fail",
+      "evidence": "No content/blog system exists."
+    },
+    {
+      "id": "before-after",
+      "item": "Before/after improves on every measure",
+      "status": "pending",
+      "evidence": "Baseline recorded."
+    }
+  ]
 }

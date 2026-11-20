@@ -3,33 +3,15 @@
 This repository is the Wholesale System app (China → Australia verified wholesale and sample platform).
 Read this file before changing any screen. It applies to Claude Code, Codex, Cursor and any other agent. The app was first built on Base44 and now runs on Supabase + Cloudflare Workers (see README.md).
 
-## Design skill
+## Design: read DESIGN.md first
 
-The design follows **tasteskill v2** (github.com/Leonxlnx/taste-skill). Install it in your agent before UI work:
+The design system is **Docket**. It's described in **`DESIGN.md`**, built in `src/styles/docket.css` and `src/components/docket/`, and shown working at `/design`.
 
-```
-npx skills add Leonxlnx/taste-skill --all -g -y
-```
+- **Public pages** (everything under `src/routes/_site*`, plus `/design`) follow DESIGN.md exactly: Martian Mono, carbon, paper, pen and red, and the print, mark and tear motion grammar.
+- **Member app and team console** keep the framed-sheet tokens below until phase 5 of the rebuild moves them to Docket. Don't mix the two systems on one screen.
+- **Gate every UI change:** run `node scripts/qa/check.mjs --base <preview> --paths <paths>` and fix every FAIL, then look at the screenshots yourself.
 
-- Public pages (landing, pricing, any marketing page) follow the skill's **page run** and house rules.
-- Screens people work in (member app, team console) follow its **app-screen rules** (`references/app-screens.md`), style **framed-sheet**, kept palette and type.
-- Gate every UI change with the skill's checks and fix every FAIL:
-  `node <skill>/scripts/lint.mjs <files>` (add `--app` for app screens) and
-  `node <skill>/scripts/inspect.mjs [--app] <url>` at 1440, 768 and 390 px.
-
-## Tokens
-
-One typeface for everything: **Switzer** 400 and 500 (self-hosted woff2 in `/public/fonts`). No second face, no monospace.
-
-Public site (bone and olive, one ink):
-
-| Token | Value | Use |
-| --- | --- | --- |
-| --bg | #ecebe7 | page ground |
-| --surface | #e1dfd9 | stage, bars, filled rows |
-| --paper | #f5f5f3 | sample tags, document sheets |
-| --ink / --accent | #38450f | every word, the action, the footer field |
-| --muted | #545f30 | secondary notes only |
+## Tokens (member app and console, until phase 5)
 
 App (framed sheet):
 
@@ -48,11 +30,12 @@ Radii: app cards 8, controls 6, sheet 16; public site square. Spacing on a 4px b
 
 ## Never
 
-- Eyebrow labels, uppercase tracked labels, 01/02/03 numbering, monospace text.
+- Eyebrow labels, uppercase tracked labels, and numbering that isn't a real sequence.
+- In the member app and console (until phase 5): monospace text. On public pages Martian Mono is the brand face (DESIGN.md).
 - Gradients, glows, glass, shadows on resting elements (app: a border or a shadow, never both).
 - A dark sidebar on a light screen; icons in tinted squares; sparklines on KPIs; zebra tables; uppercase table headers.
 - Emoji, lorem ipsum, Acme/John Doe, vanity numbers, totals typed instead of summed from rows.
-- A black square with a letter as the logo: the mark is the sample tag (rounded rectangle, punched hole, two lines).
+- A black square with a letter as the logo. The public wordmark is the Docket logo (`src/components/docket/Logo.jsx`), and the app icon is the sample tag.
 
 ## Always
 
@@ -92,7 +75,8 @@ Radii: app cards 8, controls 6, sheet 16; public site square. Spacing on a 4px b
 
 ## Motion and footage
 
-- **Library:** framer-motion. The whole layer is the following, and nothing else moves:
+- **Public pages:** the Docket grammar in DESIGN.md. The machine prints, our team marks, you tear; nothing else moves.
+- **Member app and console, until phase 5:** framer-motion. The whole layer is the following, and nothing else moves:
   - page change: fade plus 8px rise, 200 ms;
   - section reveal: rise 16–24px, stagger 80 ms, once;
   - the stage crossfade: 1.6 s;

@@ -17,9 +17,23 @@ Brief: award-level, fast, accessible public site that converts visitors into mem
 - **Gate 2 passed (20 Nov 2026).** Owner chose Docket, with no pink. The motion prototype is in `docs/rebuild/docket-prototype/`. Draft PR #11 opened.
 - **Step 3, plan drafted (20 Nov 2026).** It's in the Claude Doc "Lotwise: rebuild plan": sitemap, content model, editing workflow, architecture, hosting, security, analytics and payments, 190 hours over 8 phases, risks, decisions.
 
+- **Gate 3 passed (20 Nov 2026),** with the defaults in decisions.md.
+- **Phase 0, foundations (20 Nov 2026):**
+  - `DESIGN.md`, referenced from CLAUDE.md and AGENTS.md;
+  - tokens and components in `src/styles/docket.css` and `src/components/docket/`;
+  - motion helpers and Lottie marks in `src/lib/motion/`;
+  - a self-hosted font;
+  - `/design` as the working reference;
+  - the QA script `scripts/qa/check.mjs` and unit tests;
+  - the GitHub Actions workflow `.github/workflows/quality.yml` with `lighthouserc.json`.
+  - `/design` passes at 7 widths, with no axe violations, no overflow, and complete at rest.
+
 ## Next
-- **Gate 3:** owner approves the plan and answers its decisions (Workers Paid plan, public category pages, GST-inclusive prices, AI training bots, editors, first guides).
-- Then phase 0: foundations.
+- **Phase 1, home:**
+  - rebuild `/` in Docket, with live settings and products;
+  - add the 3D sample;
+  - remove the Fontshare stylesheet and framer-motion from public pages;
+  - add view transitions.
 - Owner to run PageSpeed Insights on the live URL.
 
 ## Notes
