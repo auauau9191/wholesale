@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Lotwise, concept B: product in the app</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&amp;family=Instrument+Sans:wdth,wght@75..100,400..700&amp;display=swap">
+<style>
+:root{--floor:oklch(0.25 0.035 215);--floor-2:oklch(0.31 0.04 215);--board:oklch(0.96 0.006 95);--marker:oklch(0.83 0.14 80);--steel:oklch(0.76 0.025 215);--ink:oklch(0.21 0.02 215)}
+body{margin:0;font-family:"Instrument Sans",sans-serif}
+a{color:var(--board)}a:hover{color:var(--marker)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--marker);outline-offset:3px}
+</style>
+</helmet>
+<div style="min-height: 1240px; background: var(--floor); color: var(--board); display: flex; flex-wrap: wrap">
+<nav aria-label="App" style="flex: 1 1 220px; max-width: 240px; padding: 24px 18px; box-sizing: border-box; border-right: 1px solid oklch(1 0 0 / 0.1); display: flex; flex-direction: column; gap: 4px">
+<a href="#" aria-label="Lotwise catalogue" style="display: flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 28px">
+<svg width="30" height="26" viewBox="0 0 36 30" aria-hidden="true"><rect x="3" y="3" width="30" height="22" rx="2" fill="var(--board)" transform="rotate(-6 18 14)"></rect><path d="M9 12h12M9 17h17" stroke="var(--ink)" stroke-width="2.2" transform="rotate(-6 18 14)"></path><circle cx="27" cy="11" r="2.6" fill="var(--marker)" transform="rotate(-6 18 14)"></circle></svg>
+<span style="font-family: Gloock, serif; font-size: 26px">Lotwise</span>
+</a>
+<a href="#" aria-current="page" style="text-decoration: none; padding: 12px 14px; border-radius: 8px; background: var(--floor-2); font-weight: 600">Catalogue</a>
+<a href="#" style="text-decoration: none; padding: 12px 14px; border-radius: 8px">My samples</a>
+<a href="#" style="text-decoration: none; padding: 12px 14px; border-radius: 8px">Orders</a>
+<a href="#" style="text-decoration: none; padding: 12px 14px; border-radius: 8px">Factory films</a>
+<a href="#" style="text-decoration: none; padding: 12px 14px; border-radius: 8px">Help</a>
+<p style="margin: 28px 0 0; padding: 14px; border-radius: 8px; border: 1px solid oklch(1 0 0 / 0.14); font-size: 14px; line-height: 1.5; color: var(--steel)">You have 1 free sample left on your starter quarter.</p>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; padding: 24px 40px 56px; box-sizing: border-box">
+<nav aria-label="Breadcrumb" style="font-size: 15px; color: var(--steel)"><a href="#" style="color: var(--steel)">Café supplies</a> / Milk jug, 600 ml</nav>
+<div style="margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 32px; align-items: start">
+<div>
+<div style="position: relative; aspect-ratio: 16 / 9; border-radius: 6px; background: linear-gradient(180deg, oklch(0.36 0.04 215), oklch(0.2 0.03 215)); overflow: hidden">
+<p style="position: absolute; left: 18px; top: 16px; margin: 0; font-size: 14px; color: var(--steel)">Placeholder: supplier CN208's film</p>
+<figure style="position: absolute; right: 8%; top: 20%; margin: 0; width: 200px; background: var(--board); color: var(--ink); padding: 14px 16px; transform: rotate(-4deg)">
+<p style="margin: 0; font-family: Gloock, serif; font-size: 36px; line-height: 1">CN208</p>
+<p style="margin: 6px 0 0; font-size: 15px; font-weight: 700; color: oklch(0.45 0.12 70)">12 Apr 2026</p>
+</figure>
+<button type="button" aria-label="Play the factory film" style="position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%; border: 0; background: var(--marker); display: flex; align-items: center; justify-content: center"><svg width="22" height="24" viewBox="0 0 22 24" aria-hidden="true"><path d="M2 2l18 10L2 22z" fill="var(--ink)"></path></svg></button>
+</div>
+<ol style="list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<li><a href="#" style="display: block; text-decoration: none; padding: 12px; border-radius: 6px; background: var(--floor-2); font-size: 15px"><strong style="display: block">The gate</strong><span style="color: var(--steel)">Licence matched</span></a></li>
+<li><a href="#" style="display: block; text-decoration: none; padding: 12px; border-radius: 6px; background: var(--floor-2); font-size: 15px"><strong style="display: block">The line</strong><span style="color: var(--steel)">Seen running</span></a></li>
+<li><a href="#" style="display: block; text-decoration: none; padding: 12px; border-radius: 6px; background: var(--floor-2); font-size: 15px"><strong style="display: block">QC bench</strong><span style="color: var(--steel)">Inspected</span></a></li>
+<li><a href="#" style="display: block; text-decoration: none; padding: 12px; border-radius: 6px; border: 1.5px solid var(--marker); font-size: 15px"><strong style="display: block">Packing</strong><span style="color: var(--steel)">Sample sealed</span></a></li>
+</ol>
+<h2 style="margin: 36px 0 12px; font-family: Gloock, serif; font-weight: 400; font-size: 36px">What will it cost me landed?</h2>
+<div style="background: var(--board); color: var(--ink); border-radius: 6px; padding: 6px 22px; overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; font-size: 16px">
+<thead><tr style="text-align: left"><th scope="col" style="padding: 12px 0">Per unit</th><th scope="col" style="padding: 12px 0; text-align: right">300 units</th><th scope="col" style="padding: 12px 0; text-align: right">1,000 units</th></tr></thead>
+<tbody>
+<tr style="border-top: 1px solid oklch(0.21 0.02 215 / 0.12)"><th scope="row" style="padding: 10px 0; text-align: left; font-weight: 400">Product</th><td style="text-align: right">A$4.88</td><td style="text-align: right">A$4.19</td></tr>
+<tr style="border-top: 1px solid oklch(0.21 0.02 215 / 0.12)"><th scope="row" style="padding: 10px 0; text-align: left; font-weight: 400">Sea freight, estimate</th><td style="text-align: right">A$0.28</td><td style="text-align: right">A$0.28</td></tr>
+<tr style="border-top: 1px solid oklch(0.21 0.02 215 / 0.12)"><th scope="row" style="padding: 10px 0; text-align: left; font-weight: 400">Duty (ChAFTA certificate)</th><td style="text-align: right">A$0.00</td><td style="text-align: right">A$0.00</td></tr>
+<tr style="border-top: 1px solid oklch(0.21 0.02 215 / 0.12)"><th scope="row" style="padding: 10px 0; text-align: left; font-weight: 400">Broker and port fees</th><td style="text-align: right">A$1.17</td><td style="text-align: right">A$0.35</td></tr>
+<tr style="border-top: 1px solid oklch(0.21 0.02 215 / 0.12)"><th scope="row" style="padding: 10px 0; text-align: left; font-weight: 400">GST, 10%</th><td style="text-align: right">A$0.52</td><td style="text-align: right">A$0.45</td></tr>
+<tr style="border-top: 2px solid var(--ink)"><th scope="row" style="padding: 14px 0; text-align: left">Landed</th><td style="text-align: right; font-family: Gloock, serif; font-size: 28px">A$6.85</td><td style="text-align: right; font-family: Gloock, serif; font-size: 28px">A$5.27</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<aside style="background: var(--floor-2); border-radius: 6px; padding: 26px 24px">
+<p style="margin: 0; font-size: 14px; color: var(--steel)">CF-CN208-0385, example product</p>
+<h1 style="margin: 6px 0 0; font-family: Gloock, serif; font-weight: 400; font-size: 54px; line-height: 0.98">Milk jug, 600 ml</h1>
+<p style="margin: 14px 0 0; font-size: 17px; line-height: 1.5; color: var(--steel)">Stainless, with etched measurement marks and a tapered spout.</p>
+<div style="margin-top: 20px; aspect-ratio: 4 / 3; border-radius: 4px; background: var(--floor); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--steel)">Placeholder: product photo</div>
+<p style="margin: 20px 0 0; font-size: 17px"><strong>5 units on the shelf.</strong> <span style="color: var(--steel)">3 in Sydney, 2 in Brisbane, sent within 2 business days.</span></p>
+<button type="button" style="margin-top: 16px; width: 100%; min-height: 56px; border: 0; border-radius: 999px; background: var(--marker); color: var(--ink); font: inherit; font-size: 18px; font-weight: 700">Request your free sample</button>
+<dl style="margin: 24px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px">
+<div><dt style="font-size: 14px; color: var(--steel)">Supplier score</dt><dd style="margin: 2px 0 0; font-family: Gloock, serif; font-size: 30px; color: var(--marker)">74/100</dd></div>
+<div><dt style="font-size: 14px; color: var(--steel)">Filmed</dt><dd style="margin: 2px 0 0; font-family: Gloock, serif; font-size: 30px; color: var(--marker)">12 Apr 2026</dd></div>
+<div><dt style="font-size: 14px; color: var(--steel)">Minimum order</dt><dd style="margin: 2px 0 0; font-size: 20px; font-weight: 600">300 units</dd></div>
+<div><dt style="font-size: 14px; color: var(--steel)">Lead time</dt><dd style="margin: 2px 0 0; font-size: 20px; font-weight: 600">36 days</dd></div>
+</dl>
+</aside>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

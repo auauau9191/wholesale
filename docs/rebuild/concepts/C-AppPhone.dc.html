@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Lotwise, concept C: product in the app on a phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;display=swap">
+<style>
+:root{--rack:oklch(0.46 0.16 258);--rack-deep:oklch(0.34 0.13 260);--beam:oklch(0.72 0.18 50);--concrete:oklch(0.95 0.008 250);--ink:oklch(0.22 0.04 260);--ink-soft:oklch(0.42 0.03 260);--card:oklch(0.99 0.003 250)}
+body{margin:0;font-family:"Bricolage Grotesque",sans-serif}
+a{color:var(--rack)}a:hover{color:var(--rack-deep)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--beam);outline-offset:3px}
+</style>
+</helmet>
+<div style="width: 390px; height: 2000px; background: var(--concrete); color: var(--ink); position: relative; overflow: hidden">
+<header style="background: var(--rack-deep); color: var(--card); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between">
+<a href="#" style="color: var(--card); display: flex; align-items: center; gap: 6px; text-decoration: none; font-size: 16px; min-height: 44px"><svg width="10" height="16" viewBox="0 0 10 16" aria-hidden="true"><path d="M8 2L2 8l6 6" fill="none" stroke="currentColor" stroke-width="2.4"></path></svg>Café supplies</a>
+<span style="font-size: 22px; font-weight: 800; letter-spacing: -0.03em">lotwise</span>
+</header>
+<div style="margin: 14px; aspect-ratio: 1 / 1; background: var(--card); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--ink-soft)">Placeholder: product photo</div>
+<div style="padding: 4px 16px 130px">
+<p style="margin: 0; font-size: 14px; color: var(--ink-soft)">CF-CN208-0385, example product</p>
+<h1 style="margin: 4px 0 0; font-size: 54px; line-height: 0.9; font-weight: 800; font-variation-settings: 'opsz' 96, 'wdth' 75; letter-spacing: -0.045em">Milk jug, 600 ml</h1>
+<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.5">Stainless, with etched measurement marks and a tapered spout.</p>
+<div style="margin-top: 18px; background: var(--rack-deep); border-radius: 14px; padding: 16px; color: var(--card)">
+<p style="margin: 0 0 10px; font-size: 16px; font-weight: 700">Your unit: Sydney, bay B2</p>
+<div style="display: flex; gap: 6px; border-left: 6px solid var(--rack); border-right: 6px solid var(--rack); padding: 0 6px"><span style="flex: 1; height: 46px; background: var(--beam); color: var(--ink); border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px; font-weight: 700; font-size: 14px; transform: translateY(-8px)">S03</span><span style="flex: 1; height: 46px; background: var(--card); color: var(--ink); border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px; font-size: 14px">S04</span><span style="flex: 1; height: 46px; background: var(--card); color: var(--ink); border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px; font-size: 14px">S05</span></div>
+<div style="height: 8px; background: var(--beam)"></div>
+<p style="margin: 12px 0 0; font-size: 14px; color: oklch(0.88 0.03 260)">2 more in Brisbane. All checked against the sealed master.</p>
+</div>
+<h2 style="margin: 26px 0 10px; font-size: 26px; font-weight: 800; letter-spacing: -0.02em">What will it cost me landed?</h2>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+<div style="background: var(--card); border-radius: 12px; padding: 14px 16px"><p style="margin: 0; font-size: 14px; color: var(--ink-soft)">At 300</p><p style="margin: 2px 0 0; font-size: 34px; font-weight: 800; letter-spacing: -0.03em; color: var(--rack)">A$6.85</p></div>
+<div style="background: var(--card); border-radius: 12px; padding: 14px 16px"><p style="margin: 0; font-size: 14px; color: var(--ink-soft)">At 1,000</p><p style="margin: 2px 0 0; font-size: 34px; font-weight: 800; letter-spacing: -0.03em; color: var(--rack)">A$5.27</p></div>
+</div>
+<p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft)">Per unit with freight, fees and GST. Duty free with ChAFTA.</p>
+<dl style="margin: 18px 0 0; display: grid; grid-template-columns: 1fr 1fr; background: var(--card); border-radius: 12px; overflow: hidden">
+<div style="padding: 12px 14px; border-bottom: 1px solid var(--concrete); border-right: 1px solid var(--concrete)"><dt style="font-size: 13px; color: var(--ink-soft)">Minimum order</dt><dd style="margin: 2px 0 0; font-size: 18px; font-weight: 700">300</dd></div>
+<div style="padding: 12px 14px; border-bottom: 1px solid var(--concrete)"><dt style="font-size: 13px; color: var(--ink-soft)">Lead time</dt><dd style="margin: 2px 0 0; font-size: 18px; font-weight: 700">36 days</dd></div>
+<div style="padding: 12px 14px; border-right: 1px solid var(--concrete)"><dt style="font-size: 13px; color: var(--ink-soft)">Supplier</dt><dd style="margin: 2px 0 0; font-size: 18px; font-weight: 700">CN208, 74/100</dd></div>
+<div style="padding: 12px 14px"><dt style="font-size: 13px; color: var(--ink-soft)">Filmed</dt><dd style="margin: 2px 0 0; font-size: 18px; font-weight: 700">12 Apr 2026</dd></div>
+</dl>
+<a href="#" style="display: inline-block; margin-top: 10px; font-size: 16px; font-weight: 700; padding: 10px 0">Watch the factory film</a>
+</div>
+<nav aria-label="App" style="position: absolute; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid oklch(0.88 0.01 250); padding: 10px 14px 24px">
+<button type="button" style="width: 100%; min-height: 56px; background: var(--beam); color: var(--ink); border: 0; border-radius: 12px; font: inherit; font-size: 18px; font-weight: 700">Take S03 off the shelf, free</button>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2000}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

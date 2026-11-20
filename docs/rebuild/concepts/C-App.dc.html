@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Lotwise, concept C: product in the app</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;display=swap">
+<style>
+:root{--rack:oklch(0.46 0.16 258);--rack-deep:oklch(0.34 0.13 260);--beam:oklch(0.72 0.18 50);--concrete:oklch(0.95 0.008 250);--ink:oklch(0.22 0.04 260);--ink-soft:oklch(0.42 0.03 260);--card:oklch(0.99 0.003 250)}
+body{margin:0;font-family:"Bricolage Grotesque",sans-serif}
+a{color:var(--rack)}a:hover{color:var(--rack-deep)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--beam);outline-offset:3px}
+</style>
+</helmet>
+<div style="min-height: 1240px; background: var(--concrete); color: var(--ink)">
+<header style="background: var(--rack-deep); color: var(--card)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 12px 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap">
+<a href="#" aria-label="Lotwise catalogue" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--card)">
+<svg width="28" height="28" viewBox="0 0 34 34" aria-hidden="true"><rect x="3" y="2" width="5" height="30" fill="oklch(0.7 0.12 258)"></rect><rect x="26" y="2" width="5" height="30" fill="oklch(0.7 0.12 258)"></rect><rect x="3" y="14" width="28" height="4" fill="var(--beam)"></rect><rect x="11" y="6" width="12" height="8" rx="1" fill="var(--card)"></rect><rect x="3" y="28" width="28" height="4" fill="var(--beam)"></rect></svg>
+<span style="font-size: 26px; font-weight: 800; letter-spacing: -0.03em">lotwise</span>
+</a>
+<label style="flex: 1; min-width: 240px; display: flex; align-items: center; gap: 10px; background: oklch(1 0 0 / 0.12); border-radius: 10px; padding: 0 14px; height: 44px"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="none" stroke="var(--card)" stroke-width="2"></circle><path d="M11 11l4 4" stroke="var(--card)" stroke-width="2"></path></svg><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search the shelves</span><input type="search" placeholder="Search the shelves" style="flex: 1; background: transparent; border: 0; color: var(--card); font: inherit; font-size: 16px; outline-offset: 6px"></label>
+<nav aria-label="App" style="display: flex; gap: 4px; font-size: 16px; font-weight: 600">
+<a href="#" aria-current="page" style="color: var(--card); text-decoration: none; padding: 10px 14px; border-radius: 8px; background: oklch(1 0 0 / 0.16)">Shelves</a>
+<a href="#" style="color: var(--card); text-decoration: none; padding: 10px 14px">My samples</a>
+<a href="#" style="color: var(--card); text-decoration: none; padding: 10px 14px">Orders</a>
+</nav>
+<a href="#" aria-label="Account" style="width: 40px; height: 40px; border-radius: 50%; background: var(--beam); color: var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 800; text-decoration: none">M</a>
+</div>
+</header>
+<main style="max-width: 1360px; margin: 0 auto; padding: 24px 40px 64px">
+<nav aria-label="Breadcrumb" style="font-size: 15px; color: var(--ink-soft)"><a href="#">Shelves</a> / <a href="#">Café supplies</a> / Milk jug, 600 ml</nav>
+<div style="margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; align-items: start">
+<div>
+<div style="aspect-ratio: 4 / 3; background: var(--card); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--ink-soft); position: relative">Placeholder: product photo<span style="position: absolute; left: 16px; top: 16px; background: var(--concrete); padding: 6px 10px; border-radius: 6px; font-size: 13px">Example product</span></div>
+<div style="margin-top: 20px; background: var(--rack-deep); border-radius: 18px; padding: 22px 26px 28px; color: var(--card)">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap"><h2 style="margin: 0; font-size: 24px; font-weight: 700">Which unit will I get?</h2><p style="margin: 0; font-size: 15px; color: oklch(0.85 0.04 260)">The nearest hub with one in stock</p></div>
+<div style="margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+<div><p style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Sydney, bay B2</p><div style="display: flex; gap: 8px; border-left: 8px solid var(--rack); border-right: 8px solid var(--rack); padding: 0 8px"><span style="flex: 1; height: 58px; background: var(--beam); color: var(--ink); border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; font-weight: 700; font-size: 15px; transform: translateY(-10px); box-shadow: 0 10px 0 -4px oklch(0 0 0 / 0.25)">S03</span><span style="flex: 1; height: 58px; background: var(--card); color: var(--ink); border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; font-size: 15px">S04</span><span style="flex: 1; height: 58px; background: var(--card); color: var(--ink); border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; font-size: 15px">S05</span></div><div style="height: 10px; background: var(--beam)"></div></div>
+<div><p style="margin: 0 0 8px; font-size: 16px; font-weight: 600">Brisbane, bay A2</p><div style="display: flex; gap: 8px; border-left: 8px solid var(--rack); border-right: 8px solid var(--rack); padding: 0 8px"><span style="flex: 1; height: 58px; background: var(--card); color: var(--ink); border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; font-size: 15px">S01</span><span style="flex: 1; height: 58px; background: var(--card); color: var(--ink); border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; font-size: 15px">S02</span></div><div style="height: 10px; background: var(--beam)"></div></div>
+</div>
+<p style="margin: 16px 0 0; font-size: 15px; line-height: 1.5; color: oklch(0.88 0.03 260)">All five checked against the sealed master in Sydney, bay A1. The master never leaves the shelf.</p>
+</div>
+</div>
+<div>
+<p style="margin: 0; font-size: 15px; color: var(--ink-soft)">Café supplies, CF-CN208-0385</p>
+<h1 style="margin: 6px 0 0; font-size: 84px; line-height: 0.9; font-weight: 800; font-variation-settings: 'opsz' 96, 'wdth' 75; letter-spacing: -0.045em">Milk jug, 600 ml</h1>
+<p style="margin: 16px 0 0; font-size: 19px; line-height: 1.5; max-width: 44ch">Stainless milk jug with etched measurement marks and a tapered spout.</p>
+<div style="margin-top: 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap">
+<button type="button" style="background: var(--beam); color: var(--ink); border: 0; border-radius: 12px; padding: 18px 28px; font: inherit; font-size: 19px; font-weight: 700; min-height: 58px">Take S03 off the shelf</button>
+<p style="margin: 0; font-size: 15px; color: var(--ink-soft)">Free: your first sample.<br>Sent within 2 business days.</p>
+</div>
+<h2 style="margin: 36px 0 12px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em">What will it cost me landed?</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="background: var(--card); border-radius: 14px; padding: 18px 20px"><p style="margin: 0; font-size: 15px; color: var(--ink-soft)">Per unit at 300</p><p style="margin: 4px 0 0; font-size: 46px; font-weight: 800; letter-spacing: -0.03em; color: var(--rack)">A$6.85</p><p style="margin: 6px 0 0; font-size: 14px; color: var(--ink-soft)">US$3.15 at the factory</p></div>
+<div style="background: var(--card); border-radius: 14px; padding: 18px 20px"><p style="margin: 0; font-size: 15px; color: var(--ink-soft)">Per unit at 1,000</p><p style="margin: 4px 0 0; font-size: 46px; font-weight: 800; letter-spacing: -0.03em; color: var(--rack)">A$5.27</p><p style="margin: 6px 0 0; font-size: 14px; color: var(--ink-soft)">US$2.70 at the factory</p></div>
+</div>
+<p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: var(--ink-soft)">With sea freight, broker and port fees, and GST. Duty free: the supplier provides a ChAFTA certificate. <a href="#">See every line</a></p>
+<dl style="margin: 26px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; background: var(--card); border-radius: 14px; overflow: hidden">
+<div style="padding: 16px 20px; border-bottom: 1px solid var(--concrete); border-right: 1px solid var(--concrete)"><dt style="font-size: 14px; color: var(--ink-soft)">Minimum order</dt><dd style="margin: 2px 0 0; font-size: 21px; font-weight: 700">300 units</dd></div>
+<div style="padding: 16px 20px; border-bottom: 1px solid var(--concrete)"><dt style="font-size: 14px; color: var(--ink-soft)">Lead time</dt><dd style="margin: 2px 0 0; font-size: 21px; font-weight: 700">36 days</dd></div>
+<div style="padding: 16px 20px; border-right: 1px solid var(--concrete)"><dt style="font-size: 14px; color: var(--ink-soft)">Supplier</dt><dd style="margin: 2px 0 0; font-size: 21px; font-weight: 700">CN208, 74/100</dd></div>
+<div style="padding: 16px 20px"><dt style="font-size: 14px; color: var(--ink-soft)">Filmed</dt><dd style="margin: 2px 0 0; font-size: 21px; font-weight: 700">12 April 2026</dd></div>
+</dl>
+<a href="#" style="display: inline-block; margin-top: 14px; font-size: 16px; font-weight: 700; padding: 8px 0">Watch the factory film</a>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
