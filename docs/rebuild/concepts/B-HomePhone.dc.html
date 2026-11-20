@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Lotwise, concept B: home on a phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&amp;family=Instrument+Sans:wdth,wght@75..100,400..700&amp;display=swap">
+<style>
+:root{--floor:oklch(0.25 0.035 215);--floor-2:oklch(0.31 0.04 215);--board:oklch(0.96 0.006 95);--marker:oklch(0.83 0.14 80);--steel:oklch(0.76 0.025 215);--ink:oklch(0.21 0.02 215)}
+body{margin:0;font-family:"Instrument Sans",sans-serif}
+a{color:var(--board)}a:hover{color:var(--marker)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--marker);outline-offset:3px}
+</style>
+</helmet>
+<div style="width: 390px; min-height: 3900px; background: var(--floor); color: var(--board)">
+<header style="padding: 14px 18px; display: flex; align-items: center; justify-content: space-between">
+<a href="#" aria-label="Lotwise home" style="display: flex; align-items: center; gap: 10px; text-decoration: none">
+<svg width="30" height="26" viewBox="0 0 36 30" aria-hidden="true"><rect x="3" y="3" width="30" height="22" rx="2" fill="var(--board)" transform="rotate(-6 18 14)"></rect><path d="M9 12h12M9 17h17" stroke="var(--ink)" stroke-width="2.2" transform="rotate(-6 18 14)"></path><circle cx="27" cy="11" r="2.6" fill="var(--marker)" transform="rotate(-6 18 14)"></circle></svg>
+<span style="font-family: Gloock, serif; font-size: 26px">Lotwise</span>
+</a>
+<button type="button" aria-label="Open menu" style="width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--board); background: transparent; display: flex; align-items: center; justify-content: center"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M0 1h18M0 6h18M0 11h18" stroke="var(--board)" stroke-width="2"></path></svg></button>
+</header>
+<div style="position: relative; margin: 6px 0 0; aspect-ratio: 4 / 5; background: linear-gradient(180deg, oklch(0.36 0.04 215), oklch(0.22 0.03 215)); overflow: hidden">
+<p style="position: absolute; left: 16px; top: 14px; margin: 0; font-size: 13px; color: var(--steel); max-width: 30ch">Placeholder: our filmer's clip, real and dated</p>
+<figure style="position: absolute; left: 50%; top: 22%; margin: 0 0 0 -110px; width: 220px; background: var(--board); color: var(--ink); padding: 16px 18px; transform: rotate(-4deg); box-shadow: 0 24px 40px -18px oklch(0 0 0 / 0.6)">
+<p style="margin: 0; font-family: Gloock, serif; font-size: 40px; line-height: 1">CN208</p>
+<p style="margin: 6px 0 0; font-size: 15px; font-weight: 600">Packing line, Foshan</p>
+<p style="margin: 10px 0 0; font-size: 22px; font-weight: 700; color: oklch(0.45 0.12 70); border-top: 2px solid oklch(0.21 0.02 215 / 0.2); padding-top: 8px">12 Apr 2026</p>
+<figcaption style="margin-top: 6px; font-size: 12px; color: oklch(0.4 0.02 215)">Example supplier</figcaption>
+</figure>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 16px">
+<div style="position: relative; height: 4px; background: oklch(1 0 0 / 0.22)"><div style="position: absolute; left: 82%; top: -6px; width: 16px; height: 16px; border-radius: 50%; background: var(--marker); margin-left: -8px"></div></div>
+<ol style="list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); font-size: 12px; color: var(--steel)"><li>Gate</li><li>Line</li><li>QC</li><li style="color: var(--board); font-weight: 600">Packing</li></ol>
+</div>
+</div>
+<section style="padding: 32px 18px 56px">
+<h1 style="margin: 0; font-family: Gloock, serif; font-weight: 400; font-size: 56px; line-height: 0.95; letter-spacing: -0.02em">See the factory on our film, not on theirs.</h1>
+<p style="margin: 18px 0 0; font-size: 18px; line-height: 1.5; color: var(--steel)">We film every factory with a dated board. Then you hold the sample in Brisbane or Sydney, and order a lot matched to it.</p>
+<a href="#" style="display: block; margin-top: 24px; background: var(--marker); color: var(--ink); padding: 16px; border-radius: 999px; font-size: 18px; font-weight: 700; text-decoration: none; text-align: center">Join for A$60</a>
+<a href="#" style="display: block; margin-top: 10px; border: 1.5px solid var(--board); padding: 15px; border-radius: 999px; font-size: 18px; font-weight: 600; text-decoration: none; text-align: center">How we visit</a>
+</section>
+<section style="background: var(--board); color: var(--ink); padding: 44px 18px">
+<h2 style="margin: 0; font-family: Gloock, serif; font-weight: 400; font-size: 40px; line-height: 1">What is Lotwise?</h2>
+<p style="margin: 14px 0 0; font-size: 19px; line-height: 1.5">A membership for Australian businesses that buy from Chinese factories: filmed factories, samples on a shelf here, orders inspected against them. A$60 for three months, then A$45 a month.</p>
+</section>
+<section style="padding: 64px 18px">
+<h2 style="margin: 0; font-family: Gloock, serif; font-weight: 400; font-size: 46px; line-height: 0.98">What do we film on a visit?</h2>
+<p style="margin: 14px 0 24px; font-size: 17px; line-height: 1.5; color: var(--steel)">Four places, in order, with the code and date on the board. Under 70 out of 100 isn't listed.</p>
+<ol style="list-style: none; margin: 0 -18px; padding: 0 18px; display: flex; gap: 12px; overflow-x: auto">
+<li style="flex: 0 0 250px"><div style="aspect-ratio: 4 / 5; background: var(--floor-2); border-radius: 4px; padding: 12px; box-sizing: border-box; display: flex; align-items: flex-end; font-size: 12px; color: var(--steel)">Placeholder: gate clip</div><h3 style="margin: 12px 0 4px; font-size: 20px">The gate</h3><p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--steel)">Sign and address match the licence.</p></li>
+<li style="flex: 0 0 250px"><div style="aspect-ratio: 4 / 5; background: var(--floor-2); border-radius: 4px; padding: 12px; box-sizing: border-box; display: flex; align-items: flex-end; font-size: 12px; color: var(--steel)">Placeholder: line clip</div><h3 style="margin: 12px 0 4px; font-size: 20px">The line</h3><p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--steel)">Machines and staff seen running.</p></li>
+</ol>
+</section>
+<section style="background: var(--floor-2); padding: 56px 18px">
+<h2 style="margin: 0; font-family: Gloock, serif; font-weight: 400; font-size: 40px; line-height: 1">Then what happens after I hold the sample?</h2>
+<p style="margin: 14px 0 0; font-size: 17px; line-height: 1.5; color: var(--steel)">You order against it. 30% starts production; the rest is paid only after the cartons match the sealed master.</p>
+<dl style="margin: 22px 0 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid oklch(1 0 0 / 0.18)">
+<div style="padding: 16px 0; border-bottom: 1px solid oklch(1 0 0 / 0.18)"><dt style="font-size: 14px; color: var(--steel)">Sample sent within</dt><dd style="margin: 4px 0 0; font-family: Gloock, serif; font-size: 36px; color: var(--marker)">2 days</dd></div>
+<div style="padding: 16px 0; border-bottom: 1px solid oklch(1 0 0 / 0.18)"><dt style="font-size: 14px; color: var(--steel)">Time to decide</dt><dd style="margin: 4px 0 0; font-family: Gloock, serif; font-size: 36px; color: var(--marker)">14 days</dd></div>
+</dl>
+</section>
+<section style="padding: 64px 18px">
+<h2 style="margin: 0; font-family: Gloock, serif; font-weight: 400; font-size: 46px; line-height: 0.98">What does it cost?</h2>
+<p style="margin: 14px 0 22px; font-size: 17px; line-height: 1.5; color: var(--steel)">Factories pay us 5%, so there's no fee on your orders.</p>
+<div style="background: var(--board); color: var(--ink); border-radius: 6px; padding: 4px 18px">
+<p style="margin: 0; display: flex; justify-content: space-between; font-size: 17px; padding: 14px 0; border-bottom: 1px solid oklch(0.21 0.02 215 / 0.15)"><span>First three months</span><strong style="font-family: Gloock, serif; font-weight: 400; font-size: 24px">A$60</strong></p>
+<p style="margin: 0; display: flex; justify-content: space-between; font-size: 17px; padding: 14px 0; border-bottom: 1px solid oklch(0.21 0.02 215 / 0.15)"><span>Each month after</span><strong style="font-family: Gloock, serif; font-weight: 400; font-size: 24px">A$45</strong></p>
+<p style="margin: 0; display: flex; justify-content: space-between; font-size: 17px; padding: 14px 0; border-bottom: 1px solid oklch(0.21 0.02 215 / 0.15)"><span>Or a year up front</span><strong style="font-family: Gloock, serif; font-weight: 400; font-size: 24px">A$450</strong></p>
+<p style="margin: 0; display: flex; justify-content: space-between; font-size: 17px; padding: 14px 0; border-bottom: 1px solid oklch(0.21 0.02 215 / 0.15)"><span>Your first sample</span><strong style="font-family: Gloock, serif; font-weight: 400; font-size: 24px">A$0</strong></p>
+<p style="margin: 0; display: flex; justify-content: space-between; font-size: 17px; padding: 14px 0"><span>Our fee on orders</span><strong style="font-family: Gloock, serif; font-weight: 400; font-size: 24px">A$0</strong></p>
+</div>
+<a href="#" style="display: block; margin-top: 20px; background: var(--marker); color: var(--ink); padding: 16px; border-radius: 999px; font-size: 18px; font-weight: 700; text-decoration: none; text-align: center">Join for A$60</a>
+</section>
+<section style="padding: 8px 18px 64px">
+<h2 style="margin: 0 0 18px; font-family: Gloock, serif; font-weight: 400; font-size: 40px">Questions, answered</h2>
+<details open style="border-top: 1px solid oklch(1 0 0 / 0.2); padding: 18px 0"><summary style="font-size: 19px; font-weight: 600">Who films the factories?</summary><p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55; color: var(--steel)">Our own filmer, on the visit that gets a factory listed. The board shows the supplier code and date.</p></details>
+<details style="border-top: 1px solid oklch(1 0 0 / 0.2); padding: 18px 0"><summary style="font-size: 19px; font-weight: 600">What if the bulk goods don't match?</summary></details>
+<details style="border-top: 1px solid oklch(1 0 0 / 0.2); border-bottom: 1px solid oklch(1 0 0 / 0.2); padding: 18px 0"><summary style="font-size: 19px; font-weight: 600">Do I need an ABN?</summary></details>
+</section>
+<footer style="background: oklch(0.2 0.03 215); padding: 40px 18px 56px; font-size: 15px; line-height: 1.6; color: var(--steel)">
+<p style="margin: 0; font-family: Gloock, serif; font-size: 36px; color: var(--board)">Lotwise</p>
+<p style="margin: 10px 0 0">Trading name of [legal entity placeholder], ABN [placeholder]. Hubs in Brisbane and Sydney, [addresses placeholder]. [Email placeholder]</p>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3900}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

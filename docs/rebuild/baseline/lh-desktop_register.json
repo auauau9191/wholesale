@@ -1,0 +1,22 @@
+{
+ "url": "http://127.0.0.1:4173/register",
+ "fetchTime": "2026-11-20T06:40:32.013Z",
+ "lighthouse": "13.6.0",
+ "formFactor": "desktop",
+ "scores": {
+  "performance": 100,
+  "accessibility": 98,
+  "best-practices": 96,
+  "seo": 100,
+  "agentic-browsing": 100
+ },
+ "metrics": {
+  "first-contentful-paint": "0.4 s",
+  "largest-contentful-paint": "0.4 s",
+  "total-blocking-time": "0 ms",
+  "cumulative-layout-shift": "0",
+  "speed-index": "0.9 s",
+  "interactive": "0.4 s"
+ },
+ "weight": "Total size was 973 KiB"
+}

@@ -1,0 +1,64 @@
+# Quality gate for the Lotwise rebuild: build, unit tests, page checks (screenshots at 7 widths,
+# overflow, axe, links, console, complete-at-rest) and Lighthouse on mobile. See DESIGN.md.
+name: Quality
+
+on:
+  push:
+    branches: [main, site-rebuild]
+  pull_request:
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Load the schema and demo data
+        run: |
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/schema.sql
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/demo-seed.sql
+      - name: Local server settings (no real secrets)
+        run: |
+          printf 'DATABASE_URL=%s\nADMIN_EMAILS=ci@example.com\nVITE_SUPABASE_URL=http://127.0.0.1:54321\nVITE_SUPABASE_ANON_KEY=ci-placeholder\n' "$DATABASE_URL" > .dev.vars
+      - run: npm run test:unit
+      - run: npm run build
+      - name: Start the preview server
+        run: |
+          npx vite preview --port 4173 --host 127.0.0.1 > preview.log 2>&1 &
+          for i in $(seq 1 60); do curl -sf http://127.0.0.1:4173/design > /dev/null && break; sleep 1; done
+      - run: npx playwright install --with-deps chromium
+      - name: Docket pages (must pass)
+        run: node scripts/qa/check.mjs --base http://127.0.0.1:4173 --paths /design --out qa-report/docket
+      - name: Pages not rebuilt yet (report only)
+        continue-on-error: true
+        run: node scripts/qa/check.mjs --base http://127.0.0.1:4173 --paths /,/join,/login --out qa-report/legacy
+      - name: Lighthouse, mobile
+        run: npx -y @lhci/cli@0.16.1 autorun --config=lighthouserc.json
+      - name: Keep the reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-report
+          path: |
+            qa-report
+            .lighthouseci
+            preview.log

@@ -1,0 +1,1051 @@
+<title>Lotwise Docket</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Wholesale from Chinese factories our team has filmed, with the sample on a shelf in Australia and the landed cost printed before you order.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap">
+<style>
+/* Layout: one carbon sheet; everything Lotwise states is printed on thermal docket paper laid on it.
+   Motion grammar, used everywhere and nowhere else:
+   PRINT  = the machine. Paper feeds out of a slot in line steps; changed figures reprint. Stepped, linear.
+   MARK   = our team. Pen ticks, rings and stamps draw on. Smooth, eased like a hand. Always pen blue.
+   TEAR   = you. Anything you choose or send tears paper along a perforation. Springy. */
+:root{
+  --carbon:oklch(0.205 0.045 268);   /* ground: carbon paper, the copy underneath every docket */
+  --carbon-2:oklch(0.25 0.05 268);   /* a second sheet, lifted */
+  --sheen:oklch(0.34 0.06 268);      /* carbon sheen and rules on the ground */
+  --on-carbon:oklch(0.87 0.02 268);  /* writing on the carbon */
+  --muted:oklch(0.7 0.03 268);
+  --paper:oklch(0.975 0.006 95);     /* thermal docket: facts we print */
+  --paper-2:oklch(0.93 0.008 95);
+  --print:oklch(0.19 0.01 270);      /* thermal black */
+  --fade:oklch(0.47 0.012 270);      /* faded thermal: secondary print */
+  --red:oklch(0.57 0.205 27);        /* the printer's second colour: totals and the one action, nowhere else */
+  --red-deep:oklch(0.47 0.19 27);
+  --pen:oklch(0.45 0.19 266);        /* carbon pen: a person at Lotwise checked this */
+  --font:"Martian Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --line:64ms;                       /* print time for one line */
+  --ease-paper:cubic-bezier(.2,.9,.25,1);
+  --ease-pen:cubic-bezier(.3,.7,.2,1);
+  --ease-tear:cubic-bezier(.34,1.4,.5,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--carbon);color:var(--on-carbon);font-family:var(--font);font-stretch:75%;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--carbon)}
+/* the carbon's own grain: a faint diagonal sheen, fixed so it reads as one sheet under everything */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:
+  repeating-linear-gradient(115deg,oklch(1 0 0 / .012) 0 2px,transparent 2px 7px),
+  radial-gradient(120% 70% at 80% -10%,oklch(0.42 0.08 268 / .35),transparent 60%)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pen);outline-offset:3px}
+.on-carbon :focus-visible{outline-color:oklch(0.75 0.13 266)}
+button{font:inherit;color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{position:relative;z-index:1;max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+h1,h2,h3{text-wrap:balance}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- paper primitives ---------- */
+.paper{background:var(--paper);color:var(--print);position:relative}
+.zig-b::after,.zig-t::before{content:"";position:absolute;left:0;right:0;height:9px;pointer-events:none}
+.zig-b::after{bottom:-9px;background:linear-gradient(135deg,var(--paper) 33%,transparent 33%) 0 0/12px 12px,linear-gradient(225deg,var(--paper) 33%,transparent 33%) 0 0/12px 12px}
+.zig-t::before{top:-9px;background:linear-gradient(315deg,var(--paper) 33%,transparent 33%) 0 0/12px 12px,linear-gradient(45deg,var(--paper) 33%,transparent 33%) 0 0/12px 12px}
+.perf{border:0;border-top:2px dashed currentColor;opacity:.35;margin:0}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in oklch,var(--carbon) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--sheen)}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:64px}
+.logo{display:inline-flex;flex-direction:column;text-decoration:none;line-height:1;padding:6px 0}
+.logo b{font-size:23px;font-weight:800;font-stretch:112.5%;letter-spacing:-.045em;color:var(--paper)}
+.logo i{display:block;height:5px;margin-top:5px;background:linear-gradient(135deg,var(--carbon) 33%,transparent 33%) 0 0/6px 6px,linear-gradient(225deg,var(--carbon) 33%,transparent 33%) 0 0/6px 6px,var(--red)}
+@media (prefers-reduced-motion:no-preference){
+  .logo b{animation:printline .6s steps(7,end) both}
+  .logo i{animation:printline .6s steps(7,end) .1s both}
+}
+@keyframes printline{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.nav{display:flex;align-items:center;gap:2px;margin-left:auto;font-size:13px;font-stretch:87.5%}
+.nav a{text-decoration:none;padding:10px 12px;border-radius:2px;position:relative}
+.nav a.link::after{content:"";position:absolute;left:12px;right:12px;bottom:6px;border-top:2px dotted currentColor;transform:scaleX(0);transform-origin:left;transition:transform calc(var(--line) * 4) steps(8,end)}
+@media (hover:hover){.nav a.link:hover::after{transform:scaleX(1)}}
+.nav a[aria-current="page"]{color:var(--paper)}
+.nav a[aria-current="page"]::after{transform:scaleX(1)}
+.app-only{display:none!important}
+[data-view="product"] .site-only{display:none!important}
+[data-view="product"] .app-only{display:inline-flex!important}
+.credits{font-size:12px;color:var(--muted);padding:0 8px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--paper);color:var(--print);display:inline-grid;place-items:center;font-weight:800;text-decoration:none;font-size:14px}
+
+/* the red ticket: every primary action. A perforated stub you tear. */
+.ticket{--h:50px;position:relative;display:inline-flex;align-items:stretch;min-height:var(--h);text-decoration:none;border:0;padding:0;cursor:pointer;background:none;font-weight:750;font-stretch:87.5%;font-size:14px;color:var(--paper);filter:drop-shadow(0 8px 14px oklch(0.1 0.05 268 / .45))}
+.ticket .body,.ticket .tab{background:var(--red);display:flex;align-items:center;transition:transform .32s var(--ease-tear),background-color .16s linear}
+.ticket .body{padding:0 18px 0 20px;border-radius:3px 0 0 3px;-webkit-mask:radial-gradient(circle at 100% 50%,transparent 5px,#000 5.5px)}
+.ticket .tab{padding:0 14px;border-radius:0 3px 3px 0;border-left:2px dashed oklch(1 0 0 / .45);font-weight:500;font-size:12px;transform-origin:0 100%}
+.ticket.sm{--h:44px;font-size:13px}
+.ticket.sm .body{padding:0 14px 0 16px}
+.ticket.sm .tab{padding:0 10px}
+@media (hover:hover){
+  .ticket:hover .tab{transform:rotate(4deg) translate(3px,1px)}
+  .ticket:hover .body,.ticket:hover .tab{background:var(--red-deep)}
+}
+.ticket:active .body{transform:translateY(1px)}
+.ticket.torn .tab{transition:transform .5s var(--ease-tear),opacity .5s linear;transform:translate(40px,60px) rotate(28deg);opacity:0}
+
+/* ---------- views & page transitions ---------- */
+main{view-transition-name:page}
+.view[hidden]{display:none!important}
+::view-transition-group(page){animation-duration:.01s}
+@media (prefers-reduced-motion:no-preference){
+  /* you tear the old page off; the machine feeds the new one */
+  ::view-transition-old(page){animation:tearoff .42s cubic-bezier(.55,0,.8,.4) both;transform-origin:20% 0}
+  ::view-transition-new(page){animation:feedin .62s steps(14,end) .12s both}
+  ::view-transition-group(docket){animation-duration:.55s;animation-timing-function:var(--ease-paper)}
+}
+@keyframes tearoff{to{transform:translateY(-56px) rotate(-1.2deg);opacity:0}}
+@keyframes feedin{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+
+/* ---------- HERO ---------- */
+.hero{padding-block:clamp(28px,5vw,64px) clamp(56px,8vw,110px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:clamp(28px,5vw,80px);align-items:start}
+.hero h1{margin:0;color:var(--paper);font-weight:800;font-stretch:75%;font-size:clamp(44px,6.3vw,104px);line-height:.94;letter-spacing:-.055em}
+.hero h1 em{font-style:normal;color:var(--red)}
+.lede{margin:24px 0 0;font-size:clamp(14px,1.1vw,16px);max-width:52ch;color:var(--on-carbon)}
+.lede b{color:var(--paper);font-weight:600}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{font-size:12px;font-stretch:87.5%;font-weight:600;color:var(--muted);padding:0;margin-bottom:10px}
+.pick{margin-top:30px}
+.tags{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+/* product choices are sample tags: hole, string, punched when chosen */
+.tag{position:relative;display:grid;grid-template-columns:22px 1fr;gap:4px 10px;align-items:start;text-align:left;background:var(--carbon-2);border:1px solid var(--sheen);border-radius:4px 10px 10px 4px;padding:13px 14px 12px 12px;cursor:pointer;color:var(--on-carbon);transform-origin:12px 18px;transition:background-color .16s linear,border-color .16s linear,transform .16s var(--ease-paper)}
+.tag .hole{width:12px;height:12px;border-radius:50%;border:2px solid currentColor;margin-top:3px;transition:background-color var(--line) steps(1)}
+.tag b{font-weight:650;font-size:13.5px;line-height:1.3;color:var(--paper)}
+.tag small{grid-column:2;font-size:11.5px;color:var(--muted);line-height:1.35}
+@media (hover:hover){.tag:hover{border-color:oklch(0.55 0.06 268);transform:rotate(-1deg)}}
+.tag[aria-pressed="true"]{background:var(--paper);border-color:var(--paper);color:var(--print)}
+.tag[aria-pressed="true"] b{color:var(--print)}
+.tag[aria-pressed="true"] small{color:var(--fade)}
+.tag[aria-pressed="true"] .hole{background:var(--print)}
+.tag.swing{animation:swing .6s var(--ease-tear)}
+@keyframes swing{0%{transform:rotate(-7deg)}45%{transform:rotate(3deg)}100%{transform:rotate(0)}}
+/* quantities are till keys */
+.keys{display:flex;gap:8px;flex-wrap:wrap}
+.key{min-height:50px;min-width:92px;padding:0 14px;border-radius:6px;border:1px solid var(--sheen);background:linear-gradient(var(--carbon-2),var(--carbon));box-shadow:0 4px 0 oklch(0.13 0.04 268),inset 0 1px 0 oklch(1 0 0 / .06);font-weight:700;font-size:15px;font-stretch:87.5%;cursor:pointer;color:var(--paper);transition:transform 70ms linear,box-shadow 70ms linear}
+.key:active,.key[aria-pressed="true"]{transform:translateY(3px);box-shadow:0 1px 0 oklch(0.13 0.04 268),inset 0 2px 4px oklch(0 0 0 / .35)}
+.key[aria-pressed="true"]{background:var(--paper);color:var(--print);border-color:var(--paper)}
+
+/* the printer and its docket */
+.printer{position:relative;padding-top:4px}
+.slot{position:relative;z-index:3;height:30px;border-radius:10px 10px 4px 4px;background:linear-gradient(oklch(0.3 0.03 268),oklch(0.15 0.03 268));box-shadow:0 14px 22px -10px oklch(0 0 0 / .7),inset 0 1px 0 oklch(1 0 0 / .1)}
+.slot::after{content:"";position:absolute;left:20px;right:20px;bottom:7px;height:5px;border-radius:3px;background:oklch(0.07 0.02 268)}
+.slot .led{position:absolute;right:16px;top:8px;width:6px;height:6px;border-radius:50%;background:oklch(0.5 0.02 268)}
+.printing .slot .led{background:var(--red);box-shadow:0 0 8px var(--red)}
+.feed{position:relative;z-index:2;overflow:hidden;margin:-8px 16px 0;padding:8px 0 18px}
+.copies{position:absolute;inset:8px 0 0;z-index:0;pointer-events:none}
+.copy{position:absolute;left:0;right:0;top:0;bottom:30px;border-radius:2px}
+.copy.c1{background:oklch(0.36 0.09 266);transform:translate(10px,12px) rotate(1deg)}
+.copy.c2{background:oklch(0.29 0.07 266);transform:translate(20px,24px) rotate(2deg)}
+.copies{opacity:0;transition:opacity .4s linear}
+.printer.printed .copies{opacity:1}
+.docket{position:relative;z-index:1;padding:22px 24px 4px;view-transition-name:docket;box-shadow:0 30px 50px -30px oklch(0 0 0 / .8)}
+.docket .dh{display:flex;justify-content:space-between;gap:12px;font-size:10.5px;font-stretch:87.5%;letter-spacing:.06em;color:var(--fade);padding-bottom:10px;border-bottom:1px dashed oklch(0.47 0.012 270 / .6)}
+.docket .dn{margin:14px 0 0;font-size:19px;font-weight:750;font-stretch:87.5%;letter-spacing:-.025em;line-height:1.2}
+.docket .dm{margin:3px 0 12px;font-size:11.5px;color:var(--fade)}
+.line{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,150px);align-items:stretch;border-top:1px dotted oklch(0.19 0.01 270 / .28);font-size:12.5px}
+.line > span{padding:10px 0}
+.line .amt{text-align:right;font-weight:700;padding-right:14px}
+.stub{position:relative;border-left:2px dashed oklch(0.19 0.01 270 / .3);padding:9px 0 9px 26px!important;font-size:10.5px;line-height:1.38;color:var(--pen);font-weight:500;transform-origin:0 0;transition:transform .32s var(--ease-tear),background-color .16s linear}
+.stub .tk{position:absolute;left:4px;top:7px;width:20px;height:20px}
+@media (hover:hover){.stub:hover{transform:rotate(-2.5deg);background:oklch(0.45 0.19 266 / .06)}}
+.total{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,150px);align-items:end;border-top:2px solid var(--print);margin-top:2px;padding:14px 0 16px;position:relative}
+.big{font-size:clamp(52px,5.6vw,84px);font-weight:150;font-stretch:75%;letter-spacing:-.065em;line-height:.85;color:var(--red);position:relative;display:inline-block}
+.big small{font-size:13px;font-weight:600;letter-spacing:0;color:var(--print);margin-left:6px}
+.big .rg{position:absolute;left:-20px;top:-16px;width:calc(100% + 40px);height:calc(100% + 30px);pointer-events:none}
+.total .stub{align-self:stretch;display:flex;align-items:flex-end}
+.lot{font-size:11.5px;line-height:1.6;border-top:1px dashed oklch(0.47 0.012 270 / .6);padding:10px 0 22px}
+.lot b{color:var(--red);font-weight:700}
+.reprint{animation:reprint calc(var(--line) * 5) steps(5,end)}
+@keyframes reprint{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+.docket.feeding{animation:feed var(--feed,900ms) steps(var(--steps,14),end) both}
+@keyframes feed{from{transform:translateY(-101%)}to{transform:translateY(0)}}
+.docket.tearing{animation:tear .46s cubic-bezier(.5,0,.75,.3) both;transform-origin:85% 0}
+@keyframes tear{to{transform:translate(18px,70px) rotate(4deg);opacity:0}}
+.under{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:16px 16px 0;font-size:12px;color:var(--muted)}
+.under a{color:var(--paper);font-weight:600}
+
+/* ---------- sections ---------- */
+.sec{padding-block:clamp(80px,11vw,150px)}
+.sec h2{margin:0;color:var(--paper);font-weight:800;font-stretch:75%;font-size:clamp(36px,4.8vw,72px);line-height:.96;letter-spacing:-.05em;max-width:14ch}
+.answer{font-size:clamp(15px,1.25vw,18px);max-width:56ch;margin:20px 0 0}
+.answer b{color:var(--paper);font-weight:600}
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    /* the machine prints each heading as you reach it: line-stepped, from top */
+    .sec h2,.feedme{animation:printdown linear both;animation-timeline:view();animation-range:entry 5% entry 55%}
+    @keyframes printdown{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+    .sec h2{animation-timing-function:steps(4,end)}
+  }
+}
+
+/* what is Lotwise */
+.what .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:clamp(24px,5vw,80px);align-items:start}
+.what .answer{margin:0;font-size:clamp(17px,1.6vw,23px);line-height:1.55;color:var(--on-carbon)}
+.facts3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:36px;background:var(--sheen);border:1px solid var(--sheen)}
+.facts3 div{background:var(--carbon);padding:16px 18px}
+.facts3 dt{font-size:11.5px;color:var(--muted)}
+.facts3 dd{margin:4px 0 0;font-size:clamp(22px,2.2vw,32px);font-weight:250;font-stretch:75%;letter-spacing:-.04em;color:var(--paper)}
+
+/* the sample, in 3D */
+.sample .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,5vw,72px);align-items:center}
+.stage{position:relative;aspect-ratio:1/1;max-width:100%;border-radius:4px;background:radial-gradient(70% 60% at 50% 42%,oklch(0.32 0.06 268),var(--carbon) 72%);border:1px solid var(--sheen);overflow:hidden;touch-action:pan-y}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+.stage canvas:active{cursor:grabbing}
+.shelf-edge{position:absolute;left:0;right:0;bottom:0;height:18%;background:linear-gradient(oklch(0.29 0.05 268),oklch(0.22 0.045 268));border-top:2px solid oklch(0.4 0.07 268)}
+.s-tag{position:absolute;left:8%;bottom:7%;z-index:3;background:var(--paper);color:var(--print);padding:10px 14px 10px 30px;border-radius:3px 9px 9px 3px;font-size:11px;line-height:1.45;transform:rotate(-3deg);box-shadow:0 10px 20px -10px oklch(0 0 0 / .6)}
+.s-tag::before{content:"";position:absolute;left:10px;top:14px;width:9px;height:9px;border-radius:50%;border:2px solid var(--print)}
+.s-tag b{display:block;font-size:13px}
+.hint{position:absolute;right:14px;top:12px;z-index:3;font-size:11px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.hint svg{animation:nudge 2.4s var(--ease-pen) infinite}
+@keyframes nudge{0%,60%,100%{transform:translateX(0)}30%{transform:translateX(6px)}}
+.honest{position:absolute;left:14px;top:12px;z-index:3;font-size:10.5px;color:var(--muted)}
+.fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;font-size:13px;color:var(--muted)}
+.slist{list-style:none;margin:28px 0 0;padding:0;display:grid}
+.slist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:14px 0;border-top:1px solid var(--sheen)}
+.slist li:last-child{border-bottom:1px solid var(--sheen)}
+.slist b{font-size:clamp(22px,2vw,30px);font-weight:250;font-stretch:75%;letter-spacing:-.04em;color:var(--paper);white-space:nowrap}
+
+/* order steps: sticky photo frame, docket of steps, pen ticks as you pass */
+.steps .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,80px)}
+.stick{position:sticky;top:calc(env(safe-area-inset-top,0px) + 100px);align-self:start}
+.frame{position:relative;margin-top:32px;aspect-ratio:4/3;max-width:100%;overflow:hidden;border-radius:3px;background:var(--carbon-2)}
+.frame img{position:absolute;inset:-12% 0;width:100%;height:124%;object-fit:cover;opacity:0;transition:opacity .5s linear;filter:saturate(.7) contrast(1.05)}
+.frame img.on{opacity:1}
+@supports (animation-timeline:view()){@media (prefers-reduced-motion:no-preference){
+  /* parallax: the photo drifts slower than the page, so it reads as further away than the paper */
+  .frame img{animation:drift linear both;animation-timeline:view(block);animation-range:cover}
+  @keyframes drift{from{transform:translateY(-7%)}to{transform:translateY(7%)}}
+}}
+.frame figcaption{position:absolute;left:10px;bottom:8px;z-index:2;font-size:10.5px;background:oklch(0.15 0.03 268 / .7);padding:3px 7px;border-radius:2px}
+.frame .stepno{position:absolute;right:12px;top:8px;z-index:2;font-size:56px;font-weight:120;font-stretch:75%;color:var(--paper);letter-spacing:-.06em;line-height:1}
+.sdocket{padding:26px clamp(18px,3vw,34px) 18px}
+.sdocket .dh{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.06em;color:var(--fade);padding-bottom:10px;border-bottom:1px dashed oklch(0.47 0.012 270 / .6)}
+.step{display:grid;grid-template-columns:44px minmax(0,1fr) 34px;gap:14px;padding:28px 0;border-bottom:1px dotted oklch(0.19 0.01 270 / .28);min-height:min(40vh,320px)}
+.step:last-child{border-bottom:0}
+.step .n{font-size:30px;font-weight:200;font-stretch:75%;letter-spacing:-.05em;line-height:1}
+.step h3{margin:0 0 8px;font-size:17px;font-weight:750;font-stretch:87.5%;letter-spacing:-.02em;line-height:1.25}
+.step p{margin:0;font-size:13.5px;color:var(--print);max-width:46ch}
+.step .who{display:block;margin-top:10px;font-size:11px;color:var(--fade)}
+.step .tk{width:34px;height:34px}
+.tk.nolottie::after{content:"\2713";color:var(--pen);font-weight:800;font-size:15px}
+
+/* inspection: master vs cartons, the stamp */
+.match .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center}
+.pair{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.unit{padding:18px 18px 16px}
+.unit .ph{aspect-ratio:1/1;max-width:100%;display:flex;align-items:flex-end;background:var(--paper-2);margin-bottom:12px;color:var(--fade);font-size:10.5px;line-height:1.35;padding:10px}
+.unit b{display:block;font-size:13px;font-stretch:87.5%}
+.unit span{display:block;font-size:11px;color:var(--fade);margin-top:2px}
+.stampbox{position:absolute;left:50%;top:36%;width:min(300px,78%);aspect-ratio:2/1;transform:translate(-50%,-50%);pointer-events:none;z-index:3}
+.stampbox .lt{position:absolute;inset:0}
+.stampbox{container-type:inline-size}
+.stampbox .st{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--pen);font-weight:800;font-stretch:87.5%;font-size:7.4cqw;letter-spacing:.08em;line-height:1.15;transform:rotate(-7deg);opacity:0}
+.stampbox.go .st{animation:stamptext .6s var(--ease-pen) both}
+@keyframes stamptext{0%{opacity:0;transform:rotate(-14deg) scale(1.65)}12%{opacity:1}20%{transform:rotate(-8deg) scale(.93)}36%{transform:rotate(-7deg) scale(1.01)}100%{opacity:1;transform:rotate(-7deg) scale(1)}}
+.notmatch{margin-top:18px;font-size:13px;color:var(--muted)}
+
+/* membership */
+.member h2{font-size:clamp(34px,3.7vw,58px)}
+.member .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,540px) minmax(0,.62fr);gap:clamp(24px,4vw,60px);align-items:start}
+.seg{display:inline-flex;margin-top:24px;border:1px solid var(--sheen);border-radius:6px;padding:4px;gap:4px}
+.seg button{min-height:42px;padding:0 16px;border:0;border-radius:4px;background:none;cursor:pointer;font-size:13px;font-weight:650;font-stretch:87.5%;color:var(--on-carbon)}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--print)}
+.mdocket{padding:24px 26px 6px}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:11px 0;border-top:1px dotted oklch(0.19 0.01 270 / .28);font-size:13px}
+.mrow:first-of-type{border-top:0}
+.mrow b{font-weight:700}
+.mrow.red b{color:var(--red)}
+.mnote{font-size:11.5px;color:var(--pen);padding:10px 0 20px;border-top:1px dashed oklch(0.47 0.012 270 / .6);transform:rotate(-.6deg)}
+.zero{position:sticky;top:110px;text-align:left}
+.zero b{display:block;font-size:clamp(110px,13vw,220px);font-weight:100;font-stretch:75%;letter-spacing:-.085em;line-height:.8;color:var(--paper)}
+.zero span{display:block;margin-top:10px;font-size:12px;color:var(--muted);max-width:22ch}
+
+/* questions */
+.faq .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(24px,5vw,80px)}
+details{border-top:1px solid var(--sheen)}
+details:last-child{border-bottom:1px solid var(--sheen)}
+summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:16px;padding:20px 0;font-size:clamp(15px,1.3vw,18px);font-weight:650;font-stretch:87.5%;color:var(--paper);letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary i{font-style:normal;color:var(--red);font-weight:400;text-align:right;transition:transform .2s var(--ease-paper)}
+details[open] summary i{transform:rotate(45deg)}
+details p{margin:0 0 22px;max-width:60ch;font-size:14px}
+details[open] p{animation:printdown calc(var(--line) * 6) steps(6,end) both}
+
+/* the tear strip */
+.strip{padding-block:0 clamp(80px,10vw,130px)}
+.strip .paper{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:30px clamp(20px,4vw,48px)}
+.strip h2{margin:0;font-size:clamp(24px,3vw,40px);font-weight:800;font-stretch:75%;letter-spacing:-.05em;line-height:1;color:var(--print);max-width:none}
+.strip p{margin:6px 0 0;font-size:13px;color:var(--fade)}
+.tearline{display:flex;align-items:center;gap:10px;font-size:10.5px;color:var(--muted);margin-bottom:12px}
+.tearline::before,.tearline::after{content:"";flex:1;border-top:2px dashed var(--sheen)}
+
+footer{border-top:1px solid var(--sheen);padding-block:36px 48px;font-size:12px;color:var(--muted);position:relative;z-index:1}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer b{color:var(--paper)}
+
+/* scroll roll: how much paper is left on this page */
+.roll{position:fixed;right:max(18px,calc(env(safe-area-inset-right,0px) + 18px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:40;width:46px;height:46px;border-radius:50%;border:1px solid var(--sheen);background:var(--carbon-2);display:grid;place-items:center;text-decoration:none;opacity:.92}
+.roll .r{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle,var(--carbon) 0 22%,var(--paper) 23% 100%);box-shadow:inset 0 0 0 1px oklch(0 0 0 / .2)}
+@supports (animation-timeline:scroll()){@media (prefers-reduced-motion:no-preference){
+  .roll .r{animation:unroll linear both;animation-timeline:scroll(root)}
+  @keyframes unroll{to{transform:scale(.42)}}
+}}
+[data-view="product"] .roll,[data-view="join"] .roll{display:none}
+
+/* ---------- PRODUCT (app) ---------- */
+.app{padding-block:22px 90px}
+.crumb{font-size:12px;color:var(--muted);margin:0 0 16px}
+.crumb a{color:var(--on-carbon)}
+.pgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(20px,3vw,48px);align-items:start}
+.app h1{margin:0;color:var(--paper);font-weight:800;font-stretch:75%;font-size:clamp(40px,5vw,80px);line-height:.94;letter-spacing:-.055em}
+.app .desc{margin:12px 0 0;max-width:56ch}
+.pmedia{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:22px}
+.film{position:relative;aspect-ratio:4/5;max-width:100%;overflow:hidden;border-radius:3px;background:var(--carbon-2)}
+.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.7)}
+.film .board{position:absolute;right:12px;top:12px;background:var(--paper);color:var(--print);padding:8px 11px;transform:rotate(-3deg);font-size:10.5px;line-height:1.3}
+.film .board b{display:block;font-size:20px;font-stretch:75%;letter-spacing:-.04em}
+.film figcaption{position:absolute;left:10px;bottom:10px;right:10px;font-size:10.5px;background:oklch(0.15 0.03 268 / .72);padding:4px 8px;border-radius:2px}
+.pmedia .stage{aspect-ratio:4/5}
+.score{display:flex;align-items:center;gap:18px;margin-top:22px;padding:16px 0;border-top:1px solid var(--sheen);border-bottom:1px solid var(--sheen)}
+.score .sc{position:relative;font-size:68px;font-weight:150;font-stretch:75%;letter-spacing:-.06em;line-height:.85;color:var(--paper)}
+.score .sc .rg{position:absolute;left:-18px;top:-16px;width:calc(100% + 34px);height:calc(100% + 30px)}
+.score p{margin:0;font-size:13px}
+.bars{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px;font-size:12px}
+.bars li{display:grid;grid-template-columns:120px minmax(0,1fr) 44px;gap:12px;align-items:center}
+.bars .bar{height:6px;background:var(--sheen);border-radius:3px;overflow:hidden}
+.bars .bar span{display:block;height:100%;background:var(--paper);transform-origin:left;transform:scaleX(var(--v))}
+.pfacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--sheen);border:1px solid var(--sheen);margin-top:22px}
+.pfacts div{background:var(--carbon);padding:12px 14px}
+.pfacts dt{font-size:11px;color:var(--muted)}
+.pfacts dd{margin:3px 0 0;font-size:16px;font-weight:650;font-stretch:87.5%;color:var(--paper)}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px)}
+.side .feed{margin:-8px 12px 0}
+.pkeys{display:flex;gap:6px;margin:12px 0 14px}
+.pkeys .key{min-width:0;flex:1;min-height:44px;font-size:13px;background:var(--paper-2);color:var(--print);border-color:oklch(0.85 0.01 95);box-shadow:0 3px 0 oklch(0.8 0.01 95)}
+.pkeys .key[aria-pressed="true"]{background:var(--print);color:var(--paper);border-color:var(--print)}
+.slip{margin:26px 12px 0;padding:20px 22px 22px;position:relative;transform-origin:0 0}
+.slip::before{content:"";position:absolute;left:0;right:0;top:-14px;border-top:2px dashed var(--muted);opacity:.6}
+.slip h2{margin:0;font-size:18px;font-weight:750;font-stretch:87.5%;letter-spacing:-.02em;color:var(--print)}
+.slip p{margin:6px 0 0;font-size:12.5px;color:var(--print)}
+.units{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 16px}
+.uchip{min-height:44px;flex:1 1 60px;border:1px solid oklch(0.85 0.01 95);background:var(--paper-2);border-radius:4px;cursor:pointer;font-size:11px;line-height:1.25;color:var(--print);padding:4px 6px}
+.uchip b{display:block;font-size:14px}
+.uchip[aria-pressed="true"]{background:var(--print);color:var(--paper);border-color:var(--print)}
+.slip .ticket{width:100%}
+.slip .ticket .body{flex:1;justify-content:center}
+.slip.torn{animation:sliptear .6s var(--ease-tear) both}
+@keyframes sliptear{0%{transform:none}35%{transform:rotate(-2deg) translateY(4px)}100%{transform:rotate(-4deg) translate(-10px,26px)}}
+.done{position:relative;margin:22px 12px 0;padding:18px 20px;border:1px dashed var(--sheen);border-radius:3px;font-size:13px}
+.done .stampbox{position:relative;left:auto;top:auto;transform:none;width:220px;margin:0 auto 6px}
+.done p{margin:0;text-align:center}
+
+/* phone app tab bar */
+.tabbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:55;grid-template-columns:repeat(4,1fr);background:color-mix(in oklch,var(--carbon) 92%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--sheen);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 6px) max(8px,env(safe-area-inset-left,0px))}
+.tabbar a{display:grid;place-items:center;gap:2px;min-height:52px;font-size:10.5px;text-decoration:none;color:var(--muted)}
+.tabbar a svg{width:22px;height:22px}
+.tabbar a[aria-current="page"]{color:var(--paper)}
+.tabbar a[aria-current="page"] svg{stroke:var(--red)}
+
+/* ---------- JOIN ---------- */
+.join{padding-block:clamp(28px,5vw,64px) 90px}
+.join .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,5vw,80px);align-items:start}
+.join h1{margin:0;color:var(--paper);font-weight:800;font-stretch:75%;font-size:clamp(40px,5.2vw,84px);line-height:.94;letter-spacing:-.055em}
+form{margin-top:28px;display:grid;gap:18px;max-width:560px}
+.field{display:grid;gap:6px}
+.field label{font-size:12px;font-weight:600;font-stretch:87.5%;color:var(--paper)}
+.field .help{font-size:11.5px;color:var(--muted)}
+.inp{position:relative}
+.inp input{width:100%;min-height:52px;padding:0 48px 0 16px;border-radius:4px;border:1px solid var(--sheen);background:var(--carbon-2);color:var(--paper);font:inherit;font-size:16px;font-stretch:87.5%;letter-spacing:.02em}
+.inp input:focus{outline:none;border-color:oklch(0.75 0.13 266);box-shadow:0 0 0 3px oklch(0.45 0.19 266 / .45)}
+.inp .tk{position:absolute;right:10px;top:11px;width:30px;height:30px;pointer-events:none}
+.err{font-size:12px;color:oklch(0.72 0.15 27);min-height:1em}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.plan{position:relative;display:block;cursor:pointer}
+.plan input{position:absolute;opacity:0}
+.plan span{display:block;padding:14px 16px;border:1px solid var(--sheen);border-radius:4px;background:var(--carbon-2);font-size:12px;line-height:1.5}
+.plan b{display:block;font-size:15px;color:var(--paper)}
+.plan input:checked + span{background:var(--paper);color:var(--print);border-color:var(--paper)}
+.plan input:checked + span b{color:var(--print)}
+.plan input:focus-visible + span{outline:3px solid oklch(0.75 0.13 266);outline-offset:2px}
+.formnote{font-size:12px;color:var(--muted);margin:0}
+.jdocket{padding:22px 24px 6px}
+.proto{margin-top:14px;padding:14px 16px;border:1px dashed oklch(0.75 0.13 266 / .6);border-radius:3px;font-size:12.5px;color:var(--on-carbon)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .member .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .zero{display:none}
+}
+@media (max-width:980px){
+  .hero .wrap,.what .wrap,.sample .wrap,.steps .wrap,.match .wrap,.member .wrap,.faq .wrap,.pgrid,.join .wrap{grid-template-columns:1fr}
+  .stick{position:relative;top:auto}
+  .frame{display:none}
+  .side{position:relative;top:auto}
+  .nav .link{display:none!important}
+  [data-view="product"] .tabbar{display:grid}
+  [data-view="product"] .app{padding-bottom:120px}
+  .step{min-height:0}
+}
+@media (max-width:620px){
+  .tags{grid-template-columns:1fr 1fr}
+  .tag{padding:11px 10px;grid-template-columns:18px 1fr;gap:3px 8px}
+  .tag b{font-size:12.5px}
+  .key{min-width:0;flex:1}
+  .feed{margin:-8px 6px 0}
+  .docket{padding:18px 14px 4px}
+  .line{grid-template-columns:minmax(0,1fr) auto}
+  .line .amt{padding-right:0}
+  .line .stub{grid-column:1 / -1;border-left:0;border-top:1px dashed oklch(0.19 0.01 270 / .22);padding:6px 0 9px 26px!important}
+  .stub .tk{top:3px}
+  .total{grid-template-columns:1fr}
+  .total .stub{border-left:0;padding:10px 0 0 26px!important}
+  .facts3{grid-template-columns:1fr}
+  .pmedia{grid-template-columns:1fr}
+  .pfacts{grid-template-columns:1fr 1fr}
+  .plans{grid-template-columns:1fr}
+  .credits{display:none}
+  .roll{display:none}
+  .pair{grid-template-columns:1fr 1fr;gap:8px}
+  .unit{padding:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .hint svg{animation:none}
+}
+</style>
+
+<header class="top on-carbon">
+  <div class="wrap">
+    <a class="logo" href="#" data-go="home" aria-label="Lotwise home"><b>lotwise</b><i></i></a>
+    <nav class="nav" aria-label="Main">
+      <a class="link site-only" href="#how">How it works</a>
+      <a class="link site-only" href="#membership">Membership</a>
+      <a class="link site-only" href="#questions">Questions</a>
+      <a class="link app-only" href="#product" aria-current="page">Catalogue</a>
+      <a class="link app-only" href="#product">My samples</a>
+      <a class="link app-only" href="#product">Orders</a>
+      <span class="credits app-only">1 free sample left</span>
+      <a class="link site-only" href="#product">Sign in</a>
+      <a class="ticket sm site-only" href="#join" data-tear="join"><span class="body">Join</span><span class="tab num">A$60</span></a>
+      <a class="avatar app-only" href="#product" aria-label="Your account">M</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="on-carbon">
+<!-- ================= HOME ================= -->
+<div class="view" id="v-home">
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap">
+      <div>
+        <h1 id="h1">What will it really cost you, <em>landed?</em></h1>
+        <p class="lede">Pick a product from our shelf and a quantity. The docket prints every cost to your door, and <b>each line carries the proof behind it</b>: the factory our team filmed, the sample on our shelf, the certificate on file.</p>
+        <fieldset class="pick">
+          <legend>Product (examples from our demo shelf)</legend>
+          <div class="tags" id="tags"></div>
+        </fieldset>
+        <fieldset class="pick">
+          <legend>How many units?</legend>
+          <div class="keys" id="keys"></div>
+        </fieldset>
+      </div>
+      <div>
+        <div class="printer" id="printer">
+          <div class="slot" aria-hidden="true"><span class="led"></span></div>
+          <div class="feed">
+            <div class="copies" aria-hidden="true"><div class="copy c2" data-par="0.12"></div><div class="copy c1" data-par="0.06"></div></div>
+            <div class="docket paper zig-b" id="docket" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="under"><span>Figures from our demo data, calculated the way the app does.</span><a href="#product" id="openprod">Open this product</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec what" aria-labelledby="what-h">
+    <div class="wrap">
+      <h2 id="what-h">What is Lotwise?</h2>
+      <div>
+        <p class="answer">A wholesale membership for Australian businesses that buy from Chinese factories. <b>Our team visits and films each factory</b>, keeps its samples on shelves in Brisbane and Sydney, and has your lot inspected against the sample you held before it sails. A$60 for your first three months, then A$45 a month. No fee on your orders.</p>
+        <dl class="facts3 feedme">
+          <div><dt>Factory score to be listed</dt><dd class="num">70+/100</dd></div>
+          <div><dt>Sample leaves our shelf</dt><dd class="num">2 days</dd></div>
+          <div><dt>Our fee on your order</dt><dd class="num">A$0</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sample" aria-labelledby="sample-h">
+    <div class="wrap">
+      <div class="stage" id="stage-home">
+        <div class="shelf-edge" aria-hidden="true"></div>
+        <p class="honest">A 3D stand-in, not a photo</p>
+        <p class="hint" aria-hidden="true"><svg width="22" height="10" viewBox="0 0 22 10"><path d="M1 5h19M15 1l5 4-5 4" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>Drag to turn</p>
+        <div class="s-tag"><b>Unit S03 of 5</b>Milk jug, 600 ml<br>Shelf B2, Sydney</div>
+        <div class="fallback" hidden>Turn the real one over: request unit S03.</div>
+      </div>
+      <div>
+        <h2 id="sample-h">Can I hold it before I order?</h2>
+        <p class="answer">Yes. Every product has units on a shelf in Brisbane or Sydney, each checked against the master sealed with the factory. <b>Turn this one over here, then hold the real one.</b></p>
+        <ul class="slist">
+          <li><span>Your first sample, once per ABN</span><b class="num">A$0</b></li>
+          <li><span>Leaves the nearest hub within</span><b class="num">2 business days</b></li>
+          <li><span>Time to say yes, no or change it</span><b class="num">14 days</b></li>
+          <li><span>Any other sample, credited if you order within 90 days</span><b class="num">A$25</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec steps" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="stick">
+        <h2 id="how-h">How does an order work?</h2>
+        <p class="answer">Four steps. Our team ticks each one off; nothing ships until the goods match the sample you held.</p>
+        <figure class="frame" id="frame">
+          <img class="on" src="media/factory-operator.jpg" alt="An operator at a production line">
+          <img src="media/hub-team-carrying-800.jpg" alt="Two people carrying cartons down a warehouse aisle">
+          <img src="media/factory-packing-line.jpg" alt="Packers at a long table">
+          <img src="media/hub-boxes-stacked-800.jpg" alt="Cartons stacked in a warehouse">
+          <span class="stepno num" id="stepno">1</span>
+          <figcaption>Illustrative stock, not our suppliers or hubs</figcaption>
+        </figure>
+      </div>
+      <div class="sdocket paper zig-b zig-t">
+        <div class="dh"><span>ORDER, STEP BY STEP</span><span>CHECKED BY</span></div>
+        <div class="step" data-step="0"><span class="n num">1</span><div><h3>See the factory on our film</h3><p>Our filmer holds a board with the supplier code and the date at the gate, on the line, at the QC bench and in packing. We score the factory out of 100. Under 70, it isn't listed.</p><span class="who">Our filmer, on the visit</span></div><span class="tk" data-lottie="tick"></span></div>
+        <div class="step" data-step="1"><span class="n num">2</span><div><h3>Hold the sample here</h3><p>The nearest hub sends a unit within 2 business days. You have 14 days to say yes, no or change it.</p><span class="who">Brisbane (Yusuf) or Sydney hub</span></div><span class="tk" data-lottie="tick"></span></div>
+        <div class="step" data-step="2"><span class="n num">3</span><div><h3>Order against that sample</h3><p>Your order is locked to the unit you held and its signed spec revision. You pay 30% to start production.</p><span class="who">Signed by the factory</span></div><span class="tk" data-lottie="tick"></span></div>
+        <div class="step" data-step="3"><span class="n num">4</span><div><h3>Inspected before it sails</h3><p>An inspector compares your cartons with the sealed master. The factory is paid the other 70% only when they match.</p><span class="who">Independent inspector, at cost</span></div><span class="tk" data-lottie="tick"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec match" aria-labelledby="match-h">
+    <div class="wrap">
+      <div class="pair" id="pair">
+        <div class="unit paper"><div class="ph">Placeholder: photo of the sealed master</div><b>Sealed master</b><span>Shelf A1, Sydney. Never leaves.</span></div>
+        <div class="unit paper"><div class="ph">Placeholder: inspector's photo of your carton</div><b>Your cartons</b><span>Opened before they sail</span></div>
+        <div class="stampbox" id="stamp-match" aria-hidden="true"><div class="lt"></div><div class="st">MATCHED<br>TO MASTER</div></div>
+      </div>
+      <div>
+        <h2 id="match-h">What if the bulk goods don't match?</h2>
+        <p class="answer"><b>They don't ship.</b> The inspector opens your cartons and compares them with the master sealed on our shelf. If anything is out, the factory reworks and the inspection is booked again before the balance falls due.</p>
+        <p class="notmatch">Inspection is A$470, at cost. The stamp is ours: a person checks it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec member" id="membership" aria-labelledby="mem-h">
+    <div class="wrap">
+      <div>
+        <h2 id="mem-h">What does membership cost?</h2>
+        <p class="answer">A$60 for your first three months. Then pay monthly or yearly. Factories pay us 5% from their side, so <b>there's no fee on your orders</b>.</p>
+        <div class="seg" role="group" aria-label="How you pay after three months">
+          <button type="button" aria-pressed="true" data-plan="m">Monthly</button>
+          <button type="button" aria-pressed="false" data-plan="y">Yearly</button>
+        </div>
+      </div>
+      <div class="mdocket paper zig-b zig-t" id="mdocket" aria-live="polite"></div>
+      <div class="zero" aria-hidden="true"><b class="num">0%</b><span>our fee on your orders</span></div>
+    </div>
+  </section>
+
+  <section class="sec faq" id="questions" aria-labelledby="q-h">
+    <div class="wrap">
+      <h2 id="q-h">Questions, answered</h2>
+      <div>
+        <details open><summary>How is this different from Alibaba?<i>+</i></summary><p>Alibaba is a directory: you find a factory, then carry the risk yourself. We visit the factory, film it, hold a sample in Australia, and lock your order to that sample.</p></details>
+        <details><summary>Where do the docket's numbers come from?<i>+</i></summary><p>The factory's price for that quantity, converted at our current rate, plus estimated sea freight, duty, our broker's fee shared across your lot, and GST. Members see the same docket on every product.</p></details>
+        <details><summary>Why can't I see a supplier's name?<i>+</i></summary><p>You see the film, the score and every price. The supplier's legal name and contacts open once your order is placed through us, so the inspection and the spec lock cover you.</p></details>
+        <details><summary>Do I pay import duty?<i>+</i></summary><p>Often not. Chinese goods with a ChAFTA origin certificate enter Australia duty free; without one, duty is about 5% of the goods value. Each docket shows which applies.</p></details>
+        <details><summary>Do I need an ABN?<i>+</i></summary><p>Yes. We check it against the register, then activate your account within one business day.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip" aria-labelledby="strip-h">
+    <div class="wrap">
+      <p class="tearline">tear here to join</p>
+      <div class="paper zig-b">
+        <div><h2 id="strip-h">Print a docket for every product.</h2><p>Every film, supplier score and landed price, and your first sample free.</p></div>
+        <a class="ticket" href="#join" data-tear="join"><span class="body">Join for three months</span><span class="tab num">A$60</span></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PRODUCT (app) ================= -->
+<div class="view app" id="v-product" hidden>
+  <div class="wrap">
+    <p class="crumb"><a href="#product">Café supplies</a> / CF-CN208-0385, example product</p>
+    <div class="pgrid">
+      <div>
+        <h1>Milk jug, 600&nbsp;ml</h1>
+        <p class="desc">Stainless milk jug with etched measurement marks and a tapered spout. Steel finish.</p>
+        <div class="pmedia">
+          <figure class="film" style="margin:0">
+            <video muted loop playsinline preload="none" poster="media/factory-operator.jpg" data-src="media/factory-operator.mp4" aria-label="Factory footage, illustrative"></video>
+            <div class="board"><b>CN208</b>12 Apr 2026</div>
+            <figcaption>Illustrative stock, not CN208. Members see the dated film.</figcaption>
+          </figure>
+          <div class="stage" id="stage-product">
+            <div class="shelf-edge" aria-hidden="true"></div>
+            <p class="honest">3D stand-in</p>
+            <div class="fallback" hidden>3D preview unavailable</div>
+          </div>
+        </div>
+        <div class="score" id="score">
+          <span class="sc num">74<span class="rg" data-lottie="ring"></span></span>
+          <p>out of 100 for supplier CN208, a trading company in Foshan exporting since 2019. Visited 9 April 2026, filmed 12 April 2026.</p>
+        </div>
+        <ul class="bars">
+          <li><span>Capability</span><span class="bar"><span style="--v:.75"></span></span><span class="num">15/20</span></li>
+          <li><span>Quality</span><span class="bar"><span style="--v:.75"></span></span><span class="num">15/20</span></li>
+          <li><span>Communication</span><span class="bar"><span style="--v:.75"></span></span><span class="num">15/20</span></li>
+          <li><span>Compliance</span><span class="bar"><span style="--v:.7"></span></span><span class="num">14/20</span></li>
+          <li><span>Export</span><span class="bar"><span style="--v:.75"></span></span><span class="num">15/20</span></li>
+        </ul>
+        <dl class="pfacts">
+          <div><dt>Minimum order</dt><dd class="num">300</dd></div>
+          <div><dt>Lead time</dt><dd class="num">36 days</dd></div>
+          <div><dt>Ships from</dt><dd>Guangzhou</dd></div>
+          <div><dt>Spec</dt><dd>R1, signed</dd></div>
+          <div><dt>Origin certificate</dt><dd>ChAFTA</dd></div>
+          <div><dt>Material test</dt><dd>to Jun 2027</dd></div>
+        </dl>
+      </div>
+      <div class="side">
+        <div class="printer" id="pprinter">
+          <div class="slot" aria-hidden="true"><span class="led"></span></div>
+          <div class="feed"><div class="docket paper zig-b" id="pdocket" aria-live="polite"></div></div>
+        </div>
+        <div class="slip paper zig-b" id="slip">
+          <h2>Hold it first</h2>
+          <p>Free: your first sample. Pick the unit; the nearest is chosen for you.</p>
+          <div class="units" id="units" role="group" aria-label="Units on the shelf"></div>
+          <button class="ticket" type="button" id="request"><span class="body">Request S03</span><span class="tab">Free</span></button>
+        </div>
+        <div class="done" id="done" hidden>
+          <div class="stampbox" id="stamp-req"><div class="lt"></div><div class="st">REQUESTED</div></div>
+          <p id="donetext">Unit S03 leaves Sydney within 2 business days. You have 14 days to decide.</p>
+          <p style="margin-top:8px;font-size:11.5px;color:var(--muted)">Prototype: nothing was sent.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= JOIN ================= -->
+<div class="view join" id="v-join" hidden>
+  <div class="wrap">
+    <div>
+      <h1>Join Lotwise.</h1>
+      <p class="answer" style="margin-top:16px">A$60 covers your first three months. We check your ABN and activate your account within one business day.</p>
+      <form id="joinform" novalidate>
+        <div class="field"><label for="biz">Business name</label><div class="inp"><input id="biz" name="biz" autocomplete="organization" required></div></div>
+        <div class="field">
+          <label for="abn">ABN</label>
+          <div class="inp"><input id="abn" name="abn" inputmode="numeric" autocomplete="off" placeholder="11 digits" aria-describedby="abn-help abn-err" maxlength="14"><span class="tk" id="abn-tick"></span></div>
+          <span class="help" id="abn-help">We check the number's format here, and against the register before activating.</span>
+          <span class="err" id="abn-err" aria-live="polite"></span>
+        </div>
+        <div class="field"><label for="email">Email</label><div class="inp"><input id="email" name="email" type="email" autocomplete="email" required></div></div>
+        <fieldset>
+          <legend>After three months, pay</legend>
+          <div class="plans">
+            <label class="plan"><input type="radio" name="plan" id="plan-m" value="m" checked><span><b>A$45 a month</b>Cancel any time after the first three months</span></label>
+            <label class="plan"><input type="radio" name="plan" id="plan-y" value="y"><span><b>A$450 a year</b>Two months free</span></label>
+          </div>
+        </fieldset>
+        <div><button class="ticket" type="submit"><span class="body">Continue to payment</span><span class="tab num">A$60</span></button></div>
+        <p class="formnote" id="formnote" aria-live="polite"></p>
+      </form>
+    </div>
+    <div>
+      <div class="printer"><div class="slot" aria-hidden="true"><span class="led"></span></div><div class="feed"><div class="docket paper zig-b" id="jdocket" aria-live="polite"></div></div></div>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer class="on-carbon">
+  <div class="wrap">
+    <span><b>Lotwise</b>, trading name of [legal entity placeholder], ABN [placeholder].<br>Hubs in Brisbane (run by Yusuf) and Sydney. [Addresses placeholder]</span>
+    <span>[Email placeholder] &nbsp; <a href="#">Factories: ask for a visit</a><br>Photos and footage are illustrative stock until our own replace them.</span>
+  </div>
+</footer>
+<a class="roll" href="#main" aria-label="Back to the top"><span class="r"></span></a>
+<nav class="tabbar" aria-label="App">
+  <a href="#product" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>Catalogue</a>
+  <a href="#product"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 9l7-6 7 6v12H5z"></path><circle cx="12" cy="11" r="1.6"></circle></svg>My samples</a>
+  <a href="#product"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6M9 12h6"></path></svg>Orders</a>
+  <a href="#product"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>Account</a>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
+<script>
+LOTTIES_PLACEHOLDER
+</script>
+<script>
+(() => {
+"use strict";
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const wait = (ms) => new Promise((r) => setTimeout(r, RM ? 0 : ms));
+const LINE = 64;
+
+/* ---------- data: demo set from supabase/import.sql; same landed formula as src/lib/landedSheet.js ---------- */
+const S = { fx: 1.55, broker: 350, gst: 0.1, dutyNoCert: 0.05, inspection: 470 };
+const P = [
+  { id: "CF-CN208-0385", name: "Milk jug, 600 ml", cat: "Café supplies", supplier: "CN208", proof: "Filmed 12 Apr 2026, CN208 scored 74/100", moq: 300, port: "Guangzhou", freight: 0.28, chafta: true, tiers: [[300, 3.15], [1000, 2.7]], qtys: [300, 1000, 3000], page: true },
+  { id: "BG-CN118-0252", name: "Everyday backpack, 22 L", cat: "Bags and backpacks", supplier: "CN118", proof: "Supplier CN118, filmed on our visit", moq: 300, port: "Xiamen", freight: 0.52, chafta: true, tiers: [[300, 7.8], [1000, 6.75]], qtys: [300, 1000, 3000] },
+  { id: "PT-CN187-0356", name: "Adjustable dog harness", cat: "Pet accessories", supplier: "CN187", proof: "Supplier CN187, filmed on our visit", moq: 500, port: "Shanghai", freight: 0.19, chafta: true, tiers: [[500, 2.48], [2000, 2.12]], qtys: [500, 2000, 5000] },
+  { id: "HW-CN101-0231", name: "Stoneware mug, 320 ml", cat: "Homewares and kitchen", supplier: "CN101", proof: "Supplier CN101, filmed on our visit", moq: 500, port: "Shantou", freight: 0.31, chafta: true, tiers: [[500, 1.86], [2000, 1.52]], qtys: [500, 2000, 5000] },
+];
+const r2 = (v) => Math.round((Number(v) || 0) * 100) / 100;
+const n = (v) => v.toLocaleString("en-AU");
+const money = (v) => "A$" + v.toFixed(2);
+function landed(p, q) {
+  let fob = p.tiers[0][1]; for (const [min, f] of p.tiers) if (q >= min) fob = f;
+  const goods = r2(fob * S.fx), freight = r2(p.freight), duty = r2(goods * (p.chafta ? 0 : S.dutyNoCert));
+  const broker = r2(S.broker / q), gst = r2(S.gst * (goods + freight + duty));
+  return { fob, goods, freight, duty, broker, gst, landed: r2(goods + freight + duty + broker + gst) };
+}
+
+/* ---------- Lottie: every human mark (tick, ring, stamp) ---------- */
+const hasLottie = () => typeof window.lottie !== "undefined" && window.LOTTIE;
+function mark(el, name, { play = true, speed = 1 } = {}) {
+  if (!el) return null;
+  if (!hasLottie()) { el.classList.add("nolottie"); return null; }
+  el.innerHTML = "";
+  const a = lottie.loadAnimation({ container: el, renderer: "svg", loop: false, autoplay: false, animationData: JSON.parse(JSON.stringify(LOTTIE[name])), rendererSettings: { preserveAspectRatio: name === "ring" ? "none" : "xMidYMid meet" } });
+  a.setSpeed(speed);
+  a.addEventListener("complete", () => a.goToAndStop(a.totalFrames - 2, true)); // always rest on the finished mark, even if a slow device skipped every frame
+  if (RM) a.goToAndStop(a.totalFrames - 2, true); else if (play) a.play();
+  return a;
+}
+
+/* ---------- the docket: built as lines, fed out of the slot ---------- */
+function docketHTML(p, q, { keys = false } = {}) {
+  const r = landed(p, q);
+  const rows = [
+    ["Product, US$" + r.fob.toFixed(2) + " at " + S.fx, r.goods, p.proof, "goods"],
+    ["Sea freight, estimate", r.freight, "Estimate, FOB " + p.port, "freight"],
+    ["Import duty", r.duty, p.chafta ? "0%: ChAFTA origin certificate on file" : "About 5%: no origin certificate", "duty"],
+    ["Broker and port, A$350 ÷ " + n(q), r.broker, "Our customs broker partner, at cost", "broker"],
+    ["GST, 10%", r.gst, "On goods, freight and duty", "gst"],
+  ];
+  const keyRow = keys ? `<div class="pkeys" role="group" aria-label="Quantity">${p.qtys.map((x, i) => `<button type="button" class="key num" data-pq="${i}" aria-pressed="${x === q}">${n(x)}</button>`).join("")}</div>` : "";
+  return `<div class="dh"><span>LANDED COST SHEET</span><span class="num">${p.id}</span></div>
+  <p class="dn">${p.name}</p><p class="dm num">${n(q)} units to your door in Australia. Per unit.</p>${keyRow}
+  ${rows.map((l) => `<div class="line"><span>${l[0]}</span><span class="amt num" data-f="${l[3]}">${money(l[1])}</span><span class="stub"><span class="tk" data-lottie="tick"></span>${l[2]}</span></div>`).join("")}
+  <div class="total"><span><span class="big num" data-f="landed">${money(r.landed)}<span class="rg" data-lottie="ring"></span></span><small>a unit</small></span><span class="stub"><span class="tk" data-lottie="tick"></span>A sample of this unit is on our shelf. Inspected against it before it sails.</span></div>
+  <div class="lot num">Your lot: <b data-f="lot">${n(q)} × ${money(r.landed)} = A$${(r.landed * q).toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b><br>plus pre-shipment inspection, A$${S.inspection} at cost. You pay 30% to start production.</div>`;
+}
+async function printDocket(el, html, printerEl) {
+  // TEAR the old one (if any), then the machine FEEDS the new one, then our team MARKS each proof.
+  if (el.dataset.printed && !RM) { el.classList.remove("feeding"); el.classList.add("tearing"); await wait(420); }
+  el.classList.remove("tearing");
+  el.innerHTML = html;
+  el.dataset.printed = "1";
+  const lines = Math.max(8, Math.round(el.offsetHeight / 34));
+  el.style.setProperty("--steps", lines); el.style.setProperty("--feed", lines * LINE + "ms");
+  printerEl && printerEl.classList.remove("printed");
+  printerEl && printerEl.classList.add("printing");
+  el.classList.remove("feeding"); void el.offsetWidth; el.classList.add("feeding");
+  await wait(lines * LINE);
+  printerEl && printerEl.classList.remove("printing");
+  printerEl && printerEl.classList.add("printed");
+  const ticks = $$(".stub .tk", el);
+  for (const t of ticks) { mark(t, "tick"); await wait(110); }
+  mark($(".rg", el), "ring", { speed: 0.9 });
+}
+function reprint(el, p, q) {
+  // only the figures that changed are printed again
+  const tmp = document.createElement("div"); tmp.innerHTML = docketHTML(p, q, { keys: !!$(".pkeys", el) });
+  $$("[data-f]", el).forEach((node) => {
+    const fresh = $(`[data-f="${node.dataset.f}"]`, tmp); if (!fresh) return;
+    const ring = $(".rg", node);
+    if (node.firstChild && node.firstChild.nodeType === 3) node.firstChild.nodeValue = fresh.firstChild.nodeValue; else node.textContent = fresh.textContent;
+    if (ring && !node.contains(ring)) node.appendChild(ring);
+    node.classList.remove("reprint"); void node.offsetWidth; node.classList.add("reprint");
+  });
+  $$(".line > span:first-child", el).forEach((s, i) => { const f = $$(".line > span:first-child", tmp)[i]; if (f && f.textContent !== s.textContent) { s.textContent = f.textContent; s.classList.remove("reprint"); void s.offsetWidth; s.classList.add("reprint"); } });
+  const dm = $(".dm", el); if (dm) dm.textContent = $(".dm", tmp).textContent;
+  $$(".pkeys .key", el).forEach((k) => k.setAttribute("aria-pressed", String(p.qtys[+k.dataset.pq] === q)));
+}
+
+/* ---------- hero: tags + till keys ---------- */
+const st = { p: 0, q: 1 };
+function renderPickers() {
+  $("#tags").innerHTML = P.map((p, i) => `<button type="button" class="tag" data-p="${i}" aria-pressed="${i === st.p}"><span class="hole"></span><b>${p.name}</b><small>${p.cat}, MOQ ${n(p.moq)}</small></button>`).join("");
+  $("#keys").innerHTML = P[st.p].qtys.map((x, i) => `<button type="button" class="key num" data-q="${i}" aria-pressed="${i === st.q}">${n(x)}</button>`).join("");
+  $("#openprod").hidden = !P[st.p].page;
+}
+$("#tags").addEventListener("click", (e) => {
+  const b = e.target.closest(".tag"); if (!b) return;
+  const i = +b.dataset.p; if (i === st.p) return;
+  st.p = i; st.q = 1; renderPickers();
+  const nb = $(`.tag[data-p="${i}"]`); nb.classList.add("swing"); setTimeout(() => nb.classList.remove("swing"), 650);
+  printDocket($("#docket"), docketHTML(P[st.p], P[st.p].qtys[st.q]), $("#printer"));
+});
+$("#keys").addEventListener("click", (e) => {
+  const b = e.target.closest(".key"); if (!b) return;
+  st.q = +b.dataset.q; $$("#keys .key").forEach((k) => k.setAttribute("aria-pressed", String(+k.dataset.q === st.q)));
+  reprint($("#docket"), P[st.p], P[st.p].qtys[st.q]);
+});
+
+/* ---------- membership docket ---------- */
+let plan = "m";
+function memberHTML() {
+  const y = plan === "y";
+  return `<div class="mrow"><span>First three months, paid once</span><b class="num">A$60.00</b></div>
+  <div class="mrow"><span>${y ? "Then each year, two months free" : "Then each month"}</span><b class="num">${y ? "A$450.00" : "A$45.00"}</b></div>
+  <div class="mrow"><span>Your first sample, once per ABN</span><b class="num">A$0.00</b></div>
+  <div class="mrow"><span>Two free samples after each bulk order</span><b class="num">A$0.00</b></div>
+  <div class="mrow"><span>Any other sample, credited within 90 days</span><b class="num">A$25.00</b></div>
+  <div class="mrow red"><span>Our fee on your order</span><b class="num">A$0.00</b></div>
+  <p class="mnote">${y ? "Paid yearly from month four. We email you 7 days before." : "We email you 7 days before monthly billing starts. Cancel any time after the first three months."}</p>`;
+}
+$(".seg").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b || b.dataset.plan === plan) return;
+  plan = b.dataset.plan; $$(".seg button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  const el = $("#mdocket"); el.innerHTML = memberHTML();
+  $$(".mrow:nth-child(2) span, .mrow:nth-child(2) b, .mnote", el).forEach((x) => { x.classList.remove("reprint"); void x.offsetWidth; x.classList.add("reprint"); });
+});
+
+/* ---------- order steps: photo follows the step you're on; our team ticks each as you pass ---------- */
+const imgs = $$("#frame img");
+const stepIO = new IntersectionObserver((ents) => {
+  ents.forEach((en) => {
+    if (!en.isIntersecting) return;
+    const i = +en.target.dataset.step;
+    imgs.forEach((im, k) => im.classList.toggle("on", k === i));
+    $("#stepno").textContent = String(i + 1);
+    const t = $(".tk", en.target); if (!t.dataset.done) { t.dataset.done = 1; mark(t, "tick", { speed: 0.85 }); }
+  });
+}, { rootMargin: "-45% 0px -45% 0px" });
+$$(".step").forEach((s) => stepIO.observe(s));
+
+/* ---------- inspection stamp lands when you reach it ---------- */
+function stampOnce(box) {
+  if (box.dataset.done) return; box.dataset.done = 1;
+  box.classList.add("go"); mark($(".lt", box), "stamp");
+}
+new IntersectionObserver((ents, io) => ents.forEach((en) => { if (en.isIntersecting) { stampOnce($("#stamp-match")); io.disconnect(); } }), { threshold: 0.55 }).observe($("#pair"));
+
+/* ---------- parallax: the carbon copies sit deeper than the docket ---------- */
+if (!RM) {
+  const copies = $$("[data-par]"); let ticking = false;
+  addEventListener("scroll", () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => { const y = scrollY; copies.forEach((c) => c.style.translate = `0 ${(-y * c.dataset.par).toFixed(1)}px`); ticking = false; });
+  }, { passive: true });
+}
+
+/* ---------- product page ---------- */
+const units = [["S03", "Sydney B2"], ["S04", "Sydney B2"], ["S05", "Sydney B2"], ["S01", "Brisbane A2"], ["S02", "Brisbane A2"]];
+let unit = "S03", pq = 1;
+function renderUnits() {
+  $("#units").innerHTML = units.map(([u, w]) => `<button type="button" class="uchip" data-u="${u}" aria-pressed="${u === unit}"><b>${u}</b>${w}</button>`).join("");
+  $("#request .body").textContent = "Request " + unit;
+}
+$("#units").addEventListener("click", (e) => { const b = e.target.closest(".uchip"); if (!b) return; unit = b.dataset.u; renderUnits(); });
+$("#pdocket").addEventListener("click", (e) => { const b = e.target.closest(".pkeys .key"); if (!b) return; pq = +b.dataset.pq; reprint($("#pdocket"), P[0], P[0].qtys[pq]); });
+$("#request").addEventListener("click", async () => {
+  const btn = $("#request"); btn.classList.add("torn"); await wait(260);
+  $("#slip").classList.add("torn"); await wait(380);
+  $("#slip").hidden = true;
+  const where = units.find((u) => u[0] === unit)[1].split(" ")[0];
+  $("#donetext").textContent = `Unit ${unit} leaves ${where} within 2 business days. You have 14 days to decide.`;
+  $("#done").hidden = false; stampOnce($("#stamp-req"));
+});
+
+/* ---------- join ---------- */
+function abnValid(d) {
+  if (!/^\d{11}$/.test(d)) return false;
+  const w = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+  const a = d.split("").map(Number); a[0] -= 1;
+  return a.reduce((s, x, i) => s + x * w[i], 0) % 89 === 0;
+}
+const abn = $("#abn");
+abn.addEventListener("input", () => {
+  const d = abn.value.replace(/\D/g, "").slice(0, 11);
+  abn.value = [d.slice(0, 2), d.slice(2, 5), d.slice(5, 8), d.slice(8, 11)].filter(Boolean).join(" ");
+  const tick = $("#abn-tick"), err = $("#abn-err");
+  if (d.length < 11) { tick.innerHTML = ""; tick.dataset.on = ""; err.textContent = ""; abn.removeAttribute("aria-invalid"); return; }
+  if (abnValid(d)) { if (!tick.dataset.on) { tick.dataset.on = 1; mark(tick, "tick"); } err.textContent = ""; abn.removeAttribute("aria-invalid"); }
+  else { tick.innerHTML = ""; tick.dataset.on = ""; err.textContent = "That isn't a valid ABN. Check the 11 digits on your ABN record."; abn.setAttribute("aria-invalid", "true"); }
+});
+function joinHTML() {
+  const y = $("#plan-y").checked;
+  const start = new Date(); start.setMonth(start.getMonth() + 3);
+  const d = start.toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" });
+  return `<div class="dh"><span>YOUR MEMBERSHIP</span><span>TODAY</span></div>
+  <div class="mrow" style="margin-top:8px"><span>First three months</span><b class="num">A$60.00</b></div>
+  <div class="mrow"><span>From ${d}</span><b class="num">${y ? "A$450.00 a year" : "A$45.00 a month"}</b></div>
+  <div class="mrow"><span>Your first sample</span><b class="num">A$0.00</b></div>
+  <div class="mrow red"><span>Our fee on your orders</span><b class="num">A$0.00</b></div>
+  <div class="total" style="grid-template-columns:1fr"><span><span class="big num">A$60.00</span><small>today</small></span></div>
+  <p class="mnote">${y ? "Yearly from month four. We email you 7 days before." : "Monthly from month four. Cancel any time after the first three months."}</p>`;
+}
+$$('input[name="plan"]').forEach((r) => r.addEventListener("change", () => printDocket($("#jdocket"), joinHTML(), $("#jdocket").closest(".printer"))));
+$("#joinform").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const d = abn.value.replace(/\D/g, ""), note = $("#formnote");
+  if (!$("#biz").value.trim()) { note.textContent = "Add your business name."; $("#biz").focus(); return; }
+  if (!abnValid(d)) { note.textContent = "Add a valid 11-digit ABN."; abn.focus(); return; }
+  if (!$("#email").validity.valid || !$("#email").value) { note.textContent = "Add an email address we can reach you on."; $("#email").focus(); return; }
+  note.textContent = "Prototype: payment will run through Stripe once it's connected. Nothing was sent.";
+});
+
+/* ---------- routes and page transitions (same-document view transitions; the router in the real app does the same) ---------- */
+const views = { home: $("#v-home"), product: $("#v-product"), join: $("#v-join") };
+let current = null;
+function routeFromHash() { const h = location.hash.slice(1); return views[h] ? h : "home"; }
+function show(name) {
+  Object.entries(views).forEach(([k, v]) => (v.hidden = k !== name));
+  document.documentElement.dataset.view = name;
+  $$(".nav [aria-current]").forEach((a) => a.removeAttribute("aria-current"));
+  if (name === "product") $('.nav .app-only[href="#product"]').setAttribute("aria-current", "page");
+  current = name;
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
+function enter(name) {
+  if (name === "product") {
+    if (!$("#pdocket").dataset.printed) printDocket($("#pdocket"), docketHTML(P[0], P[0].qtys[pq], { keys: true }), $("#pprinter"));
+    renderUnits();
+    const v = $(".film video"); if (v && !v.src) { v.src = v.dataset.src; } if (v && !RM) v.play().catch(() => {});
+    setTimeout(() => { const s = $("#score .rg"); if (s && !s.dataset.done) { s.dataset.done = 1; mark(s, "ring"); } }, 500);
+    mountStage("#stage-product");
+  } else { const v = $(".film video"); v && v.pause(); }
+  if (name === "join" && !$("#jdocket").dataset.printed) printDocket($("#jdocket"), joinHTML(), $("#jdocket").closest(".printer"));
+  if (name === "home") mountStage("#stage-home");
+}
+function go(name) {
+  if (name === current) return;
+  const swap = () => { show(name); enter(name); };
+  if (document.startViewTransition && !RM) document.startViewTransition(swap); else swap();
+}
+addEventListener("hashchange", () => { const h = location.hash.slice(1); if (views[h]) go(h); else if (h === "" ) go("home"); else if (current !== "home") { go("home"); requestAnimationFrame(() => document.getElementById(h)?.scrollIntoView()); } });
+document.addEventListener("click", async (e) => {
+  const t = e.target.closest("[data-tear]");
+  if (t && !RM) { e.preventDefault(); t.classList.add("torn"); await wait(380); location.hash = t.getAttribute("href").slice(1); setTimeout(() => t.classList.remove("torn"), 600); return; }
+  const h = e.target.closest('[data-go="home"]'); if (h) { e.preventDefault(); history.pushState(null, "", location.pathname + location.search); go("home"); }
+});
+
+/* ---------- 3D sample (WebGL): loaded only when its stage is near ---------- */
+let three = null, stageEl = null, stageSeen = false;
+function mountStage(sel) { stageEl = $(sel); if (three) { three.attach(stageEl); three.visible(true); } }
+const stageIO = new IntersectionObserver((ents) => ents.forEach((en) => {
+  if (en.target !== stageEl) return;
+  stageSeen = en.isIntersecting;
+  if (en.isIntersecting && !three && !window.__threeLoading) {
+    window.__threeLoading = true;
+    import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js")
+      .then((T) => { three = makeJug(T); three.attach(stageEl); three.visible(stageSeen); })
+      .catch(() => $$(".stage .fallback").forEach((f) => (f.hidden = false)));
+  }
+  if (three) three.visible(en.isIntersecting);
+}), { rootMargin: "300px" });
+$$(".stage").forEach((s) => stageIO.observe(s));
+
+function makeJug(T) {
+  const renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "low-power" });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.25;
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  const canvas = renderer.domElement; canvas.setAttribute("aria-label", "3D model of the milk jug. Drag to turn it."); canvas.setAttribute("role", "img");
+  const scene = new T.Scene();
+  const cam = new T.PerspectiveCamera(28, 1, 0.1, 50); cam.position.set(0, 1.55, 7.6); cam.lookAt(0, 1.18, 0);
+
+  // studio light for steel: a dark room with two soft boxes and a strip, baked into an environment map
+  const pm = new T.PMREMGenerator(renderer);
+  const env = new T.Scene();
+  env.add(new T.Mesh(new T.BoxGeometry(20, 20, 20), new T.MeshBasicMaterial({ color: 0x3a4166, side: T.BackSide })));
+  const floor = new T.Mesh(new T.PlaneGeometry(20, 20), new T.MeshBasicMaterial({ color: 0x8a90b0 })); floor.rotation.x = -Math.PI / 2; floor.position.y = -3; env.add(floor);
+  const box = (w, h, x, y, z, c, ry = 0) => { const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: c, side: T.DoubleSide })); m.position.set(x, y, z); m.lookAt(0, 1, 0); m.rotateZ(ry); env.add(m); };
+  box(7, 5, -6, 5, 5, 0xffffff); box(5, 8, 7, 3, 1, 0xe6eaff); box(16, 1.2, 0, 8, -6, 0xffffff); box(10, 3, 0, 2, 9, 0xb9c0e6); box(3, 8, -8, 2, -3, 0xffffff);
+  scene.environment = pm.fromScene(env, 0.02).texture;
+
+  // etched measurement marks: a small canvas texture wrapped on the front of the body
+  const tc = document.createElement("canvas"); tc.width = 1024; tc.height = 512; const g = tc.getContext("2d");
+  g.fillStyle = "#ffffff"; g.fillRect(0, 0, 1024, 512);
+  g.strokeStyle = "#55596a"; g.fillStyle = "#55596a"; g.lineWidth = 3; g.font = "600 17px monospace";
+  [["600", 300], ["400", 352], ["200", 404]].forEach(([t, y]) => { g.beginPath(); g.moveTo(536, y); g.lineTo(568, y); g.stroke(); g.fillText(t, 574, y + 6); });
+  for (let y = 326; y <= 404; y += 52) { g.beginPath(); g.moveTo(536, y); g.lineTo(552, y); g.stroke(); }
+  g.fillText("ml", 574, 432);
+  const marks = new T.CanvasTexture(tc); marks.colorSpace = T.SRGBColorSpace;
+
+  // body: a lathe profile (radius, height) for a 600 ml barista jug, with a pulled spout
+  const prof = [[0, 0], [0.78, 0], [0.84, 0.03], [0.86, 0.12], [0.88, 0.6], [0.86, 1.05], [0.8, 1.45], [0.76, 1.72], [0.78, 1.86], [0.8, 1.9], [0.77, 1.9], [0.74, 1.84], [0.72, 1.7], [0.76, 1.4], [0.82, 1.0], [0.84, 0.5], [0.82, 0.08], [0, 0.06]];
+  const geo = new T.LatheGeometry(prof.map(([r, y]) => new T.Vector2(r, y)), 128, Math.PI); // seam at the back
+  const pos = geo.attributes.position;
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
+    const a = Math.atan2(z, x); const f = Math.pow(Math.max(0, Math.cos(a)), 10);
+    if (y > 1.35) { const k = (y - 1.35) / 0.55; pos.setX(i, x + f * k * k * 0.42); pos.setY(i, y + f * k * k * 0.1); }
+  }
+  geo.computeVertexNormals();
+  const steel = new T.MeshStandardMaterial({ color: 0xe9ecf2, metalness: 1, roughness: 0.2, map: marks, side: T.DoubleSide, envMapIntensity: 1.15 });
+  const jug = new T.Group();
+  const bodyMesh = new T.Mesh(geo, steel); jug.add(bodyMesh);
+  const handle = new T.Mesh(new T.TorusGeometry(0.46, 0.07, 18, 48, Math.PI * 1.05), new T.MeshStandardMaterial({ color: 0xe9ecf2, metalness: 1, roughness: 0.3 }));
+  handle.position.set(-0.86, 1.02, 0); handle.rotation.set(0, 0, Math.PI / 2 + 0.05); handle.scale.set(1, 0.72, 1); jug.add(handle);
+  jug.rotation.y = -0.42; // marks toward you, spout to the right, at rest
+  scene.add(jug);
+  // contact shadow on the shelf
+  const sc = document.createElement("canvas"); sc.width = sc.height = 128; const sg = sc.getContext("2d");
+  const grd = sg.createRadialGradient(64, 64, 4, 64, 64, 64); grd.addColorStop(0, "rgba(0,0,10,.55)"); grd.addColorStop(1, "rgba(0,0,10,0)"); sg.fillStyle = grd; sg.fillRect(0, 0, 128, 128);
+  const shadow = new T.Mesh(new T.PlaneGeometry(2.8, 2.8), new T.MeshBasicMaterial({ map: new T.CanvasTexture(sc), transparent: true, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.001; scene.add(shadow);
+
+  // interaction: drag to turn, with inertia; idles slowly when left alone (not with reduced motion)
+  let vel = 0, dragging = false, lastX = 0, idle = !RM, on = false, landedAt = 0, drop = RM ? 0 : 1;
+  canvas.addEventListener("pointerdown", (e) => { dragging = true; lastX = e.clientX; idle = false; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener("pointermove", (e) => { if (!dragging) return; const dx = e.clientX - lastX; lastX = e.clientX; vel = dx * 0.0085; jug.rotation.y += vel; });
+  canvas.addEventListener("pointerup", () => { dragging = false; setTimeout(() => (idle = !RM), 2600); });
+  canvas.tabIndex = 0;
+  canvas.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") { jug.rotation.y -= 0.2; e.preventDefault(); } if (e.key === "ArrowRight") { jug.rotation.y += 0.2; e.preventDefault(); } });
+
+  function size() { const r = canvas.parentElement.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); cam.aspect = r.width / r.height; const k = Math.min(1, cam.aspect); cam.position.set(0, 1.55, 7.6 / Math.pow(k, 0.9)); cam.lookAt(0, 1.18, 0); cam.updateProjectionMatrix(); }
+  const ro = new ResizeObserver(size);
+  let raf = 0, t0 = performance.now();
+  function frame(t) {
+    raf = requestAnimationFrame(frame);
+    const dt = Math.min(0.05, (t - t0) / 1000); t0 = t;
+    if (!dragging) { vel *= 0.94; jug.rotation.y += vel + (idle ? dt * 0.22 : 0); }
+    // the unit is set down on the shelf when you first see it: our team places it, so it eases (no bounce)
+    if (drop > 0) { drop = Math.max(0, drop - dt * 1.6); }
+    const e = 1 - Math.pow(1 - (1 - drop), 3);
+    jug.position.y = (1 - e) * 1.1; shadow.material.opacity = 0.3 + e * 0.7;
+    renderer.render(scene, cam);
+  }
+  return {
+    attach(el) { if (!el) return; el.appendChild(canvas); ro.disconnect(); ro.observe(el); size(); if (!RM) drop = 1; },
+    visible(v) { if (v && !on) { on = true; t0 = performance.now(); raf = requestAnimationFrame(frame); } else if (!v && on) { on = false; cancelAnimationFrame(raf); } },
+  };
+}
+
+/* ---------- start ---------- */
+renderPickers();
+$("#mdocket").innerHTML = memberHTML();
+const start = routeFromHash();
+show(start); enter(start);
+if (start === "home") printDocket($("#docket"), docketHTML(P[st.p], P[st.p].qtys[st.q]), $("#printer"));
+else $("#docket").innerHTML = docketHTML(P[st.p], P[st.p].qtys[st.q]);
+// the hero docket leads to the product: same paper, so it carries across the page change
+$("#openprod").addEventListener("click", (e) => { e.preventDefault(); location.hash = "product"; });
+})();
+</script>

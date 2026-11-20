@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Lotwise, concept A: product in the app</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap">
+<style>
+:root{--kraft:oklch(0.80 0.065 72);--kraft-deep:oklch(0.72 0.07 68);--ink:oklch(0.22 0.02 55);--ink-soft:oklch(0.36 0.025 55);--seal:oklch(0.50 0.19 28);--label:oklch(0.975 0.008 85);--paper:oklch(0.93 0.025 80)}
+body{margin:0;font-family:Archivo,sans-serif}
+a{color:var(--ink)}a:hover{color:var(--seal)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--seal);outline-offset:3px}
+</style>
+</helmet>
+<div style="min-height: 1240px; background: var(--paper); color: var(--ink)">
+<header style="background: var(--ink); color: var(--label)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 14px 40px; display: flex; align-items: center; gap: 40px; flex-wrap: wrap">
+<a href="#" aria-label="Lotwise catalogue" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--label)">
+<svg width="28" height="28" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="15" fill="var(--seal)"></circle><circle cx="17" cy="17" r="10.5" fill="none" stroke="var(--label)" stroke-width="2" stroke-dasharray="3 2.4"></circle><path d="M12 17.5l3.4 3.4L22.5 13.5" fill="none" stroke="var(--label)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="font-size: 26px; font-weight: 900; font-stretch: 70%">lotwise</span>
+</a>
+<nav aria-label="App" style="display: flex; gap: 6px; font-size: 16px; font-weight: 600; flex: 1">
+<a href="#" aria-current="page" style="color: var(--label); text-decoration: none; padding: 10px 14px; background: oklch(1 0 0 / 0.12)">Catalogue</a>
+<a href="#" style="color: var(--label); text-decoration: none; padding: 10px 14px">My samples</a>
+<a href="#" style="color: var(--label); text-decoration: none; padding: 10px 14px">Orders</a>
+<a href="#" style="color: var(--label); text-decoration: none; padding: 10px 14px">Help</a>
+</nav>
+<p style="margin: 0; font-size: 15px; color: oklch(0.85 0.02 80)">1 free sample left</p>
+<a href="#" aria-label="Account" style="width: 40px; height: 40px; border-radius: 50%; background: var(--kraft); color: var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 800; text-decoration: none">M</a>
+</div>
+</header>
+
+<main style="max-width: 1360px; margin: 0 auto; padding: 28px 40px 64px">
+<nav aria-label="Breadcrumb" style="font-size: 15px; color: var(--ink-soft)"><a href="#" style="color: var(--ink-soft)">Catalogue</a> / <a href="#" style="color: var(--ink-soft)">Café supplies</a> / Milk jug, 600 ml</nav>
+
+<div style="margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: start">
+<div>
+<div style="aspect-ratio: 1 / 1; background: var(--kraft); display: flex; align-items: center; justify-content: center; position: relative">
+<p style="margin: 0; font-size: 15px; background: var(--label); padding: 6px 10px">Placeholder: product photo</p>
+<p style="position: absolute; left: 16px; bottom: 16px; margin: 0; background: var(--ink); color: var(--label); font-size: 14px; padding: 6px 10px">Example product</p>
+</div>
+<div style="margin-top: 20px; background: var(--label); padding: 22px 24px; border-top: 8px solid var(--ink)">
+<h2 style="margin: 0 0 12px; font-size: 26px; font-weight: 900; font-stretch: 70%">Who makes it</h2>
+<div style="display: flex; justify-content: space-between; align-items: end; gap: 16px">
+<div>
+<p style="margin: 0; font-size: 20px; font-weight: 700">Supplier CN208</p>
+<p style="margin: 4px 0 0; font-size: 15px; color: var(--ink-soft)">Trading company, Foshan, Guangdong. Exporting since 2019.</p>
+</div>
+<p style="margin: 0; font-size: 64px; font-weight: 900; font-stretch: 62%; line-height: 0.8">74<span style="font-size: 22px; font-weight: 600; font-stretch: 100%; color: var(--ink-soft)">/100</span></p>
+</div>
+<ul style="list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; font-size: 15px">
+<li style="display: grid; grid-template-columns: 130px 1fr 44px; gap: 12px; align-items: center"><span>Capability</span><span style="height: 10px; background: oklch(0.22 0.02 55 / 0.12)"><span style="display: block; height: 10px; width: 75%; background: var(--ink)"></span></span><span>15/20</span></li>
+<li style="display: grid; grid-template-columns: 130px 1fr 44px; gap: 12px; align-items: center"><span>Quality</span><span style="height: 10px; background: oklch(0.22 0.02 55 / 0.12)"><span style="display: block; height: 10px; width: 75%; background: var(--ink)"></span></span><span>15/20</span></li>
+<li style="display: grid; grid-template-columns: 130px 1fr 44px; gap: 12px; align-items: center"><span>Communication</span><span style="height: 10px; background: oklch(0.22 0.02 55 / 0.12)"><span style="display: block; height: 10px; width: 75%; background: var(--ink)"></span></span><span>15/20</span></li>
+<li style="display: grid; grid-template-columns: 130px 1fr 44px; gap: 12px; align-items: center"><span>Compliance</span><span style="height: 10px; background: oklch(0.22 0.02 55 / 0.12)"><span style="display: block; height: 10px; width: 70%; background: var(--ink)"></span></span><span>14/20</span></li>
+<li style="display: grid; grid-template-columns: 130px 1fr 44px; gap: 12px; align-items: center"><span>Export</span><span style="height: 10px; background: oklch(0.22 0.02 55 / 0.12)"><span style="display: block; height: 10px; width: 75%; background: var(--ink)"></span></span><span>15/20</span></li>
+</ul>
+<p style="margin: 18px 0 0; font-size: 15px; color: var(--ink-soft)">Visited 9 April 2026, filmed 12 April 2026.</p>
+<a href="#" style="display: inline-block; margin-top: 12px; font-size: 16px; font-weight: 700">Watch the factory film</a>
+</div>
+</div>
+
+<div>
+<p style="margin: 0; font-size: 16px; color: var(--ink-soft)">Café supplies, CF-CN208-0385</p>
+<h1 style="margin: 6px 0 0; font-size: 88px; line-height: 0.88; font-weight: 900; font-stretch: 62%">Milk jug, 600 ml</h1>
+<p style="margin: 18px 0 0; font-size: 19px; line-height: 1.5; max-width: 46ch">Stainless milk jug with etched measurement marks and a tapered spout. Steel finish.</p>
+
+<div style="margin-top: 28px; background: var(--label); padding: 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 24px; align-items: center; border: 4px solid var(--ink)">
+<div>
+<p style="margin: 0; font-size: 22px; font-weight: 800; font-stretch: 85%">5 units on the shelf</p>
+<p style="margin: 4px 0 0; font-size: 15px; color: var(--ink-soft)">3 in Sydney, 2 in Brisbane. All checked against the sealed master. Sent within 2 business days.</p>
+</div>
+<button type="button" style="background: var(--seal); color: var(--label); border: 0; padding: 18px 26px; font: inherit; font-size: 18px; font-weight: 800; cursor: pointer; min-height: 56px">Request your free sample</button>
+</div>
+
+<h2 style="margin: 36px 0 12px; font-size: 32px; font-weight: 900; font-stretch: 70%">What will it cost me landed?</h2>
+<p style="margin: 0 0 14px; font-size: 16px; line-height: 1.5; color: var(--ink-soft); max-width: 56ch">Per unit, delivered to Australia with GST. Duty free: this supplier provides a ChAFTA origin certificate.</p>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; font-size: 16px; background: var(--label)">
+<thead><tr style="text-align: left; border-bottom: 4px solid var(--ink)"><th scope="col" style="padding: 12px 16px">Per unit</th><th scope="col" style="padding: 12px 16px; text-align: right">300 units</th><th scope="col" style="padding: 12px 16px; text-align: right">1,000 units</th></tr></thead>
+<tbody>
+<tr style="border-bottom: 2px solid oklch(0.22 0.02 55 / 0.12)"><th scope="row" style="padding: 10px 16px; text-align: left; font-weight: 500">Product (US$3.15 / US$2.70 at 1.55)</th><td style="padding: 10px 16px; text-align: right">A$4.88</td><td style="padding: 10px 16px; text-align: right">A$4.19</td></tr>
+<tr style="border-bottom: 2px solid oklch(0.22 0.02 55 / 0.12)"><th scope="row" style="padding: 10px 16px; text-align: left; font-weight: 500">Sea freight, estimate</th><td style="padding: 10px 16px; text-align: right">A$0.28</td><td style="padding: 10px 16px; text-align: right">A$0.28</td></tr>
+<tr style="border-bottom: 2px solid oklch(0.22 0.02 55 / 0.12)"><th scope="row" style="padding: 10px 16px; text-align: left; font-weight: 500">Duty</th><td style="padding: 10px 16px; text-align: right">A$0.00</td><td style="padding: 10px 16px; text-align: right">A$0.00</td></tr>
+<tr style="border-bottom: 2px solid oklch(0.22 0.02 55 / 0.12)"><th scope="row" style="padding: 10px 16px; text-align: left; font-weight: 500">Broker and port fees (A$350 shared)</th><td style="padding: 10px 16px; text-align: right">A$1.17</td><td style="padding: 10px 16px; text-align: right">A$0.35</td></tr>
+<tr style="border-bottom: 4px solid var(--ink)"><th scope="row" style="padding: 10px 16px; text-align: left; font-weight: 500">GST, 10%</th><td style="padding: 10px 16px; text-align: right">A$0.52</td><td style="padding: 10px 16px; text-align: right">A$0.45</td></tr>
+<tr><th scope="row" style="padding: 14px 16px; text-align: left; font-size: 18px">Landed</th><td style="padding: 14px 16px; text-align: right; font-size: 26px; font-weight: 900; font-stretch: 75%">A$6.85</td><td style="padding: 14px 16px; text-align: right; font-size: 26px; font-weight: 900; font-stretch: 75%">A$5.27</td></tr>
+</tbody>
+</table>
+</div>
+
+<dl style="margin: 28px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+<div style="border-top: 4px solid var(--ink); padding-top: 10px"><dt style="font-size: 14px; color: var(--ink-soft)">Minimum order</dt><dd style="margin: 4px 0 0; font-size: 22px; font-weight: 800">300</dd></div>
+<div style="border-top: 4px solid var(--ink); padding-top: 10px"><dt style="font-size: 14px; color: var(--ink-soft)">Lead time</dt><dd style="margin: 4px 0 0; font-size: 22px; font-weight: 800">36 days</dd></div>
+<div style="border-top: 4px solid var(--ink); padding-top: 10px"><dt style="font-size: 14px; color: var(--ink-soft)">Ships from</dt><dd style="margin: 4px 0 0; font-size: 22px; font-weight: 800">Guangzhou</dd></div>
+<div style="border-top: 4px solid var(--ink); padding-top: 10px"><dt style="font-size: 14px; color: var(--ink-soft)">Material test</dt><dd style="margin: 4px 0 0; font-size: 22px; font-weight: 800">To Jun 2027</dd></div>
+</dl>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

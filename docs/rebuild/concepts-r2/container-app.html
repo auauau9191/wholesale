@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milk jug, 600 ml: Lotwise</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@100..900&family=Familjen+Grotesk:wght@400..700&display=swap">
+<style>
+:root{--livery:oklch(0.43 0.09 165);--livery-dark:oklch(0.33 0.08 165);--steel:oklch(0.24 0.015 200);--stencil:oklch(0.96 0.01 100);--cam:oklch(0.86 0.17 95);--mute:oklch(0.76 0.02 190);--kraft:oklch(0.7 0.07 70);--kraft-ink:oklch(0.25 0.03 60);--sf:"Big Shoulders Stencil Display",sans-serif;font-family:"Familjen Grotesk",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;color:var(--stencil);background:repeating-linear-gradient(90deg,oklch(0.26 0.015 200) 0 34px,oklch(0.235 0.015 200) 34px 40px,oklch(0.25 0.015 200) 40px 48px)}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--cam);outline-offset:3px}
+.bar{display:flex;align-items:center;gap:18px;padding:12px clamp(16px,3vw,36px);background:var(--livery)}
+.logo{font-family:var(--sf);font-weight:850;font-size:30px;text-decoration:none;line-height:1}
+.bar nav{display:flex;gap:2px;flex:1}
+.bar nav a{text-decoration:none;padding:10px 14px;border-radius:3px;font-size:15px}
+.bar nav a[aria-current]{background:var(--livery-dark)}
+.cred{font-size:14px}
+.avatar{width:38px;height:38px;border-radius:3px;background:var(--cam);color:var(--steel);display:grid;place-items:center;font-weight:700;text-decoration:none}
+.wrap{max-width:1360px;margin:0 auto;padding:22px clamp(16px,3vw,36px) 64px}
+.crumb{font-size:14px;color:var(--mute);margin:0 0 18px}
+.grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);align-items:start}
+/* The product shown as the face of its export carton, with real shipping marks */
+.carton{position:relative;background:linear-gradient(170deg,oklch(0.74 0.07 72),oklch(0.66 0.075 66));color:var(--kraft-ink);padding:clamp(22px,3vw,40px);border-radius:3px;box-shadow:inset 0 -14px 0 oklch(0.6 0.07 63),0 30px 60px -30px oklch(0 0 0 / .8)}
+.carton::before{content:"";position:absolute;left:0;right:0;top:38%;height:34px;background:oklch(0.8 0.04 78 / .65)}
+.carton > *{position:relative}
+.carton .cat{font-size:14px;font-weight:600;margin:0}
+.carton h1{margin:6px 0 0;font-family:var(--sf);font-weight:900;font-size:clamp(56px,6.4vw,110px);line-height:.82}
+.marks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px;margin:clamp(40px,6vw,90px) 0 0;font-family:var(--sf);font-weight:700;font-size:clamp(20px,1.8vw,28px);line-height:1}
+.marks dt{font-family:"Familjen Grotesk";font-size:12px;font-weight:600;margin-bottom:2px}
+.marks dd{margin:0}
+.icons{position:absolute;right:clamp(22px,3vw,40px);top:clamp(22px,3vw,40px);display:flex;gap:10px}
+.photo{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photo figure{margin:0;position:relative;aspect-ratio:4/3;border-radius:3px;overflow:hidden;background:oklch(0.3 0.015 200)}
+.photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.8)}
+.photo .ph{display:grid;place-items:center;height:100%;font-size:13px;color:var(--mute)}
+.photo figcaption{position:absolute;left:8px;bottom:6px;font-size:11px;background:oklch(0 0 0 / .5);padding:2px 6px}
+.board{position:absolute;right:10px;top:10px;background:var(--stencil);color:var(--steel);padding:6px 9px;transform:rotate(-3deg);font-family:var(--sf);font-weight:800;font-size:20px;line-height:1}
+.board small{display:block;font-family:"Familjen Grotesk";font-size:11px;font-weight:700;color:oklch(0.45 0.12 70)}
+.req{background:var(--livery);padding:22px 24px;border-radius:3px;display:grid;gap:14px}
+.req h2{margin:0;font-family:var(--sf);font-weight:850;font-size:40px;line-height:.9}
+.req p{margin:0;font-size:16px;line-height:1.5}
+.bay{display:flex;gap:8px}
+.bay span{flex:1;border:2px solid oklch(1 0 0 / .3);border-radius:3px;padding:8px 0;text-align:center;font-family:var(--sf);font-weight:700;font-size:20px;line-height:1}
+.bay span small{display:block;font-family:"Familjen Grotesk";font-size:11px;font-weight:600;margin-top:2px}
+.bay span.me{background:var(--cam);color:var(--steel);border-color:var(--cam)}
+.req button{min-height:56px;border:0;border-radius:3px;background:var(--cam);color:var(--steel);font:inherit;font-weight:700;font-size:18px;cursor:pointer;box-shadow:0 4px 0 oklch(0.6 0.12 95)}
+.plate{margin-top:18px;background:linear-gradient(160deg,oklch(0.88 0.01 200),oklch(0.78 0.012 200));color:var(--steel);padding:22px 24px;border-radius:3px;box-shadow:inset 0 0 0 3px oklch(0.62 0.01 200);position:relative}
+.plate h2{margin:0;font-family:var(--sf);font-weight:850;font-size:30px;line-height:.95}
+.plate .sub{margin:2px 0 12px;font-size:13px}
+.tabs{display:flex;gap:6px;margin-bottom:8px}
+.tabs button{flex:1;min-height:44px;border:2px solid var(--steel);background:transparent;border-radius:3px;font:inherit;font-weight:700;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--steel);color:var(--stencil)}
+.plate dl{margin:0}
+.plate dl div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:2px solid oklch(0.24 0.015 200 / .15);font-size:15px}
+.plate dd{margin:0;font-weight:700}
+.plate .tot{display:flex;justify-content:space-between;align-items:flex-end;border-top:3px solid var(--steel);padding-top:10px;margin-top:4px}
+.plate .tot b{font-family:var(--sf);font-weight:900;font-size:64px;line-height:.8}
+.supplier{margin-top:18px;display:flex;align-items:center;gap:16px;padding:16px 0;border-top:2px solid oklch(1 0 0 / .14);border-bottom:2px solid oklch(1 0 0 / .14)}
+.supplier b{font-family:var(--sf);font-weight:900;font-size:64px;line-height:.8;color:var(--cam)}
+.supplier p{margin:0;font-size:15px;line-height:1.5}
+@media (max-width:860px){.bar nav,.cred{display:none}.bar{justify-content:space-between}.grid{grid-template-columns:1fr}.marks{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="logo" href="#">LOTWISE</a>
+  <nav aria-label="App"><a href="#" aria-current="page">Catalogue</a><a href="#">My samples</a><a href="#">Orders</a><a href="#">Help</a></nav>
+  <span class="cred">1 free sample left</span>
+  <a class="avatar" href="#" aria-label="Account">M</a>
+</header>
+<main class="wrap">
+  <p class="crumb"><a href="#">Café supplies</a> / Milk jug, 600 ml (example product)</p>
+  <div class="grid">
+    <div>
+      <section class="carton" aria-labelledby="pname">
+        <div class="icons" aria-hidden="true">
+          <svg width="34" height="40" viewBox="0 0 34 40"><path d="M9 38V14M25 38V14M3 16l6-12 6 12M19 16l6-12 6 12" fill="none" stroke="oklch(0.25 0.03 60)" stroke-width="3"/></svg>
+          <svg width="40" height="40" viewBox="0 0 40 40"><path d="M8 6h24l-4 14H12zM20 20v12M12 34h16" fill="none" stroke="oklch(0.25 0.03 60)" stroke-width="3"/></svg>
+        </div>
+        <p class="cat">Café supplies, CF-CN208-0385</p>
+        <h1 id="pname">Milk jug<br>600 ml</h1>
+        <dl class="marks">
+          <div><dt>Material</dt><dd>Stainless, steel finish</dd></div>
+          <div><dt>Spec</dt><dd>Revision R1, signed</dd></div>
+          <div><dt>Minimum order</dt><dd>300 units</dd></div>
+          <div><dt>Lead time</dt><dd>36 days</dd></div>
+          <div><dt>Ships from</dt><dd>FOB Guangzhou</dd></div>
+          <div><dt>Origin certificate</dt><dd>ChAFTA, duty free</dd></div>
+        </dl>
+      </section>
+      <div class="photo">
+        <figure><img src="media/factory-machine-close.jpg" alt=""><div class="board">CN208<small>12 Apr 2026</small></div><figcaption>Illustrative, not CN208. Play the visit.</figcaption></figure>
+        <figure><div class="ph">Placeholder: product photo</div></figure>
+      </div>
+      <div class="supplier"><b>74</b><p>out of 100 for supplier CN208, a trading company in Foshan exporting since 2019. Visited 9 April 2026, filmed 12 April 2026.</p></div>
+    </div>
+    <div>
+      <section class="req" aria-labelledby="req-h">
+        <h2 id="req-h">Hold it first</h2>
+        <p>Five units on our shelves, each checked against the sealed master. Your first sample is free and leaves within 2 business days.</p>
+        <div class="bay" aria-label="Units on the shelf">
+          <span class="me">S03<small>Sydney B2</small></span><span>S04<small>Sydney B2</small></span><span>S05<small>Sydney B2</small></span><span>S01<small>Brisbane A2</small></span><span>S02<small>Brisbane A2</small></span>
+        </div>
+        <button type="button">Request S03</button>
+      </section>
+      <section class="plate" aria-labelledby="lc-h">
+        <h2 id="lc-h">What will it cost me landed?</h2>
+        <p class="sub">Per unit to your door, A$</p>
+        <div class="tabs" role="group" aria-label="Quantity"><button type="button" aria-pressed="false">300</button><button type="button" aria-pressed="true">1,000</button><button type="button" aria-pressed="false">3,000</button></div>
+        <dl>
+          <div><dt>Product, US$2.70 at 1.55</dt><dd>4.19</dd></div>
+          <div><dt>Sea freight, estimate</dt><dd>0.28</dd></div>
+          <div><dt>Duty, ChAFTA certificate</dt><dd>0.00</dd></div>
+          <div><dt>Broker and port, A$350 shared</dt><dd>0.35</dd></div>
+          <div><dt>GST, 10%</dt><dd>0.45</dd></div>
+        </dl>
+        <div class="tot"><span>Landed, a unit</span><b>A$5.27</b></div>
+      </section>
+    </div>
+  </div>
+</main>
+</body>
+</html>

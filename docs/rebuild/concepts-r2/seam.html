@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lotwise: filmed in China, held in Australia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Familjen+Grotesk:wght@400..700&family=Noto+Serif+SC:wght@600&text=%E4%BD%9B%E5%B1%B1%E5%B7%A5%E5%8E%82%E6%A0%B7%E5%93%81%E9%AA%8C%E8%B4%A7%E7%94%9F%E4%BA%A7&display=swap">
+<style>
+:root{
+  --ink:oklch(0.17 0.02 265);
+  --paper:oklch(0.97 0.006 95);
+  --tag:oklch(0.89 0.17 100);      /* the Lotwise lot tag: the one thing crossing the seam, and every action */
+  --cn:oklch(0.30 0.06 255);       /* China side at night (set live from Foshan's clock) */
+  --au:oklch(0.30 0.06 255);       /* Australia side (set live from Sydney's clock) */
+  --mute:oklch(0.78 0.02 265);
+  --line:oklch(1 0 0 / .22);
+  --seam:2px;
+  font-family:'Familjen Grotesk',sans-serif;
+  --display:Anybody,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--paper);font-stretch:100%}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--tag);outline-offset:3px}
+.zh{font-family:"Noto Serif SC",serif;font-weight:600}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* The seam: one line down the middle of everything, with the lot tag riding it. */
+.seam{position:fixed;left:50%;top:0;bottom:0;width:var(--seam);margin-left:-1px;background:var(--tag);z-index:5;pointer-events:none}
+.rider{position:fixed;left:50%;top:84px;z-index:6;transform:translateX(-50%);pointer-events:none}
+@supports (animation-timeline: scroll()){
+  .rider{animation:ride linear both;animation-timeline:scroll(root)}
+  @keyframes ride{from{top:84px}to{top:calc(100vh - 110px)}}
+}
+
+/* Header: two clocks and the mark on the seam */
+.top{position:fixed;inset:0 0 auto 0;z-index:7;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 28px;pointer-events:none}
+.top > *{pointer-events:auto}
+.clock{display:flex;align-items:baseline;gap:12px;font-size:15px}
+.clock b{font-family:var(--display);font-size:30px;font-weight:450;font-stretch:80%;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.clock.au{justify-content:flex-end}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--ink);padding:8px 14px 8px 10px;border-radius:999px;border:2px solid var(--tag)}
+.mark span{font-family:var(--display);font-size:22px;font-weight:800;font-stretch:125%;letter-spacing:-.02em}
+.nav{position:fixed;right:28px;top:62px;z-index:7;display:flex;gap:6px}
+.nav a{font-size:15px;text-decoration:none;padding:10px 14px;border-radius:999px;background:oklch(0.17 0.02 265 / .55);backdrop-filter:blur(8px)}
+.nav a.join{background:var(--tag);color:var(--ink);font-weight:700}
+
+/* Hero: two worlds, side by side */
+.hero{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:min(100svh,940px)}
+.half{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(24px,4vw,64px) 120px}
+.half video,.half img.bg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;filter:saturate(.75) contrast(1.05)}
+.half::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,oklch(0.17 0.02 265 / .15) 0%,oklch(0.17 0.02 265 / .2) 40%,oklch(0.17 0.02 265 / .92) 100%),linear-gradient(0deg,var(--side) ,transparent 70%);z-index:1}
+.half.cn{--side:color-mix(in oklch,var(--cn) 55%,transparent);text-align:right;align-items:flex-end}
+.half.au{--side:color-mix(in oklch,var(--au) 55%,transparent)}
+.half > :not(video):not(.bg){position:relative;z-index:2}
+.where{display:flex;gap:14px;align-items:baseline;font-size:15px;color:var(--mute);margin:0 0 18px}
+.where .loc{display:none}.where .loc b{font-weight:600;color:var(--paper)}
+.where .zh{font-size:22px;color:var(--paper)}
+h1{font-family:var(--display);margin:0;font-weight:760;font-size:clamp(56px,8vw,144px);line-height:.88;letter-spacing:-.02em;font-stretch:72%}
+.credit{position:absolute!important;z-index:2;top:120px;font-size:12px;color:var(--mute)}
+.cn .credit{left:clamp(24px,4vw,64px)}
+.au .credit{right:clamp(24px,4vw,64px)}
+.crossing{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:8;display:flex;align-items:center;gap:0;background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 6px 6px 26px;box-shadow:0 20px 50px -20px oklch(0 0 0 / .7);white-space:nowrap}
+.crossing p{margin:0 18px 0 0;font-size:18px;font-weight:500}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:999px;background:var(--tag);color:var(--ink);font-weight:750;font-size:18px;text-decoration:none;border:0;font-family:inherit;cursor:pointer}
+.btn.ghost{background:transparent;box-shadow:inset 0 0 0 2px currentColor;color:inherit}
+
+/* Answer band */
+.answer{background:var(--paper);color:var(--ink);position:relative;z-index:1}
+.answer .in{max-width:1240px;margin:0 auto;padding:clamp(56px,8vw,120px) clamp(20px,4vw,56px);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:clamp(24px,5vw,80px)}
+.answer h2{font-family:var(--display);margin:0;font-size:clamp(34px,4.4vw,64px);line-height:.95;font-weight:780;font-stretch:75%;letter-spacing:-.02em}
+.answer p{margin:0;font-size:clamp(20px,2vw,28px);line-height:1.38;max-width:38ch}
+.answer p strong{font-weight:700}
+
+/* Chapters: both sides of the trade at the same moment */
+.chapters{position:relative}
+.ch-head{max-width:1240px;margin:0 auto;padding:clamp(72px,10vw,150px) clamp(20px,4vw,56px) 40px;text-align:center}
+.ch-head h2{font-family:var(--display);margin:0 auto;font-size:clamp(44px,7vw,120px);line-height:.88;font-weight:780;font-stretch:72%;letter-spacing:-.025em;max-width:12ch}
+.ch-head p{margin:22px auto 0;max-width:46ch;font-size:clamp(18px,1.6vw,22px);line-height:1.5;color:var(--mute)}
+.row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);position:relative}
+.row .when{position:absolute;left:50%;top:-1px;transform:translate(-50%,-50%);z-index:6;background:var(--ink);border:2px solid var(--tag);color:var(--paper);border-radius:999px;padding:8px 18px;font-size:15px;font-weight:600;white-space:nowrap}
+.cell{padding:72px clamp(24px,4vw,72px) 80px;min-height:min(52vh,480px);display:flex;flex-direction:column;gap:16px}
+.cell.cn{text-align:right;align-items:flex-end;background:linear-gradient(90deg,transparent,color-mix(in oklch,var(--cn) 40%,transparent))}
+.cell.au{background:linear-gradient(270deg,transparent,color-mix(in oklch,var(--au) 40%,transparent))}
+.cell .side{font-size:14px;color:var(--mute);display:flex;gap:10px;align-items:baseline}
+.cell .side .zh{font-size:18px;color:var(--paper)}
+.cell h3{font-family:var(--display);margin:0;font-size:clamp(28px,3vw,46px);line-height:1;font-weight:750;font-stretch:70%;letter-spacing:-.015em;max-width:16ch}
+.cell p{margin:0;font-size:18px;line-height:1.55;max-width:38ch;color:oklch(0.88 0.01 265)}
+.cell.quiet h3{color:var(--mute);font-weight:400}
+.cell figure{margin:10px 0 0;width:min(420px,100%);aspect-ratio:16/10;border-radius:4px;overflow:hidden;position:relative}
+.cell figure img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.8)}
+.cell figure figcaption{position:absolute;left:10px;bottom:8px;font-size:11px;color:var(--paper);background:oklch(0 0 0 / .45);padding:3px 7px;border-radius:3px}
+.fact{display:inline-flex;gap:10px;align-items:baseline;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:15px}
+.fact b{font-family:var(--display);font-size:22px;font-weight:700;font-stretch:70%;color:var(--tag)}
+
+/* The ticket: prices cross the seam as one object */
+.prices{padding:clamp(80px,10vw,150px) clamp(20px,4vw,56px);position:relative;z-index:6}
+.ticket{max-width:1040px;margin:0 auto;background:var(--paper);color:var(--ink);border-radius:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);position:relative;overflow:hidden;box-shadow:0 40px 80px -40px oklch(0 0 0 / .8)}
+.ticket::before{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px dashed oklch(0.17 0.02 265 / .3)}
+.ticket .l,.ticket .r{padding:clamp(28px,4vw,52px)}
+.ticket h2{font-family:var(--display);margin:0;font-size:clamp(40px,5vw,76px);line-height:.9;font-weight:780;font-stretch:72%;letter-spacing:-.02em}
+.ticket .big{font-family:var(--display);font-size:clamp(64px,8vw,128px);font-weight:250;font-stretch:70%;line-height:.9;letter-spacing:-.03em;margin:22px 0 4px}
+.ticket .sub{margin:0;font-size:17px;color:oklch(0.4 0.02 265)}
+.ticket dl{margin:0;display:grid;gap:0}
+.ticket dl div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid oklch(0.17 0.02 265 / .12);font-size:17px}
+.ticket dl div:last-child{border:0}
+.ticket dd{margin:0;font-weight:700;white-space:nowrap}
+.ticket .btn{margin-top:28px}
+
+/* Questions */
+.faq{max-width:1040px;margin:0 auto;padding:0 clamp(20px,4vw,56px) clamp(80px,10vw,140px);position:relative;z-index:1}
+.faq h2{font-family:var(--display);margin:0 0 28px;font-size:clamp(40px,5vw,76px);line-height:.9;font-weight:780;font-stretch:72%;text-align:center}
+details{border-top:1px solid var(--line);padding:22px 0;background:var(--ink)}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{font-size:clamp(20px,2vw,26px);font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";font-weight:300;font-size:30px;line-height:.8;color:var(--tag)}
+details[open] summary::after{content:"–"}
+details p{margin:12px 0 0;font-size:18px;line-height:1.55;color:oklch(0.86 0.01 265);max-width:60ch}
+
+footer{position:relative;z-index:1;background:var(--paper);color:var(--ink)}
+footer .in{max-width:1240px;margin:0 auto;padding:56px clamp(20px,4vw,56px);display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;font-size:15px;line-height:1.6}
+footer .wm{font-family:var(--display);font-size:44px;font-weight:800;font-stretch:125%;letter-spacing:-.03em;margin:0}
+
+/* Phone: the seam turns sideways, China on top, Australia below */
+@media (max-width:760px){
+  .seam,.rider{display:none}
+  .top{grid-template-columns:1fr auto;padding:12px 16px;background:linear-gradient(var(--ink),transparent)}
+  .clock{display:none}
+  .where .loc{display:inline}
+  .mark{grid-column:1;justify-self:start}
+  .nav{top:12px;right:16px}
+  .nav a:not(.join){display:none}
+  .hero{grid-template-columns:1fr;grid-template-rows:1fr 1fr;min-height:min(100svh,820px)}
+  .half{padding:0 20px 26px;justify-content:flex-end}
+  .half.cn{text-align:left;align-items:flex-start;padding-top:80px}
+  .half.au{padding-bottom:120px}
+  h1{font-size:clamp(46px,14vw,72px)}
+  .credit{top:70px;bottom:auto}
+  .cn .credit{left:auto;right:20px}
+  .au .credit{right:20px;top:14px}
+  .hero::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:var(--tag);z-index:3}
+  .crossing{left:16px;right:16px;transform:none;bottom:20px;padding:6px 6px 6px 18px;white-space:normal}
+  .crossing p{font-size:15px;margin-right:10px}
+  .btn{min-height:48px;padding:0 18px;font-size:16px}
+  .answer .in{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .cell{min-height:0;padding:44px 20px 40px}
+  .cell.cn{text-align:left;align-items:flex-start;background:linear-gradient(180deg,transparent,color-mix(in oklch,var(--cn) 40%,transparent))}
+  .cell.cn::after{content:"";display:block;width:100%;height:2px;background:var(--tag);margin-top:24px;opacity:.6}
+  .row .when{left:20px;transform:translate(0,-50%)}
+  .ticket{grid-template-columns:1fr}
+  .ticket::before{left:0;right:0;top:auto;bottom:auto;border-left:0;border-top:2px dashed oklch(0.17 0.02 265 / .3)}
+  .ticket .l{border-bottom:2px dashed oklch(0.17 0.02 265 / .25)}
+  footer .in{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){video{display:none}.half img.bg{display:block}}
+</style>
+</head>
+<body>
+<div class="seam" aria-hidden="true"></div>
+<svg class="rider" width="34" height="46" viewBox="0 0 34 46" aria-hidden="true"><path d="M17 1 L33 12 V45 H1 V12 Z" fill="oklch(0.89 0.17 100)" stroke="oklch(0.17 0.02 265)" stroke-width="2"/><circle cx="17" cy="13" r="3.6" fill="oklch(0.17 0.02 265)"/><path d="M8 26h18M8 32h18M8 38h11" stroke="oklch(0.17 0.02 265)" stroke-width="2.4"/></svg>
+
+<header class="top">
+  <p class="clock cn" aria-live="off"><b data-tz="Asia/Shanghai">--:--</b> <span>Foshan, China</span></p>
+  <a class="mark" href="#" aria-label="Lotwise home">
+    <svg width="22" height="30" viewBox="0 0 34 46" aria-hidden="true"><path d="M17 1 L33 12 V45 H1 V12 Z" fill="oklch(0.89 0.17 100)"/><circle cx="17" cy="13" r="3.6" fill="oklch(0.17 0.02 265)"/><path d="M8 26h18M8 32h18M8 38h11" stroke="oklch(0.17 0.02 265)" stroke-width="2.6"/></svg>
+    <span>lotwise</span>
+  </a>
+  <p class="clock au"><span>Sydney, Australia</span> <b data-tz="Australia/Sydney">--:--</b></p>
+</header>
+<nav class="nav" aria-label="Main">
+  <a href="#how">How it works</a><a href="#prices">Prices</a><a href="#">Sign in</a><a class="join" href="#">Join</a>
+</nav>
+
+<main>
+<section class="hero" aria-label="Filmed in China, held in Australia">
+  <div class="half cn">
+    <video class="v" autoplay muted loop playsinline poster="media/factory-operator.jpg" src="media/factory-operator.mp4" aria-hidden="true"></video>
+    <p class="credit">Illustrative footage, not one of our suppliers</p>
+    <p class="where"><span class="zh" lang="zh-Hans">工厂</span><span>The factory</span><span class="loc">Foshan <b data-tz="Asia/Shanghai">--:--</b></span></p>
+    <h1>Filmed<br>in China.</h1>
+  </div>
+  <div class="half au">
+    <video class="v" autoplay muted loop playsinline poster="media/hub-racking-aisle.jpg" src="media/hub-racking-aisle.mp4" aria-hidden="true"></video>
+    <p class="credit">Illustrative footage, not our hub</p>
+    <p class="where"><span>The sample</span><span class="loc">Sydney <b data-tz="Australia/Sydney">--:--</b></span></p>
+    <h1>Held in<br>Australia.</h1>
+  </div>
+  <div class="crossing">
+    <p>Then order the lot, matched to the one you held.</p>
+    <a class="btn" href="#">Join for A$60</a>
+  </div>
+</section>
+
+<section class="answer" aria-labelledby="what">
+  <div class="in">
+    <h2 id="what">What is Lotwise?</h2>
+    <p>A wholesale membership that works <strong>on both sides of the trade</strong>. Our team visits and films Chinese factories. Their samples sit on our shelves in Brisbane and Sydney. You hold one, then order a lot that's inspected against it before it sails. <strong>A$60 for three months</strong>, then A$45 a month. No fee on your orders.</p>
+  </div>
+</section>
+
+<section class="chapters" id="how" aria-labelledby="how-h">
+  <div class="ch-head">
+    <h2 id="how-h">What happens on each side?</h2>
+    <p>Most importers only see their own side. Here's both, at the same moment, from the first visit to your door.</p>
+  </div>
+
+  <div class="row">
+    <span class="when">Before a factory is listed</span>
+    <div class="cell cn">
+      <p class="side"><span>In China</span><span class="zh" lang="zh-Hans">工厂</span></p>
+      <h3>We visit and film the factory.</h3>
+      <p>Gate, line, QC bench and packing, with a board showing the supplier code and the date in every clip. We score it out of 100. Under 70, it isn't listed.</p>
+      <figure><img src="media/factory-packing-line.jpg" alt="Packers at a long table"><figcaption>Illustrative</figcaption></figure>
+    </div>
+    <div class="cell au">
+      <p class="side"><span>In Australia</span></p>
+      <h3>Its samples land on our shelf.</h3>
+      <p>A master unit is sealed with the factory. Every sample unit that arrives in Brisbane or Sydney is checked against it, then tagged and shelved.</p>
+      <figure><img src="media/hub-orange-racking-800.jpg" alt="Orange warehouse racking with cartons"><figcaption>Illustrative</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="when">When you ask for a sample</span>
+    <div class="cell cn quiet">
+      <p class="side"><span>In China</span></p>
+      <h3>Nothing. The factory doesn't know you yet.</h3>
+      <p>Its name and contacts open once you order through us, so the inspection and the spec lock protect you.</p>
+    </div>
+    <div class="cell au">
+      <p class="side"><span>In Australia</span></p>
+      <h3>A unit leaves the shelf.</h3>
+      <p>The nearest hub sends it within 2 business days. You have 14 days to say yes, no or change it. Your first sample is free.</p>
+      <p class="fact"><b>2</b> business days to dispatch</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="when">When you order</span>
+    <div class="cell cn">
+      <p class="side"><span>In China</span><span class="zh" lang="zh-Hans">生产</span></p>
+      <h3>Production starts on your 30%.</h3>
+      <p>Your order is locked to the unit you held and its signed spec revision. Production usually runs about 25 days.</p>
+      <p class="fact"><b>30%</b> deposit to start</p>
+    </div>
+    <div class="cell au quiet">
+      <p class="side"><span>In Australia</span></p>
+      <h3>You pay no fee on the order.</h3>
+      <p>The factory pays us 5% from its side and signs one price list for every member.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="when">Before it sails</span>
+    <div class="cell cn">
+      <p class="side"><span>In China</span><span class="zh" lang="zh-Hans">验货</span></p>
+      <h3>An inspector opens your cartons.</h3>
+      <p>They compare the goods with the sealed master. If anything is out, it doesn't ship: the factory reworks and the inspection is booked again. A$470, at cost.</p>
+    </div>
+    <div class="cell au">
+      <p class="side"><span>In Australia</span></p>
+      <h3>The balance waits for a match.</h3>
+      <p>The factory is paid the other 70% only after the inspector matches the goods to the master on our shelf.</p>
+      <p class="fact"><b>70%</b> held until it matches</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="when">When it lands</span>
+    <div class="cell cn quiet">
+      <p class="side"><span>In China</span></p>
+      <h3>The factory's part is done.</h3>
+    </div>
+    <div class="cell au">
+      <p class="side"><span>In Australia</span></p>
+      <h3>Cleared and delivered.</h3>
+      <p>Our customs broker partner clears it. With a ChAFTA origin certificate it's duty free; without one, duty is about 5%. It comes through the hub, or straight from the port when it fills a container.</p>
+    </div>
+  </div>
+</section>
+
+<section class="prices" id="prices" aria-labelledby="prices-h">
+  <div class="ticket">
+    <div class="l">
+      <h2 id="prices-h">What does it cost?</h2>
+      <p class="big">A$60</p>
+      <p class="sub">for your first three months. Then A$45 a month, or A$450 a year.</p>
+      <a class="btn" href="#">Join for A$60</a>
+    </div>
+    <div class="r">
+      <dl>
+        <div><dt>Your first sample</dt><dd>A$0</dd></div>
+        <div><dt>Other samples, credited if you order within 90 days</dt><dd>A$25</dd></div>
+        <div><dt>Our fee on your order</dt><dd>A$0</dd></div>
+        <div><dt>Pre-shipment inspection</dt><dd>A$470 at cost</dd></div>
+        <div><dt>Freight, duty and GST</dt><dd>At cost</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Questions, answered</h2>
+  <details open><summary>How is this different from Alibaba?</summary><p>Alibaba is a directory: you find a factory, then carry the risk yourself. We visit the factory, film it, hold a sample in Australia, and lock your order to that sample.</p></details>
+  <details><summary>Who films the factories?</summary><p>Our own filmer, on the visit that gets a factory listed. The board in every clip shows the supplier code and the date it was filmed.</p></details>
+  <details><summary>Do I need an ABN?</summary><p>Yes. We check it against the register, then activate your account within one business day.</p></details>
+  <details><summary>Can I change colour or packaging?</summary><p>Yes, through us. Changes are quoted by the factory and go into a new spec revision, signed before production starts.</p></details>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <div><p class="wm">lotwise</p><p>Trading name of [legal entity placeholder], ABN [placeholder]. Prices in Australian dollars. Footage is illustrative stock until our own films replace it.</p></div>
+    <div><strong>Hubs</strong><br>Brisbane, run by Yusuf<br>Sydney<br>[Addresses placeholder]</div>
+    <div><strong>Contact</strong><br>[Email placeholder]<br>[Phone placeholder]<br><a href="#">Factories: ask for a visit</a></div>
+  </div>
+</footer>
+
+<script>
+// Live clocks, and each half of the page lit for its own local hour.
+const sky = (h) => {
+  // night 0-5, dawn 5-8, day 8-17, dusk 17-20, night 20-24
+  if (h < 5 || h >= 20) return "oklch(0.28 0.07 262)";
+  if (h < 8) return "oklch(0.55 0.12 35)";
+  if (h < 17) return "oklch(0.62 0.09 235)";
+  return "oklch(0.48 0.13 25)";
+};
+function tick(){
+  const now = new Date();
+  for (const el of document.querySelectorAll("[data-tz]")) {
+    const tz = el.dataset.tz;
+    el.textContent = new Intl.DateTimeFormat("en-AU",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:tz}).format(now);
+    const h = Number(new Intl.DateTimeFormat("en-AU",{hour:"numeric",hour12:false,timeZone:tz}).format(now)) % 24;
+    document.documentElement.style.setProperty(tz.startsWith("Asia") ? "--cn" : "--au", sky(h));
+  }
+}
+tick(); setInterval(tick, 15000);
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("video").forEach(v => v.pause());
+</script>
+</body>
+</html>

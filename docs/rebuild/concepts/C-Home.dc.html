@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>Lotwise, concept C: home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;display=swap">
+<style>
+:root{--rack:oklch(0.46 0.16 258);--rack-deep:oklch(0.34 0.13 260);--beam:oklch(0.72 0.18 50);--concrete:oklch(0.95 0.008 250);--ink:oklch(0.22 0.04 260);--ink-soft:oklch(0.42 0.03 260);--card:oklch(0.99 0.003 250)}
+body{margin:0;background:var(--concrete);color:var(--ink);font-family:"Bricolage Grotesque",sans-serif}
+a{color:var(--rack)}a:hover{color:var(--rack-deep)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--beam);outline-offset:3px}
+@keyframes lift{0%,55%{transform:translateY(0)}70%,100%{transform:translateY(-14px)}}
+@media (prefers-reduced-motion:reduce){.lift{animation:none!important}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: var(--concrete)">
+<header style="max-width: 1360px; margin: 0 auto; padding: 22px 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap">
+<a href="#" aria-label="Lotwise home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink)">
+<svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="3" y="2" width="5" height="30" fill="var(--rack)"></rect><rect x="26" y="2" width="5" height="30" fill="var(--rack)"></rect><rect x="3" y="14" width="28" height="4" fill="var(--beam)"></rect><rect x="11" y="6" width="12" height="8" rx="1" fill="var(--ink)"></rect><rect x="3" y="28" width="28" height="4" fill="var(--beam)"></rect></svg>
+<span style="font-size: 30px; font-weight: 800; letter-spacing: -0.03em">lotwise</span>
+</a>
+<nav aria-label="Main" style="display: flex; gap: 28px; align-items: center; font-size: 17px; font-weight: 500">
+<a href="#shelves" style="text-decoration: none; color: var(--ink)">The shelves</a>
+<a href="#how" style="text-decoration: none; color: var(--ink)">How it works</a>
+<a href="#prices" style="text-decoration: none; color: var(--ink)">Prices</a>
+<a href="#" style="text-decoration: none; color: var(--ink)">Sign in</a>
+<a href="#" style="text-decoration: none; background: var(--beam); color: var(--ink); padding: 13px 22px; border-radius: 10px; font-weight: 700">Join for A$60</a>
+</nav>
+</header>
+
+<section style="max-width: 1360px; margin: 0 auto; padding: 40px 40px 0">
+<h1 style="margin: 0; font-size: 150px; line-height: 0.88; font-weight: 800; font-variation-settings: 'opsz' 96, 'wdth' 75; letter-spacing: -0.045em; max-width: 11ch">Take it off our shelf before you order the lot.</h1>
+<div style="margin-top: 32px; display: flex; gap: 48px; align-items: end; justify-content: space-between; flex-wrap: wrap">
+<p style="margin: 0; max-width: 40ch; font-size: 22px; line-height: 1.45; color: var(--ink-soft)">Wholesale from Chinese factories our team has visited and filmed. A sample of every product sits on our shelves in Brisbane and Sydney, and reaches you within 2 business days.</p>
+<div style="display: flex; gap: 12px">
+<a href="#" style="background: var(--beam); color: var(--ink); padding: 18px 28px; border-radius: 12px; font-size: 19px; font-weight: 700; text-decoration: none">Join for A$60</a>
+<a href="#shelves" style="background: var(--card); color: var(--ink); padding: 18px 28px; border-radius: 12px; font-size: 19px; font-weight: 600; text-decoration: none; box-shadow: inset 0 0 0 2px var(--ink)">Browse the shelves</a>
+</div>
+</div>
+</section>
+
+<section id="shelves" aria-labelledby="shelves-h" style="max-width: 1360px; margin: 56px auto 0; padding: 0 40px">
+<h2 id="shelves-h" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">What's on the shelves?</h2>
+<div style="position: relative; background: var(--rack-deep); border-radius: 18px; padding: 28px 40px 36px; color: var(--card)">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap"><p style="margin: 0; font-size: 22px; font-weight: 700">Ten categories open at launch</p><p style="margin: 0; font-size: 16px; color: oklch(0.85 0.04 260)">Members see every product, film and price</p></div>
+<div style="margin-top: 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 16px; padding: 0 0 0; border-left: 10px solid var(--rack); border-right: 10px solid var(--rack)">
+<div class="lift" style="background: var(--card); color: var(--ink); margin: 0 0 0 12px; padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; animation: lift 4s ease-in-out infinite alternate"><span style="font-size: 13px; color: var(--ink-soft)">CF</span><strong style="font-size: 18px; line-height: 1.1">Café supplies</strong></div>
+<div style="background: var(--card); color: var(--ink); padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">HW</span><strong style="font-size: 18px; line-height: 1.1">Homewares and kitchen</strong></div>
+<div style="background: var(--card); color: var(--ink); padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">PK</span><strong style="font-size: 18px; line-height: 1.1">Packaging and mailers</strong></div>
+<div style="background: var(--card); color: var(--ink); padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">ST</span><strong style="font-size: 18px; line-height: 1.1">Stationery</strong></div>
+<div style="background: var(--card); color: var(--ink); margin: 0 12px 0 0; padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">BG</span><strong style="font-size: 18px; line-height: 1.1">Bags and backpacks</strong></div>
+</div>
+<div style="height: 14px; background: var(--beam); border-radius: 2px"></div>
+<div style="margin-top: 28px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 16px; border-left: 10px solid var(--rack); border-right: 10px solid var(--rack)">
+<div style="background: var(--card); color: var(--ink); margin: 0 0 0 12px; padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">PC</span><strong style="font-size: 18px; line-height: 1.1">Phone accessories</strong></div>
+<div style="background: var(--card); color: var(--ink); padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">FT</span><strong style="font-size: 18px; line-height: 1.1">Fitness accessories</strong></div>
+<div style="background: var(--card); color: var(--ink); padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">AA</span><strong style="font-size: 18px; line-height: 1.1">Apparel accessories</strong></div>
+<div style="background: var(--card); color: var(--ink); padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">PT</span><strong style="font-size: 18px; line-height: 1.1">Pet accessories</strong></div>
+<div style="background: var(--card); color: var(--ink); margin: 0 12px 0 0; padding: 14px; border-radius: 6px 6px 0 0; height: 96px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between"><span style="font-size: 13px; color: var(--ink-soft)">TL</span><strong style="font-size: 18px; line-height: 1.1">Hand tools</strong></div>
+</div>
+<div style="height: 14px; background: var(--beam); border-radius: 2px"></div>
+</div>
+</section>
+
+<section aria-labelledby="what" style="max-width: 1360px; margin: 0 auto; padding: 104px 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 64px">
+<h2 id="what" style="margin: 0; font-size: 64px; line-height: 0.95; font-weight: 800; letter-spacing: -0.035em; font-variation-settings: 'wdth' 80">What is Lotwise?</h2>
+<p style="margin: 0; font-size: 26px; line-height: 1.42; max-width: 42ch">A membership for Australian businesses that buy from Chinese factories. You see the factory on our film, take the sample off our shelf, and order a lot that's inspected against it. A$60 for your first three months, then A$45 a month. No fee on your orders.</p>
+</section>
+
+<section id="how" aria-labelledby="how-h" style="background: var(--rack); color: var(--card)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 104px 40px">
+<h2 id="how-h" style="margin: 0; font-size: 96px; line-height: 0.9; font-weight: 800; letter-spacing: -0.04em; font-variation-settings: 'wdth' 75">How does an order work?</h2>
+<ol style="list-style: none; margin: 56px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 14px solid var(--beam)">
+<li style="padding: 28px 28px 0 0"><span style="display: inline-flex; width: 52px; height: 52px; border-radius: 50%; background: var(--card); color: var(--rack); align-items: center; justify-content: center; font-size: 26px; font-weight: 800">1</span><h3 style="margin: 18px 0 8px; font-size: 27px; font-weight: 700; line-height: 1.1">See the factory on our film</h3><p style="margin: 0; font-size: 17px; line-height: 1.5; color: oklch(0.9 0.03 260)">Dated, at the gate, line, QC bench and packing. Under 70 out of 100 isn't listed.</p></li>
+<li style="padding: 28px 28px 0 0"><span style="display: inline-flex; width: 52px; height: 52px; border-radius: 50%; background: var(--card); color: var(--rack); align-items: center; justify-content: center; font-size: 26px; font-weight: 800">2</span><h3 style="margin: 18px 0 8px; font-size: 27px; font-weight: 700; line-height: 1.1">Take the sample off our shelf</h3><p style="margin: 0; font-size: 17px; line-height: 1.5; color: oklch(0.9 0.03 260)">Sent within 2 business days. You have 14 days to say yes, no or change it.</p></li>
+<li style="padding: 28px 28px 0 0"><span style="display: inline-flex; width: 52px; height: 52px; border-radius: 50%; background: var(--card); color: var(--rack); align-items: center; justify-content: center; font-size: 26px; font-weight: 800">3</span><h3 style="margin: 18px 0 8px; font-size: 27px; font-weight: 700; line-height: 1.1">Order the lot</h3><p style="margin: 0; font-size: 17px; line-height: 1.5; color: oklch(0.9 0.03 260)">Locked to the unit you held and its signed spec. 30% starts production.</p></li>
+<li style="padding: 28px 0 0 0"><span style="display: inline-flex; width: 52px; height: 52px; border-radius: 50%; background: var(--beam); color: var(--ink); align-items: center; justify-content: center; font-size: 26px; font-weight: 800">4</span><h3 style="margin: 18px 0 8px; font-size: 27px; font-weight: 700; line-height: 1.1">Checked before it sails</h3><p style="margin: 0; font-size: 17px; line-height: 1.5; color: oklch(0.9 0.03 260)">Matched to the sealed master on our shelf, then the factory is paid the rest.</p></li>
+</ol>
+</div>
+</section>
+
+<section aria-labelledby="hubs-h" style="max-width: 1360px; margin: 0 auto; padding: 104px 40px">
+<h2 id="hubs-h" style="margin: 0; font-size: 72px; line-height: 0.95; font-weight: 800; letter-spacing: -0.035em; font-variation-settings: 'wdth' 80">Where are the samples?</h2>
+<p style="margin: 18px 0 0; font-size: 22px; line-height: 1.45; color: var(--ink-soft); max-width: 48ch">On shelves at our two hubs. Each unit is tagged and checked against the sealed master when it lands.</p>
+<div style="margin-top: 44px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+<figure style="margin: 0; background: var(--card); border-radius: 18px; overflow: hidden"><div style="aspect-ratio: 16 / 10; background: oklch(0.88 0.02 255); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--ink-soft)">Placeholder: real photo of the Brisbane hub</div><figcaption style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline"><strong style="font-size: 30px; letter-spacing: -0.02em">Brisbane</strong><span style="font-size: 17px; color: var(--ink-soft)">Run by Yusuf</span></figcaption></figure>
+<figure style="margin: 0; background: var(--card); border-radius: 18px; overflow: hidden"><div style="aspect-ratio: 16 / 10; background: oklch(0.88 0.02 255); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--ink-soft)">Placeholder: real photo of the Sydney hub</div><figcaption style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: baseline"><strong style="font-size: 30px; letter-spacing: -0.02em">Sydney</strong><span style="font-size: 17px; color: var(--ink-soft)">[Partner name placeholder]</span></figcaption></figure>
+</div>
+</section>
+
+<section id="prices" aria-labelledby="prices-h" style="background: var(--card)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 104px 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 64px">
+<div>
+<h2 id="prices-h" style="margin: 0; font-size: 88px; line-height: 0.9; font-weight: 800; letter-spacing: -0.04em; font-variation-settings: 'wdth' 75">What does it cost?</h2>
+<p style="margin: 22px 0 0; font-size: 21px; line-height: 1.5; color: var(--ink-soft)">Factories pay us 5% from their side, so there's no fee on your orders.</p>
+<a href="#" style="display: inline-block; margin-top: 28px; background: var(--beam); color: var(--ink); padding: 18px 28px; border-radius: 12px; font-size: 19px; font-weight: 700; text-decoration: none">Join for A$60</a>
+</div>
+<div style="display: grid; gap: 14px">
+<div style="background: var(--concrete); border-radius: 14px; padding: 24px 28px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline"><strong style="font-size: 24px">First three months</strong><strong style="font-size: 48px; letter-spacing: -0.03em; color: var(--rack)">A$60</strong><span style="font-size: 17px; color: var(--ink-soft)">Then A$45 a month, or A$450 a year.</span></div>
+<div style="background: var(--concrete); border-radius: 14px; padding: 24px 28px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline"><strong style="font-size: 24px">Your first sample</strong><strong style="font-size: 48px; letter-spacing: -0.03em; color: var(--rack)">A$0</strong><span style="font-size: 17px; color: var(--ink-soft)">Others A$25, credited if you order that product within 90 days.</span></div>
+<div style="background: var(--concrete); border-radius: 14px; padding: 24px 28px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline"><strong style="font-size: 24px">Our fee on your order</strong><strong style="font-size: 48px; letter-spacing: -0.03em; color: var(--rack)">A$0</strong><span style="font-size: 17px; color: var(--ink-soft)">Inspection A$470, freight, duty and GST at cost.</span></div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="q-h" style="max-width: 1360px; margin: 0 auto; padding: 104px 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 64px">
+<h2 id="q-h" style="margin: 0; font-size: 72px; line-height: 0.95; font-weight: 800; letter-spacing: -0.035em; font-variation-settings: 'wdth' 80">Questions, answered</h2>
+<div>
+<details open style="border-top: 2px solid var(--ink); padding: 22px 0"><summary style="font-size: 24px; font-weight: 700; cursor: pointer">How is this different from Alibaba?</summary><p style="margin: 12px 0 0; font-size: 19px; line-height: 1.55; color: var(--ink-soft); max-width: 56ch">Alibaba is a directory: you find a factory, then carry the risk yourself. We visit the factory, film it, hold a sample in Australia, and lock your order to that sample.</p></details>
+<details style="border-top: 2px solid var(--ink); padding: 22px 0"><summary style="font-size: 24px; font-weight: 700; cursor: pointer">How long does production take?</summary></details>
+<details style="border-top: 2px solid var(--ink); padding: 22px 0"><summary style="font-size: 24px; font-weight: 700; cursor: pointer">Do I pay import duty?</summary></details>
+<details style="border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 22px 0"><summary style="font-size: 24px; font-weight: 700; cursor: pointer">Do I need an ABN?</summary></details>
+</div>
+</section>
+
+<footer style="background: var(--rack-deep); color: var(--card)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 64px 40px; display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 48px; font-size: 16px; line-height: 1.6; color: oklch(0.88 0.03 260)">
+<div><p style="margin: 0; font-size: 44px; font-weight: 800; letter-spacing: -0.03em; color: var(--card)">lotwise</p><p style="margin: 10px 0 0; max-width: 40ch">Trading name of [legal entity placeholder], ABN [placeholder]. Prices in Australian dollars. Products and suppliers shown are examples.</p></div>
+<div><p style="margin: 0; font-weight: 700; color: var(--card)">Hubs</p><p style="margin: 6px 0 0">Brisbane and Sydney<br>[Addresses placeholder]</p></div>
+<div><p style="margin: 0; font-weight: 700; color: var(--card)">Contact</p><p style="margin: 6px 0 0">[Email placeholder]<br>[Phone placeholder]<br><a href="#" style="color: var(--card)">Factories: ask for a visit</a></p></div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3700}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

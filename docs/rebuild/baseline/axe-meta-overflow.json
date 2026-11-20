@@ -1,0 +1,258 @@
+{
+ "axe": {
+  "/": [
+   {
+    "id": "definition-list",
+    "impact": "serious",
+    "n": 3,
+    "help": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+    "eg": "div:nth-child(1) > .divide-ink\\/15.divide-y"
+   },
+   {
+    "id": "dlitem",
+    "impact": "serious",
+    "n": 18,
+    "help": "<dt> and <dd> elements must be contained by a <dl>",
+    "eg": "div:nth-child(1) > .divide-ink\\/15.divide-y > .py-4:nth-child(1) > .items-baseline.gap-4.justify-between > .text-lead:nth-child(1)"
+   },
+   {
+    "id": "landmark-unique",
+    "impact": "moderate",
+    "n": 1,
+    "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+    "eg": ".md\\:block.hidden > .grid-cols-3"
+   }
+  ],
+  "/join": [],
+  "/login": [
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "n": 1,
+    "help": "Document should have one main landmark",
+    "eg": "html"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "n": 7,
+    "help": "All page content should be contained by landmarks",
+    "eg": "h1"
+   }
+  ],
+  "/register": [
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "n": 1,
+    "help": "Document should have one main landmark",
+    "eg": "html"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "n": 9,
+    "help": "All page content should be contained by landmarks",
+    "eg": "h1"
+   }
+  ],
+  "/forgot-password": [
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "n": 1,
+    "help": "Document should have one main landmark",
+    "eg": "html"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "n": 5,
+    "help": "All page content should be contained by landmarks",
+    "eg": "h1"
+   }
+  ]
+ },
+ "meta": {
+  "/": {
+   "title": "Wholesale System — hold the sample, then order 5,000",
+   "desc": "Chinese factories our team has visited and filmed. Their samples sit on a shelf in Australia, and every bulk order is locked to the sample you held.",
+   "canonical": null,
+   "og": 0,
+   "twitter": 0,
+   "jsonld": 0,
+   "h1": [
+    "Hold the sample,\nthen order 5,000."
+   ],
+   "lang": "en",
+   "headings": [
+    "See it, touch it, order it",
+    "The paperwork behind every order",
+    "Factory floor to your door",
+    "Four rules that keep it fair",
+    "Shelves",
+    "What it costs",
+    "Questions, answered"
+   ],
+   "words": 1587,
+   "imgsNoAlt": 0,
+   "ctas": [
+    "Sign in",
+    "Sign in",
+    "Join for A$60",
+    "Start membership for A$60",
+    "Join"
+   ]
+  },
+  "/join": {
+   "title": "Join · Wholesale System",
+   "desc": "Membership for Australian businesses: one free sample, real units from our Brisbane and Sydney hubs, and bulk orders locked to the sample you approved.",
+   "canonical": null,
+   "og": 0,
+   "twitter": 0,
+   "jsonld": 0,
+   "h1": [
+    "Join, then hold the product in your hands."
+   ],
+   "lang": "en",
+   "headings": [],
+   "words": 76,
+   "imgsNoAlt": 0,
+   "ctas": [
+    "Sign in",
+    "Starter quarter\nFirst 3 months paid upfront, then A$45 a month. Includes 1 free sample.\nA$60",
+    "Annual\nTwo months free. Includes 1 free sample.\nA$450"
+   ]
+  },
+  "/login": {
+   "title": "Wholesale System",
+   "desc": "Verified Chinese factories, with their samples on a shelf in Australia.",
+   "canonical": null,
+   "og": 0,
+   "twitter": 0,
+   "jsonld": 0,
+   "h1": [
+    "Welcome back"
+   ],
+   "lang": "en",
+   "headings": [],
+   "words": 19,
+   "imgsNoAlt": 0,
+   "ctas": []
+  },
+  "/register": {
+   "title": "Wholesale System",
+   "desc": "Verified Chinese factories, with their samples on a shelf in Australia.",
+   "canonical": null,
+   "og": 0,
+   "twitter": 0,
+   "jsonld": 0,
+   "h1": [
+    "Create your account"
+   ],
+   "lang": "en",
+   "headings": [],
+   "words": 20,
+   "imgsNoAlt": 0,
+   "ctas": []
+  },
+  "/forgot-password": {
+   "title": "Wholesale System",
+   "desc": "Verified Chinese factories, with their samples on a shelf in Australia.",
+   "canonical": null,
+   "og": 0,
+   "twitter": 0,
+   "jsonld": 0,
+   "h1": [
+    "Reset password"
+   ],
+   "lang": "en",
+   "headings": [],
+   "words": 19,
+   "imgsNoAlt": 0,
+   "ctas": []
+  }
+ },
+ "overflow": {
+  "/": {
+   "360": 0,
+   "390": 0,
+   "768": 0,
+   "1024": 0,
+   "1440": 0,
+   "1920": 0,
+   "2560": 0
+  },
+  "/join": {
+   "360": 0,
+   "390": 0,
+   "768": 0,
+   "1024": 0,
+   "1440": 0,
+   "1920": 0,
+   "2560": 0
+  },
+  "/login": {
+   "360": 0,
+   "390": 0,
+   "768": 0,
+   "1024": 0,
+   "1440": 0,
+   "1920": 0,
+   "2560": 0
+  },
+  "/register": {
+   "360": 0,
+   "390": 0,
+   "768": 0,
+   "1024": 0,
+   "1440": 0,
+   "1920": 0,
+   "2560": 0
+  },
+  "/forgot-password": {
+   "360": 0,
+   "390": 0,
+   "768": 0,
+   "1024": 0,
+   "1440": 0,
+   "1920": 0,
+   "2560": 0
+  }
+ },
+ "links": [
+  "#how-it-works",
+  "/",
+  "#prices",
+  "/login",
+  "/join",
+  "#paperwork",
+  "#route",
+  "#shelves",
+  "#questions",
+  "/forgot-password",
+  "/register"
+ ],
+ "console": {
+  "/": [
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  ],
+  "/join": [
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  ],
+  "/login": [
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  ],
+  "/register": [
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  ],
+  "/forgot-password": [
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+   "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+  ]
+ }
+}

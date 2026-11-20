@@ -1,0 +1,22 @@
+{
+ "url": "http://127.0.0.1:4173/login",
+ "fetchTime": "2026-11-20T06:39:51.687Z",
+ "lighthouse": "13.6.0",
+ "formFactor": "mobile",
+ "scores": {
+  "performance": 98,
+  "accessibility": 98,
+  "best-practices": 96,
+  "seo": 100,
+  "agentic-browsing": 100
+ },
+ "metrics": {
+  "first-contentful-paint": "1.6 s",
+  "largest-contentful-paint": "1.6 s",
+  "total-blocking-time": "130 ms",
+  "cumulative-layout-shift": "0",
+  "speed-index": "2.1 s",
+  "interactive": "7.2 s"
+ },
+ "weight": "Total size was 970 KiB"
+}

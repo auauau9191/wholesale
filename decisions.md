@@ -1,0 +1,30 @@
+# Decisions
+
+Each entry: the date, the decision, and why.
+
+- **2026-11-20. Measure the baseline locally.** We measure a local production build with the real Supabase import, not the live site. The sandbox's network allowlist blocks the live URL and the third-party testers. It's the same code and data, but lab numbers miss CDN compression and field data, so we'll re-check against PageSpeed field data once the owner runs it.
+- **2026-11-20. Keep the rebuild on a separate branch (`site-rebuild`) until each stage is approved.** Merging to `main` deploys to Cloudflare straight away.
+- **2026-11-20. Footage stays labelled "Illustrative".** Stock or AI imagery must never be presented as our suppliers, hubs or staff. Trust is the product, so this is a rule, not a style.
+- **2026-11-20. Priorities confirmed by owner.** Order: (1) hidden content and small errors, (2) trust and proof, (3) joining flow and analytics, (4) search and AI visibility, (5) security headers, (6) speed. The new visual system runs alongside all of them.
+- **2026-11-20. Brand name "Lotwise", chosen by the owner.** The owner turned down Shelfproof because it doesn't say wholesale, and wanted something short. "Lot" is the wholesale unit you buy; "wise" is buying it after you've seen and held the sample. Target domain: `lotwise.com.au` (needs an ABN, still a placeholder), with `lotwise.com` as the fallback. Registry availability couldn't be checked from the sandbox. Risk: a Shopify app called Lotwise (lot and expiry tracking, by Blue Crate) exists. It's a different service, but the owner should run an IP Australia trademark search before buying the domain. "Wholesale System" stays as the working legal name until then.
+- **2026-11-20. Scope: one system for the website and the member app.** Concepts and DESIGN.md cover the public site and the signed-in app (catalogue, product, samples, orders, console).
+- **2026-11-20. Payments: Stripe.** Build for Stripe Checkout and Billing (A$60 for the first 3 months, then A$45 a month or A$450 a year), behind a switch that stays off until the owner connects a Stripe account. Manual activation stays as the fallback.
+- **2026-11-20. Analytics: Cloudflare Web Analytics.** It's free and cookieless, so no consent banner is needed. Conversion events will go through a tiny first-party endpoint, because Cloudflare Web Analytics doesn't record custom events.
+- **2026-11-20. Real-world proof stays as labelled placeholders.** This covers the ABN, address, contact details, photos, factory footage, inspection partner and reviews, until the owner supplies them.
+- **2026-11-20. Privacy policy and terms: Claude drafts a starting point.** Each page is clearly marked as a draft for review by a qualified person before launch.
+- **2026-11-20. Round 1 concepts rejected by the owner ("not creative enough").** Our own critique: all three used the same section template (hero, what-is, four steps, prices, FAQ) and only changed colour and type, and the empty placeholders made them look thin. Round 2 rules: each concept is built around one structural idea tied to the business; we use the licensed stock we already have (labelled "Illustrative") instead of blank boxes; every concept is prototyped in real HTML and checked in screenshots at 1440 and 390 before the owner sees it.
+- **2026-11-20. Round 2 directions.** (1) Seam: the page split between China and Australia, with live local clocks, because standing on both sides of the trade is what we sell. (2) Docket: the landed-cost calculator is the hero and prints a docket with proof beside every line, because "what will it cost me?" is the buyer's first question. (3) Container: the site opens at container doors, because the lot arrives in one. Prototypes are in `docs/rebuild/concepts-r2/`; the editable versions are on the "Round 2" page of the Design artifact.
+- **2026-11-20. Owner chose the Docket direction, without pink.** The ground is now carbon paper, and red is the printer's second colour, used only for totals and actions. The motion system has three actors (machine prints, team marks, you tear) and covers page transitions (View Transitions), Lottie marks, a WebGL sample (three.js 0.160, loaded only when it's near the screen), parallax and scroll-driven effects, all off under reduced motion. Prototype and notes: `docs/rebuild/docket-prototype/`.
+- **2026-11-20. Plan approved (gate 3), with the defaults for its open decisions.** These are:
+  - move to the Cloudflare Workers Paid plan before launch (the owner does this in the Cloudflare dashboard);
+  - public category pages, with no per-product prices;
+  - prices are GST-inclusive;
+  - AI training crawlers are blocked and search crawlers allowed;
+  - the owner and partner are Admins;
+  - the first guides are landed cost, ChAFTA certificates, and MOQ and price tiers.
+- **2026-11-20. Phase 0 build choices.**
+  - Docket styles are scoped under `.dk` and loaded only by Docket pages, so the member app is untouched until phase 5.
+  - The font is self-hosted as one 35 KB variable subset.
+  - Lottie marks load on demand, and CSS overrides their stroke so the pen reads on both carbon and paper.
+  - The printer keeps the old docket's content while it tears away.
+  - CI runs page checks (7 widths, overflow, axe, links, console, complete-at-rest) and Lighthouse on mobile. Pages not rebuilt yet are reported but don't fail CI.

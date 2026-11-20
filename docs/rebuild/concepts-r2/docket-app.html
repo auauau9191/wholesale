@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milk jug, 600 ml: Lotwise</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap">
+<style>
+:root{--copy:oklch(0.86 0.065 8);--copy-deep:oklch(0.78 0.08 8);--paper:oklch(0.985 0.004 95);--print:oklch(0.2 0.01 280);--carbon:oklch(0.47 0.2 268);--fade:oklch(0.48 0.01 280);font-family:"Martian Mono",monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--copy);color:var(--print);font-stretch:87.5%}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--carbon);outline-offset:3px}
+.bar{display:flex;align-items:center;gap:18px;padding:14px clamp(16px,3vw,40px);background:var(--print);color:var(--paper)}
+.logo{text-decoration:none;font-weight:800;font-stretch:112.5%;letter-spacing:-.04em;font-size:20px}
+.bar nav{display:flex;gap:2px;flex:1;font-size:13px}
+.bar nav a{text-decoration:none;padding:9px 12px;border-radius:3px}
+.bar nav a[aria-current]{background:oklch(1 0 0 / .12)}
+.bar .cred{font-size:12px;opacity:.8}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--copy);color:var(--print);display:grid;place-items:center;font-weight:800;text-decoration:none}
+.wrap{max-width:1360px;margin:0 auto;padding:22px clamp(16px,3vw,40px) 64px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:clamp(24px,4vw,56px);align-items:start}
+.crumb{font-size:12px;margin:0 0 14px}
+h1{margin:0;font-weight:800;font-stretch:75%;font-size:clamp(42px,5vw,84px);line-height:.92;letter-spacing:-.055em}
+.desc{margin:14px 0 0;font-size:14px;line-height:1.6;font-stretch:75%;max-width:52ch}
+.media{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-top:24px}
+.media figure{margin:0;position:relative;border-radius:3px;overflow:hidden;background:var(--paper)}
+.media img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.85)}
+.media .ph{display:grid;place-items:center;font-size:11px;color:var(--fade);aspect-ratio:1/1;text-align:center;padding:12px}
+.media figcaption{position:absolute;left:8px;bottom:8px;font-size:10px;background:var(--paper);padding:3px 6px}
+.board{position:absolute;right:12px;top:12px;background:var(--paper);padding:8px 10px;transform:rotate(-3deg);font-size:11px;line-height:1.3}
+.board b{display:block;font-size:20px;font-stretch:75%}
+.facts{margin:22px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--paper)}
+.facts div{padding:14px 16px;border-right:1px dotted oklch(0.2 0.01 280 / .3);border-bottom:1px dotted oklch(0.2 0.01 280 / .3)}
+.facts dt{font-size:10.5px;color:var(--fade)}
+.facts dd{margin:4px 0 0;font-size:17px;font-weight:700;letter-spacing:-.02em}
+.score{display:flex;align-items:center;gap:14px;margin-top:22px;font-size:12px;line-height:1.5}
+.score b{font-size:56px;font-weight:200;font-stretch:75%;letter-spacing:-.06em;line-height:.8}
+.score svg{flex:none}
+
+.slot{height:22px;background:var(--print);border-radius:8px 8px 0 0;position:relative;box-shadow:0 10px 18px -8px oklch(0 0 0 / .5)}
+.slot::after{content:"";position:absolute;left:16px;right:16px;bottom:5px;height:4px;border-radius:2px;background:oklch(0 0 0 / .8)}
+.docket{margin:0 14px;background:var(--paper);padding:20px 22px 0;position:relative}
+.docket::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;background:linear-gradient(135deg,var(--paper) 33%,transparent 33%) 0 0/14px 14px,linear-gradient(225deg,var(--paper) 33%,transparent 33%) 0 0/14px 14px}
+.dh{display:flex;justify-content:space-between;font-size:10.5px;color:var(--fade);border-bottom:1px dashed var(--fade);padding-bottom:10px}
+.qtys{display:flex;gap:6px;margin:14px 0}
+.qtys button{flex:1;min-height:44px;border:2px solid var(--print);background:transparent;font:inherit;font-weight:700;font-size:14px;border-radius:3px;cursor:pointer}
+.qtys button[aria-pressed="true"]{background:var(--print);color:var(--paper)}
+.line{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:10px 0;border-top:1px dotted oklch(0.2 0.01 280 / .3)}
+.line b{font-variant-numeric:tabular-nums}
+.line small{display:block;color:var(--carbon);font-size:10.5px;margin-top:3px}
+.total{border-top:2px solid var(--print);padding:12px 0 16px;display:flex;align-items:flex-end;justify-content:space-between}
+.total b{font-size:64px;font-weight:200;font-stretch:75%;letter-spacing:-.06em;line-height:.85}
+.total span{font-size:12px;text-align:right;line-height:1.5}
+.slip{margin:26px 14px 0;background:var(--print);color:var(--paper);padding:18px 22px;position:relative}
+.slip::before{content:"";position:absolute;left:0;right:0;top:-12px;border-top:2px dashed var(--print)}
+.slip p{margin:0;font-size:12px;line-height:1.55}
+.slip p b{display:block;font-size:18px;letter-spacing:-.03em}
+.slip button{margin-top:14px;width:100%;min-height:52px;border:0;border-radius:3px;background:var(--copy);color:var(--print);font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.units{display:flex;gap:6px;margin-top:12px}
+.units span{flex:1;border:1px solid oklch(1 0 0 / .3);border-radius:3px;padding:6px 0;text-align:center;font-size:11px}
+.units span.me{background:var(--copy);color:var(--print);border-color:var(--copy);font-weight:800}
+@media (max-width:860px){
+  .bar nav,.bar .cred{display:none}.bar{justify-content:space-between}
+  .wrap{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr 1fr}
+  .total{flex-direction:column;align-items:flex-start;gap:8px}
+  .total span{text-align:left}
+}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="logo" href="#">lotwise</a>
+  <nav aria-label="App"><a href="#" aria-current="page">Catalogue</a><a href="#">My samples</a><a href="#">Orders</a><a href="#">Help</a></nav>
+  <span class="cred">1 free sample left</span>
+  <a class="avatar" href="#" aria-label="Account">M</a>
+</header>
+<main class="wrap">
+  <div>
+    <p class="crumb"><a href="#">Café supplies</a> / CF-CN208-0385, example product</p>
+    <h1>Milk jug, 600 ml</h1>
+    <p class="desc">Stainless milk jug with etched measurement marks and a tapered spout. Steel finish.</p>
+    <div class="media">
+      <figure><img src="media/factory-machine-close.jpg" alt=""><div class="board"><b>CN208</b>12 Apr 2026</div><figcaption>Illustrative, not CN208. Play the visit.</figcaption></figure>
+      <figure><div class="ph">Placeholder: product photo</div></figure>
+    </div>
+    <div class="score">
+      <b>74</b>
+      <span>out of 100. Supplier CN208, trading company, Foshan, exporting since 2019. Visited 9 Apr 2026, filmed 12 Apr 2026.</span>
+    </div>
+    <dl class="facts">
+      <div><dt>Minimum order</dt><dd>300</dd></div>
+      <div><dt>Lead time</dt><dd>36 days</dd></div>
+      <div><dt>Ships from</dt><dd>Guangzhou</dd></div>
+      <div><dt>Spec revision</dt><dd>R1, signed</dd></div>
+      <div><dt>Origin certificate</dt><dd>ChAFTA</dd></div>
+      <div><dt>Material test</dt><dd>to Jun 2027</dd></div>
+    </dl>
+  </div>
+  <div>
+    <div class="slot" aria-hidden="true"></div>
+    <div class="docket" aria-live="polite">
+      <div class="dh"><span>LANDED COST SHEET</span><span>per unit, A$</span></div>
+      <div class="qtys" role="group" aria-label="Quantity"><button type="button" aria-pressed="false">300</button><button type="button" aria-pressed="true">1,000</button><button type="button" aria-pressed="false">3,000</button></div>
+      <div class="line"><span>Product, US$2.70 at 1.55<small>✓ Filmed 12 Apr 2026, scored 74/100</small></span><b>4.19</b></div>
+      <div class="line"><span>Sea freight<small>✓ Estimate, FOB Guangzhou</small></span><b>0.28</b></div>
+      <div class="line"><span>Import duty<small>✓ 0%: ChAFTA certificate on file</small></span><b>0.00</b></div>
+      <div class="line"><span>Broker and port, A$350 ÷ 1,000<small>✓ Customs broker partner, at cost</small></span><b>0.35</b></div>
+      <div class="line"><span>GST, 10%</span><b>0.45</b></div>
+      <div class="total"><b>A$5.27</b><span>a unit, landed<br>Lot: A$5,270.00<br>+ inspection A$470</span></div>
+    </div>
+    <div class="slip">
+      <p><b>Hold it first: unit S03, Sydney</b>Free, your first sample. Leaves within 2 business days. 14 days to decide.</p>
+      <div class="units" aria-label="Units on the shelf"><span class="me">SYD S03</span><span>SYD S04</span><span>SYD S05</span><span>BNE S01</span><span>BNE S02</span></div>
+      <button type="button">Request S03</button>
+    </div>
+  </div>
+</main>
+</body>
+</html>

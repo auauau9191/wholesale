@@ -1,0 +1,23 @@
+{"v":3,"createdOnFiles":{"v":1,"at":"2026-11-20T08:45:00Z"},"title":"Lotwise: three concepts","launch":{"view":"canvas"},"pages":[],"boards":{
+"Main.dc.html":{"x":0,"y":0,"w":1440,"h":3700,"title":"A Carton: home, desktop","expand":"fill"},
+"A-HomePhone.dc.html":{"x":1520,"y":0,"w":390,"h":3900,"title":"A Carton: home, phone"},
+"A-App.dc.html":{"x":1990,"y":0,"w":1440,"h":1240,"title":"A Carton: app product page, desktop","expand":"fill"},
+"A-AppPhone.dc.html":{"x":3510,"y":0,"w":390,"h":2000,"title":"A Carton: app product page, phone"},
+"B-Home.dc.html":{"x":0,"y":4400,"w":1440,"h":3800,"title":"B Field film: home, desktop","expand":"fill"},
+"B-HomePhone.dc.html":{"x":1520,"y":4400,"w":390,"h":3900,"title":"B Field film: home, phone"},
+"B-App.dc.html":{"x":1990,"y":4400,"w":1440,"h":1240,"title":"B Field film: app product page, desktop","expand":"fill"},
+"B-AppPhone.dc.html":{"x":3510,"y":4400,"w":390,"h":2000,"title":"B Field film: app product page, phone"},
+"C-Home.dc.html":{"x":0,"y":8900,"w":1440,"h":3700,"title":"C Racking: home, desktop","expand":"fill"},
+"C-HomePhone.dc.html":{"x":1520,"y":8900,"w":390,"h":3900,"title":"C Racking: home, phone"},
+"C-App.dc.html":{"x":1990,"y":8900,"w":1440,"h":1240,"title":"C Racking: app product page, desktop","expand":"fill"},
+"C-AppPhone.dc.html":{"x":3510,"y":8900,"w":390,"h":2000,"title":"C Racking: app product page, phone"}
+},
+"order":["Main.dc.html","A-HomePhone.dc.html","A-App.dc.html","A-AppPhone.dc.html","B-Home.dc.html","B-HomePhone.dc.html","B-App.dc.html","B-AppPhone.dc.html","C-Home.dc.html","C-HomePhone.dc.html","C-App.dc.html","C-AppPhone.dc.html"],
+"notes":{
+"titleA":{"x":0,"y":-320,"text":"A. Carton: the goods themselves","kind":"title1","maxW":3900},
+"keyA":{"x":3980,"y":0,"w":360,"text":"Carton\n\nKraft (ground): the carton your lot arrives in.\nStencil ink: printed facts.\nSeal red: only where something is sealed or verified.\nLabel white: where data lives.\n\nType: Archivo, condensed and black for markings, regular for reading.\n\nSignature: seal tape runs across the master sample as you reach the inspection step.\n\nAll product, supplier and price data is the demo set, marked Example. Photos are placeholders."},
+"titleB":{"x":0,"y":4080,"text":"B. Field film: what our filmer saw","kind":"title1","maxW":3900},
+"keyB":{"x":3980,"y":4400,"w":360,"text":"Field film\n\nFloor teal (ground): the factory floor through our lens.\nBoard white: the dated board held in every clip.\nMarker amber: dates and codes, the proof.\nSteel: secondary text.\n\nType: Gloock (display serif) with Instrument Sans.\n\nSignature: a scrubber steps through gate, line, QC bench and packing, with the board pinned.\n\nFootage areas are placeholders until real, dated film exists."},
+"titleC":{"x":0,"y":8580,"text":"C. Racking: the shelf in Australia","kind":"title1","maxW":3900},
+"keyC":{"x":3980,"y":8900,"w":360,"text":"Racking\n\nRack blue (dominant): our hubs and shelves.\nBeam orange: the one action, take it off the shelf.\nConcrete: ground.\nInk: text.\n\nType: Bricolage Grotesque, one family, wide weight range.\n\nSignature: the unit lifts off the shelf into its product page (view transition), and the tag travels with it.\n\nThe catalogue in the app is the same shelf."}
+},"designSystems":[]}
